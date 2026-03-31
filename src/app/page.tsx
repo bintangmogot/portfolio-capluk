@@ -1,18 +1,32 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { GlassEffect, GlassFilter } from '@/components/ui/liquid-glass';
+import { useRef, useState, useEffect, useCallback } from 'react';
+import { GlassFilter } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
 import CollabBadge from '@/components/layout/CollabBadge';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
+
 // Static Data
 const SECTIONS = [
-  { id: 'hero', bgText: 'CAPLUK.' },
-  { id: 'about', bgText: 'ABOUT.' },
   { id: 'portfolio', bgText: 'WORK.' },
+  { id: 'expertise', bgText: 'SKILLS.' },
+  { id: 'about', bgText: 'ABOUT.' },
+  { id: 'journey', bgText: 'STORY.' },
+  { id: 'connect', bgText: 'HELLO.' },
+];
+
+const ROLES = [
+  'Creative Director',
+  'Motion Designer',
+  'VFX Artist',
+  'Film Director',
 ];
 
 const SOCIAL_ICONS = [
@@ -23,76 +37,348 @@ const SOCIAL_ICONS = [
 ];
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeSection, setActiveSection] = useState('hero');
+  const bgRef = useRef<HTMLImageElement>(null);
+  const bgWrapRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const vignetteRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const taglineRef = useRef<HTMLDivElement>(null);
+  const roleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [prevSectionIndex, setPrevSectionIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  // ─── Looping Role Animation ───
+  useGSAP(() => {
+    if (!heroRef.current) return;
 
+    // Animate each role text with a staggered infinite loop
+    const validRefs = roleRefs.current.filter(Boolean) as HTMLSpanElement[];
+    if (validRefs.length === 0) return;
 
-  // Smooth mouse tracking for ambient light/cursor effects
+    // Initial stagger entrance
+    gsap.fromTo(
+      validRefs,
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        delay: 0.3,
+      }
+    );
+
+    // Infinite subtle float on each role
+    validRefs.forEach((el, i) => {
+      gsap.to(el, {
+        y: -4,
+        duration: 2 + i * 0.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: i * 0.2,
+      });
+    });
+  }, []);
+
+  // ─── Name entrance ───
+  useGSAP(() => {
+    if (!nameRef.current) return;
+    gsap.fromTo(
+      nameRef.current,
+      { y: 60, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }
+    );
+  }, []);
+
+  // ─── Tagline entrance ───
+  useGSAP(() => {
+    if (!taglineRef.current) return;
+    gsap.fromTo(
+      taglineRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.6 }
+    );
+  }, []);
+
+  // ─── Background parallax and Card Scale ───
+  useGSAP(() => {
+    if (!bgWrapRef.current || !bgRef.current) return;
+    const isMobile = window.innerWidth < 768;
+    
+    // Significantly more padding for further zoom out
+    const paddingX = isMobile ? 12 : 20; 
+    const paddingY = isMobile ? 12 : 20;
+    
+    const cw = window.innerWidth;
+    const ch = window.innerHeight;
+
+    if (activeSection === null) {
+      // Full screen state
+      gsap.to(bgWrapRef.current, {
+        width: '99%',
+        height: '99%',
+        x: 7,
+        y: 5,
+        borderRadius: isMobile ? '50px' : '100px',
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+      gsap.to(bgRef.current, {
+        scale: 1.05, // Slight bleed by default
+        x: 0,
+        y: 0,
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+    } else {
+      // fullscreen background
+      gsap.to(bgWrapRef.current, {
+        width: '100%',
+        height: '100%',
+        x: 0,
+        y: 0,
+        borderRadius: '0',
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+      gsap.to(bgRef.current, {
+        scale: 1.05,
+        x: 0,
+        y: 0,
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+    }
+  }, [activeSection]);
+
+  // ─── Hero fade when dock expands ───
+  useGSAP(() => {
+    if (!heroRef.current) return;
+    if (activeSection === null) {
+      gsap.to(heroRef.current, { autoAlpha: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out' });
+    } else {
+      gsap.to(heroRef.current, { autoAlpha: 0, y: -30, duration: 0.5, ease: 'power2.in' });
+    }
+  }, [activeSection]);
+
+  // ─── Vignette overlay ───
+  useGSAP(() => {
+    if (!vignetteRef.current) return;
+    gsap.to(vignetteRef.current, {
+      autoAlpha: activeSection !== null ? 1 : 0,
+      duration: 1.2,
+      ease: 'power2.inOut',
+    });
+  }, [activeSection]);
+
+  // ─── Mouse tracking ───
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Use requestAnimationFrame for smooth non-blocking updates
       requestAnimationFrame(() => {
-        setMousePos({
-          x: e.clientX,
-          y: e.clientY
-        });
+        setMousePos({ x: e.clientX, y: e.clientY });
       });
     };
-    
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Background text
   const currentBgText = SECTIONS.find((s) => s.id === activeSection)?.bgText || 'CAPLUK.';
 
-  const navTo = (index: number) => {
-    const newSectionId = SECTIONS[index].id;
-    setActiveSection(newSectionId);
-    // GSAP animations will trigger based on activeSection changes
-  };
+  // Navigation handler — tracks previous index for slide direction
+  const navTo = useCallback(
+    (index: number) => {
+      if (index === -1) {
+        setPrevSectionIndex(null);
+        setActiveSection(null);
+        return;
+      }
+      const newSectionId = SECTIONS[index].id;
+      const currentIndex = activeSection
+        ? SECTIONS.findIndex((s) => s.id === activeSection)
+        : null;
+
+      if (activeSection === newSectionId) {
+        // Toggle off
+        setPrevSectionIndex(null);
+        setActiveSection(null);
+      } else {
+        setPrevSectionIndex(currentIndex);
+        setActiveSection(newSectionId);
+      }
+    },
+    [activeSection]
+  );
 
   return (
-    <div className="relative w-full h-dvh overflow-hidden bg-[#0a0a0b] text-white">
-      {/* 
-        This single filter definition is required for the GlassEffect to work 
-        We use the exact filter requested by user, tuned to scale 20.
-      */}
+    <div className="relative w-full h-dvh overflow-hidden bg-white text-[#0a0a0b] cursor-default">
       <GlassFilter />
 
-      {/* Ambient Mouse Light */}
+      {/* Ambient Mouse Light (Hidden because it's a white bg now, but left intact for architecture) */}
       <BackgroundLight mouseX={mousePos.x} mouseY={mousePos.y} />
 
-      {/* Massive Background Text moving behind glass */}
-      <BackgroundText text={currentBgText} mouseX={mousePos.x} />
-
-      {/* FIXED UI: Theme/Collab */}
-      <ThemeToggle />
-      <CollabBadge />
-
-      {/* FIXED UI: Navigation Dock */}
-      <Navbar sections={SECTIONS} activeSection={activeSection} onNavigate={navTo} />
-
-      {/* BACKGROUND IMAGE - Fixed & Dynamic via GSAP */}
-      <div className="fixed inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=2000&auto=format&fit=crop"
-          alt="Herdanius"
-          className="w-full h-full object-cover opacity-80"
-          style={{ objectPosition: 'center 30%' }}
-        />
-        {/* Dark vignette overlay */}
-        <div className="absolute inset-0 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80" />
+      {/* Massive Background Text (Black with low opacity) */}
+      <div className="text-black opacity-[0.06]">
+        <BackgroundText text={currentBgText} mouseX={mousePos.x} />
       </div>
 
-      {/* Main Container */}
-      <main 
-        ref={containerRef}
-        className="relative z-10 w-full h-full"
+      {/* Fixed UI */}
+      {/* Moved inside bgWrapRef to maintain contrast and layout when zoomed out */}
+      
+      {/* Background Image Card — Transforms into a rounded card during navigation */}
+      <div 
+        ref={bgWrapRef}
+        className="absolute top-0 left-0 z-0 overflow-hidden bg-[#0a0a0b] will-change-transform shadow-2xl"
+        style={{ width: '100%', height: '100%', borderRadius: '0px' }}
       >
-        {/* Sections will be mounted here dynamically inside their respective GSAP views */}
-      </main>
+        <div className="absolute inset-0">
+          <img
+            ref={bgRef}
+            src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
+            alt="Herdanius"
+            className="w-full h-full object-cover opacity-90"
+            style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
+          />
+        </div>
+        <div
+          ref={vignetteRef}
+          className="absolute inset-0 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80 opacity-0 invisible"
+        />
+
+        <ThemeToggle />
+        <CollabBadge />
+
+        {/* Navigation Dock */}
+        <Navbar
+          sections={SECTIONS}
+          activeSection={activeSection}
+          prevSectionIndex={prevSectionIndex}
+          onNavigate={navTo}
+        >
+          {/* ── PORTFOLIO ── */}
+          {activeSection === 'portfolio' && (
+            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">WORK.</h2>
+              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                Explore a curated portfolio of cinematic storytelling, visual effects, and motion graphics workflows, spanning
+                feature films, television series, and digital platforms. Integrates traditional filmmaking craft with
+                generative image/video processes and streamlined post-production pipelines.
+              </p>
+            </div>
+          )}
+
+          {/* ── EXPERTISE ── */}
+          {activeSection === 'expertise' && (
+            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">SKILLS.</h2>
+              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                Proficient in After Effects, Cinema 4D, Unreal Engine, and Nuke. Specializing in title design animation,
+                social media ads, and intricate visual FX that emphasize leadership in directing and scalable creative production.
+              </p>
+            </div>
+          )}
+
+          {/* ── ABOUT — (moved from old hero) ── */}
+          {activeSection === 'about' && (
+            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2 gap-3">
+              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">ABOUT.</h2>
+              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                Crafting immersive visual narratives for Indonesian cinema and beyond.
+                From title sequences to full motion design systems.
+              </p>
+              <p className="font-body text-sm md:text-[15px] text-white/60 leading-relaxed max-w-4xl mx-auto font-light">
+                25+ years in the industry, pushing the boundaries of what is visually possible.
+                Merging bleeding-edge technology with timeless aesthetic principles.
+              </p>
+            </div>
+          )}
+
+          {/* ── JOURNEY ── */}
+          {activeSection === 'journey' && (
+            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">STORY.</h2>
+              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                From humble beginnings in indie projects to leading visual effects supervision for major
+                blockbusters. This is the story of passion, grit, and relentless innovation in motion graphics.
+              </p>
+            </div>
+          )}
+
+          {/* ── CONNECT — (social icons live here) ── */}
+          {activeSection === 'connect' && (
+            <div className="w-full flex flex-col items-center text-center px-2 md:px-12 py-2 gap-4">
+              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-0">HELLO.</h2>
+              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                Ready to collaborate? Let&apos;s discuss how we can bring your creative vision to life with
+                cinematic quality and cutting-edge visual effects.
+              </p>
+              <div className="flex gap-3">
+                {SOCIAL_ICONS.map((icon, i) => (
+                  <a
+                    key={i}
+                    href={icon.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
+                  >
+                    <img src={icon.src} alt={icon.alt} className="w-5 h-5 object-contain opacity-80" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </Navbar>
+
+        {/* ═══════════════════════════════════════════════
+            HERO SECTION — Kinetic Typography
+            Minimalist, large text, looping role animations
+           ═══════════════════════════════════════════════ */}
+        <main className="relative z-10 w-full h-full pointer-events-none">
+          <div
+            ref={heroRef}
+            className="absolute inset-0 flex flex-col items-center justify-center select-none"
+          >
+            {/* Tagline — small, above the name */}
+            <div
+              ref={taglineRef}
+              className="font-tagline text-[10px] sm:text-xs tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
+            >
+              Analog Roots. Digital Future.
+            </div>
+
+            {/* Name — massive display font */}
+            <h1
+              ref={nameRef}
+              className="font-display text-[18vw] sm:text-[14vw] md:text-[12vw] leading-[0.95] tracking-wide text-white uppercase"
+              style={{
+                textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
+              }}
+            >
+              Capluk
+            </h1>
+
+            {/* Role titles — staggered, looping float animation */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-y-10 gap-x-2 md:gap-x-4 mt-3 sm:mt-8">
+              {ROLES.map((role, i) => (
+                <span
+                  key={role}
+                  ref={(el) => { roleRefs.current[i] = el; }}
+                  className="font-heading text-lg sm:text-lg md:text-xl lg:text-2xl tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white/50 leading-relaxed sm:leading-normal"
+                >
+                  {role}
+                  {i < ROLES.length - 1 && (
+                    <span className="text-white/20 ml-1.5 sm:ml-4 hidden sm:inline">/</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

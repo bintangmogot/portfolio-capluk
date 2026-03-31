@@ -69,7 +69,7 @@ Module 15: Final Polish + Deploy (Day 9-10)
 
 **What to build:**
 - `Navbar.tsx` — Bottom-centered navigation bar with 5 tabs
-- `ThemeToggle.tsx` — "C" monogram in top-left
+- `ThemeToggle.tsx` — toggle theme in liquid glass (light, cinematic)
 - `CollabBadge.tsx` — "Open for Collaboration" badge in top-right
 - `CustomCursor.tsx` — Custom cursor component
 - `BackgroundText.tsx` — Large section name text component

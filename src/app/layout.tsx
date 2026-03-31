@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Epilogue, Space_Grotesk, Bebas_Neue, Bruno_Ace } from 'next/font/google';
+import { Urbanist, Bebas_Neue, Bruno_Ace, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
-const epilogue = Epilogue({
+const urbanist = Urbanist({
   subsets: ['latin'],
-  variable: '--font-epilogue',
+  variable: '--font-urbanist',
   display: 'swap',
 });
 
@@ -31,6 +31,11 @@ const brunoAce = Bruno_Ace({
 export const metadata: Metadata = {
   title: 'Capluk | Motion Graphic Designer',
   description: 'Portfolio of Capluk, a Motion Graphic Designer with a focus on immersive visual experiences.',
+  icons: {
+    icon: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
+    shortcut: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
+    apple: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
+  },
 };
 
 export default function RootLayout({
@@ -39,9 +44,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <body
-        className={`${epilogue.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} ${brunoAce.variable} antialiased`}
+        className={`${urbanist.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} ${brunoAce.variable} antialiased`}
       >
         {children}
       </body>

@@ -1,18 +1,43 @@
 @import "tailwindcss";
 
-/* ── Thunder Font (Background Text) ── */
+/* ── Thunder Font (Background Text & Display) ── */
 @font-face {
   font-family: 'Thunder';
-  src: url('/fonts/thunder/Thunder-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
+  /* src: url('/fonts/thunder/Thunder-BlackHC.woff2') format('woff2'); Sangat Tebal & Rapat (Default) */
+  /* src: url('/fonts/thunder/Thunder-SemiBoldHC.woff2') format('woff2'); Sedang & Rapat */
+  /* src: url('/fonts/thunder/Thunder-ExtraLightHC.woff2') format('woff2'); Tipis & Rapat */
+  /* src: url('/fonts/thunder/Thunder-ThinHC.woff2') format('woff2'); */ /* Sangat Tipis & Rapat */
+  /* src: url('/fonts/thunder/Thunder-BlackLC.woff2') format('woff2'); */
+  /* src: url('/fonts/thunder/Thunder-BoldHC.woff2') format('woff2'); */
+  src: url('/fonts/thunder/Thunder-HC.woff2') format('woff2');
+
+  
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Nohemi Font (New Test) ── */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('/fonts/nohemi/Nohemi-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Lemon Font (New Test) ── */
+@font-face {
+  font-family: 'Lemon';
+  src: url('/fonts/lemon/Lemon-Wide.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
   --font-display: 'Thunder', sans-serif;
-  --font-heading: var(--font-epilogue), 'Epilogue', sans-serif;
-  --font-body: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-heading: var(--font-bebas-neue), 'Bebas Neue', sans-serif;
+  --font-body: var(--font-urbanist), 'Urbanist', sans-serif;
   --font-tagline: var(--font-bruno-ace), 'Bruno Ace', sans-serif;
 }
 
@@ -24,13 +49,14 @@
 }
 
 html, body {
-  background-color: #0a0a0b;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #0a0a0b;
   margin: 0;
   padding: 0;
   overflow: hidden;
   height: 100%;
   height: 100dvh;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -46,8 +72,8 @@ html, body {
 }
 /* Hide scrollbar for IE, Edge and Firefox */
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Smooth Scrolling utilities */
@@ -55,14 +81,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* Animations from User Snippet */
+/* Animations */
 @keyframes moveBackground {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% -1000%;
-  }
+  from { background-position: 0% 0%; }
+  to { background-position: 0% -1000%; }
 }
 
 .animate-moveBackground {

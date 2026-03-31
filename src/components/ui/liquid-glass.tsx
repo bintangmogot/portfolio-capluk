@@ -17,68 +17,78 @@ interface DockIcon {
   onClick?: () => void;
 }
 
-// Glass Effect Wrapper Component
-export const GlassEffect: React.FC<GlassEffectProps> = ({
-  children,
-  className = "",
-  style = {},
-  href,
-  target = "_blank",
-}) => {
-  const glassStyle = {
-    boxShadow: "0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1)",
-    transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.2)",
-    ...style,
-  };
+// Glass Effect Wrapper Component — elastic, springy, alive
+const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
+  ({ children, className = "", style = {}, href, target = "_blank" }, ref) => {
+    const glassStyle: React.CSSProperties = {
+      boxShadow: "0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 0.5px rgba(255,255,255,0.08)",
+      background: "rgba(255, 255, 255, 0.08)",
+      backdropFilter: "blur(24px) saturate(180%)",
+      WebkitBackdropFilter: "blur(24px) saturate(180%)",
+      transition: "backdrop-filter 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out",
+      ...style,
+    };
 
-  const content = (
-    <div
-      className={`relative flex overflow-hidden cursor-pointer transition-all duration-700 ${className}`}
-      style={glassStyle}
-    >
-      {/* Glass Layers */}
+    const content = (
       <div
-        className="absolute inset-0 z-0 overflow-hidden rounded-inherit"
-        style={{
-          backdropFilter: "blur(8px)",
-          filter: "url(#glass-distortion)",
-          isolation: "isolate",
-        }}
-      />
-      <div
-        className="absolute inset-0 z-10 rounded-inherit"
-        style={{ background: "rgba(255, 255, 255, 0.15)" }}
-      />
-      <div
-        className="absolute inset-0 z-20 rounded-inherit overflow-hidden"
-        style={{
-          boxShadow:
-            "inset 2px 2px 1px 0 rgba(255, 255, 255, 0.4), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.2)",
-        }}
-      />
+        ref={ref}
+        className={`relative flex overflow-hidden ${className}`}
+        style={glassStyle}
+      >
+        {/* Tint layer — subtle warm glass */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none transition-all duration-700"
+          style={{ background: "rgba(255, 255, 255, 0.01)" }}
+        />
+        {/* Delicate Glass Rim / Highlight */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none rounded-inherit transition-all duration-700"
+          style={{
+            boxShadow:
+              "inset 0px 2px 2px 0px rgba(255, 255, 255, 0.4), inset 0px -2px 4px 0px rgba(255, 255, 255, 0.2)",
+            border: "1.5px solid rgba(255, 255, 255, 0.2)",
+          }}
+        />
 
-      {/* Content */}
-      <div className="relative z-30">{children}</div>
-    </div>
-  );
+        {/* Content wrapper */}
+        <div
+          className="relative z-30 w-full h-full flex"
+          style={{
+            flexDirection: "inherit" as "row",
+            alignItems: "inherit",
+            justifyContent: "inherit",
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    );
 
-  return href ? (
-    <a href={href} target={target} rel="noopener noreferrer" className="block outline-none">
-      {content}
-    </a>
-  ) : (
-    content
-  );
-};
+    return href ? (
+      <a
+        href={href}
+        target={target}
+        rel="noopener noreferrer"
+        className="block outline-none"
+        style={{ transition: "all 0.7s cubic-bezier(0.175, 0.885, 0.32, 2.275)" }}
+      >
+        {content}
+      </a>
+    ) : (
+      content
+    );
+  }
+);
+GlassEffect.displayName = "GlassEffect";
 
-// Dock Component
-export const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({
+// Dock Component — icons bounce on hover, elastic padding
+const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({
   icons,
   href,
 }) => (
   <GlassEffect
     href={href}
-    className="rounded-3xl p-3 hover:p-4 hover:rounded-[36px]"
+    className="rounded-3xl p-3 hover:p-4 hover:rounded-[36px] active:scale-[0.97] active:p-3"
   >
     <div className="flex items-center justify-center gap-2 rounded-3xl p-3 py-0 px-0.5 overflow-hidden">
       {icons.map((icon, index) => (
@@ -86,10 +96,10 @@ export const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({
           key={index}
           src={icon.src}
           alt={icon.alt}
-          className="w-12 h-12 md:w-16 md:h-16 transition-all duration-700 hover:scale-110 hover:-translate-y-2 cursor-pointer object-cover rounded-full"
+          className="w-12 h-12 md:w-16 md:h-16 transition-all duration-700 hover:scale-110 hover:-translate-y-2 active:scale-95 cursor-pointer object-cover rounded-full"
           style={{
             transformOrigin: "center bottom",
-            transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.2)",
+            transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.275)",
             filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.2))",
           }}
           onClick={icon.onClick}
@@ -99,20 +109,18 @@ export const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({
   </GlassEffect>
 );
 
-// Button Component
-export const GlassButton: React.FC<{ children: React.ReactNode; href?: string; onClick?: () => void }> = ({
-  children,
-  href,
-  onClick
-}) => {
+// Button Component — elastic press down + release
+const GlassButton: React.FC<{
+  children: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
+}> = ({ children, href, onClick }) => {
   const content = (
-    <GlassEffect
-      className="rounded-3xl px-8 py-5 hover:px-9 hover:py-6 hover:rounded-[36px] overflow-hidden"
-    >
+    <GlassEffect className="rounded-3xl px-8 py-5 hover:px-9 hover:py-6 hover:rounded-[36px] active:scale-[0.96] active:px-8 active:py-5 overflow-hidden">
       <div
-        className="transition-all duration-700 hover:scale-[0.98]"
+        className="transition-all duration-700 hover:scale-[0.98] active:scale-[0.95]"
         style={{
-          transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.2)",
+          transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.275)",
         }}
         onClick={onClick}
       >
@@ -122,66 +130,74 @@ export const GlassButton: React.FC<{ children: React.ReactNode; href?: string; o
   );
 
   return href ? (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="block">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
       {content}
     </a>
   ) : (
-    <div onClick={onClick} role="button" tabIndex={0} className="inline-block">
+    <div
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      className="inline-block cursor-pointer"
+    >
       {content}
     </div>
   );
 };
 
 // SVG Filter Component (Must be rendered once in the app)
-export const GlassFilter: React.FC = () => (
+const GlassFilter: React.FC = () => (
   <svg style={{ display: "none" }}>
     <filter
       id="glass-distortion"
-      x="0%"
-      y="0%"
-      width="100%"
-      height="100%"
+      x="-20%"
+      y="-20%"
+      width="140%"
+      height="140%"
       filterUnits="objectBoundingBox"
     >
       <feTurbulence
         type="fractalNoise"
-        baseFrequency="0.001 0.005"
-        numOctaves="1"
+        baseFrequency="0.012 0.018"
+        numOctaves="2"
         seed="17"
         result="turbulence"
       />
-      <feComponentTransfer in="turbulence" result="mapped">
-        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-      </feComponentTransfer>
-      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+      <feGaussianBlur in="turbulence" stdDeviation="6" result="softMap" />
       <feSpecularLighting
         in="softMap"
-        surfaceScale="5"
-        specularConstant="1"
-        specularExponent="100"
-        lightingColor="white"
+        surfaceScale="8"
+        specularConstant="1.5"
+        specularExponent="45"
+        lightingColor="#ffffff"
         result="specLight"
       >
-        <fePointLight x="-200" y="-200" z="300" />
+        <fePointLight x="-300" y="-300" z="400" />
       </feSpecularLighting>
       <feComposite
         in="specLight"
         operator="arithmetic"
-        k1="0"
+        k1="0.5"
         k2="1"
-        k3="1"
+        k3="0.2"
         k4="0"
         result="litImage"
       />
       <feDisplacementMap
         in="SourceGraphic"
         in2="softMap"
-        scale="20"
+        scale="35"
         xChannelSelector="R"
         yChannelSelector="G"
       />
     </filter>
   </svg>
 );
+
+export { GlassEffect, GlassDock, GlassButton, GlassFilter };
+export type { GlassEffectProps, DockIcon };
