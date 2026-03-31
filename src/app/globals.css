@@ -3,13 +3,13 @@
 /* ── Thunder Font (Background Text & Display) ── */
 @font-face {
   font-family: 'Thunder';
-  /* src: url('/fonts/thunder/Thunder-BlackHC.woff2') format('woff2'); Sangat Tebal & Rapat (Default) */
-  /* src: url('/fonts/thunder/Thunder-SemiBoldHC.woff2') format('woff2'); Sedang & Rapat */
-  /* src: url('/fonts/thunder/Thunder-ExtraLightHC.woff2') format('woff2'); Tipis & Rapat */
-  /* src: url('/fonts/thunder/Thunder-ThinHC.woff2') format('woff2'); */ /* Sangat Tipis & Rapat */
-  /* src: url('/fonts/thunder/Thunder-BlackLC.woff2') format('woff2'); */
-  /* src: url('/fonts/thunder/Thunder-BoldHC.woff2') format('woff2'); */
-  src: url('/fonts/thunder/Thunder-HC.woff2') format('woff2');
+  /* src: url('/fonts/Thunder/Thunder-BlackHC.woff2') format('woff2'); Sangat Tebal & Rapat (Default) */
+  /* src: url('/fonts/Thunder/Thunder-SemiBoldHC.woff2') format('woff2'); Sedang & Rapat */
+  /* src: url('/fonts/Thunder/Thunder-ExtraLightHC.woff2') format('woff2'); Tipis & Rapat */
+  /* src: url('/fonts/Thunder/Thunder-ThinHC.woff2') format('woff2'); */ /* Sangat Tipis & Rapat */
+  /* src: url('/fonts/Thunder/Thunder-BlackLC.woff2') format('woff2'); */
+  /* src: url('/fonts/Thunder/Thunder-BoldHC.woff2') format('woff2'); */
+  src: url('/fonts/Thunder/Thunder-HC.woff2') format('woff2');
 
   
   font-style: normal;
@@ -19,7 +19,7 @@
 /* ── Nohemi Font (New Test) ── */
 @font-face {
   font-family: 'Nohemi';
-  src: url('/fonts/nohemi/Nohemi-Black.woff2') format('woff2');
+  src: url('/fonts/Nohemi/Nohemi-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
