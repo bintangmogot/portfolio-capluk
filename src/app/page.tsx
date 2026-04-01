@@ -8,6 +8,7 @@ import CollabBadge from '@/components/layout/CollabBadge';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
+import ExpertiseSection from '@/components/sections/ExpertiseSection';
 
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -264,6 +265,7 @@ export default function Home() {
           {/* Content area: fills all vertical space above the navbar */}
           <div className="relative flex-1 w-full">
             <AboutSection isActive={activeSection === 'about'} />
+            <ExpertiseSection isActive={activeSection === 'expertise'} />
           </div>
 
           {/* Navbar: sits at the bottom of the flex container */}
@@ -289,28 +291,10 @@ export default function Home() {
               {/* ── EXPERTISE ── */}
               {activeSection === 'expertise' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">SKILLS.</h2>
-                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                    Proficient in After Effects, Cinema 4D, Unreal Engine, and Nuke. Specializing in title design animation,
-                    social media ads, and intricate visual FX that emphasize leadership in directing and scalable creative production.
+                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">SKILLS.</h2>
+                  <p className="font-body text-sm md:text-[15px] text-white/75 leading-relaxed max-w-3xl mx-auto font-light">
+                    Scroll for a visual capability map with animated categories, tools, and production strengths.
                   </p>
-
-                  <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto mt-6">
-                    {['After Effects', 'Cinema 4D', 'Nuke', 'Unreal Engine', 'DaVinci Resolve', 'Premiere Pro'].map((tool) => (
-                      <span
-                        key={tool}
-                        className="
-                          backdrop-blur-sm bg-white/5 border border-white/10
-                          rounded-full px-4 py-2
-                          font-body text-white/60 text-[11px] tracking-wider
-                          transition-colors hover:bg-white/10 hover:text-white/90
-                          cursor-default
-                        "
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               )}
 
