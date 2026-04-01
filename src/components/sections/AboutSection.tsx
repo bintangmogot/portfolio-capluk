@@ -114,13 +114,13 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
               className={`flex flex-col items-center ${role.side === 'left' ? 'md:items-start' : 'md:items-end'}`}
             >
               <div 
-                className="font-display text-white uppercase leading-[0.85]" 
+                className="font-display font-bold text-white uppercase leading-[0.85]" 
                 style={{ fontSize: 'clamp(32px, 7vw, 64px)' }}
               >
                 {role.text}
               </div>
               {role.sub && (
-                <span className="font-display text-white/40 uppercase tracking-widest mt-1" style={{ fontSize: 'clamp(20px, 5vw, 32px)' }}>{role.sub}</span>
+                <span className="font-display font-bold text-white/40 uppercase tracking-widest mt-1" style={{ fontSize: 'clamp(20px, 5vw, 32px)' }}>{role.sub}</span>
               )}
             </div>
           ))}

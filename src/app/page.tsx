@@ -8,6 +8,7 @@ import CollabBadge from '@/components/layout/CollabBadge';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
+import ExpertiseSection from '@/components/sections/ExpertiseSection';
 
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -264,6 +265,7 @@ export default function Home() {
           {/* Content area: fills all vertical space above the navbar */}
           <div className="relative flex-1 w-full">
             <AboutSection isActive={activeSection === 'about'} />
+            <ExpertiseSection isActive={activeSection === 'expertise'} />
           </div>
 
           {/* Navbar: sits at the bottom of the flex container */}
