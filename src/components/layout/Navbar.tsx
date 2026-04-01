@@ -116,12 +116,11 @@ export default function Navbar({
   }, [activeSection]);
 
   return (
-    <div className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 w-[calc(100vw-16px)] sm:w-max sm:max-w-[calc(100vw-64px)] flex justify-center">
-      <GlassEffect
-        ref={containerRef}
-        className="flex flex-col p-1.5 sm:p-2 shadow-2xl w-max max-w-full"
-        style={{ borderRadius: '20px' }}
-      >
+    <GlassEffect
+      ref={containerRef}
+      className="flex flex-col p-1.5 sm:p-2 shadow-2xl w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-64px)]"
+      style={{ borderRadius: '20px' }}
+    >
         {/* Navigation Buttons */}
         <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-2 px-1 sm:px-3">
           
@@ -150,7 +149,7 @@ export default function Navbar({
               }`}
             >
               <span className="shrink-0">{SECTION_ICONS[section.id]}</span>
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.15em] leading-none">{section.id}</span>
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest sm:tracking-[0.15em] leading-none">{section.id}</span>
             </button>
           ))}
           </div>
@@ -164,12 +163,11 @@ export default function Navbar({
         >
           <div
             ref={contentInnerRef}
-            className="w-full max-h-[55vh] sm:max-h-[45vh] relative px-3 sm:px-4 pb-4 hide-scrollbar flex flex-col overflow-y-auto"
+            className="w-full max-h-[20dvh] sm:max-h-[25dvh] lg:max-h-[20dvh] relative px-3 sm:px-4 pb-4 hide-scrollbar flex flex-col overflow-y-auto"
           >
             {children}
           </div>
         </div>
       </GlassEffect>
-    </div>
   );
 }

@@ -1,10 +1,35 @@
 'use client';
 
+import { useRef } from 'react';
 import { GlassEffect } from '@/components/ui/liquid-glass';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-export default function CollabBadge() {
+gsap.registerPlugin(useGSAP);
+
+interface CollabBadgeProps {
+  isVisible?: boolean;
+}
+
+export default function CollabBadge({ isVisible = true }: CollabBadgeProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+    
+    gsap.to(containerRef.current, {
+      autoAlpha: isVisible ? 1 : 0,
+      y: isVisible ? 0 : -20,
+      duration: 0.5,
+      ease: 'power2.inOut',
+    });
+  }, [isVisible]);
+
   return (
-    <div className="fixed top-6 sm:top-8 right-4 sm:right-8 z-50">
+    <div 
+      ref={containerRef} 
+      className="fixed top-6 sm:top-8 right-4 sm:right-8 z-50 pointer-events-auto"
+    >
       <a
         href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
         target="_blank"

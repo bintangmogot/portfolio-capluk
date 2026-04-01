@@ -7,6 +7,7 @@ import ThemeToggle from '@/components/layout/ThemeToggle';
 import CollabBadge from '@/components/layout/CollabBadge';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
+import AboutSection from '@/components/sections/AboutSection';
 
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -170,7 +171,7 @@ export default function Home() {
     if (!vignetteRef.current) return;
     gsap.to(vignetteRef.current, {
       autoAlpha: activeSection !== null ? 1 : 0,
-      duration: 1.2,
+      duration: 0.8,
       ease: 'power2.inOut',
     });
   }, [activeSection]);
@@ -246,96 +247,130 @@ export default function Home() {
         </div>
         <div
           ref={vignetteRef}
-          className="absolute inset-0 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80 opacity-0 invisible"
+          className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80 opacity-0 invisible"
         />
 
-        <ThemeToggle />
-        <CollabBadge />
+        <ThemeToggle isVisible={activeSection === null} />
+        <CollabBadge isVisible={activeSection === null} />
 
-        {/* Navigation Dock */}
-        <Navbar
-          sections={SECTIONS}
-          activeSection={activeSection}
-          prevSectionIndex={prevSectionIndex}
-          onNavigate={navTo}
-        >
-          {/* ── PORTFOLIO ── */}
-          {activeSection === 'portfolio' && (
-            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">WORK.</h2>
-              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                Explore a curated portfolio of cinematic storytelling, visual effects, and motion graphics workflows, spanning
-                feature films, television series, and digital platforms. Integrates traditional filmmaking craft with
-                generative image/video processes and streamlined post-production pipelines.
-              </p>
-            </div>
-          )}
 
-          {/* ── EXPERTISE ── */}
-          {activeSection === 'expertise' && (
-            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">SKILLS.</h2>
-              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                Proficient in After Effects, Cinema 4D, Unreal Engine, and Nuke. Specializing in title design animation,
-                social media ads, and intricate visual FX that emphasize leadership in directing and scalable creative production.
-              </p>
-            </div>
-          )}
+        {/* ═══════════════════════════════════════════════════════
+            LAYOUT WRAPPER — flex-col, fixed at bottom
+            [ content-area (flex-1) ] fills height above dock
+            [ Navbar (shrink-0) ] sits at bottom
+           ════════════════════════════════════════════════════════ */}
+        <div className="fixed inset-x-0 top-0 bottom-4 sm:bottom-8 z-5 flex flex-col items-center pointer-events-none">
 
-          {/* ── ABOUT — (moved from old hero) ── */}
-          {activeSection === 'about' && (
-            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2 gap-3">
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">ABOUT.</h2>
-              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                Crafting immersive visual narratives for Indonesian cinema and beyond.
-                From title sequences to full motion design systems.
-              </p>
-              <p className="font-body text-sm md:text-[15px] text-white/60 leading-relaxed max-w-4xl mx-auto font-light">
-                25+ years in the industry, pushing the boundaries of what is visually possible.
-                Merging bleeding-edge technology with timeless aesthetic principles.
-              </p>
-            </div>
-          )}
+          {/* Content area: fills all vertical space above the navbar */}
+          <div className="relative flex-1 w-full">
+            <AboutSection isActive={activeSection === 'about'} />
+          </div>
 
-          {/* ── JOURNEY ── */}
-          {activeSection === 'journey' && (
-            <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">STORY.</h2>
-              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                From humble beginnings in indie projects to leading visual effects supervision for major
-                blockbusters. This is the story of passion, grit, and relentless innovation in motion graphics.
-              </p>
-            </div>
-          )}
+          {/* Navbar: sits at the bottom of the flex container */}
+          <div className="w-full flex justify-center pointer-events-auto shrink-0">
+            <Navbar
+              sections={SECTIONS}
+              activeSection={activeSection}
+              prevSectionIndex={prevSectionIndex}
+              onNavigate={navTo}
+            >
+              {/* ── PORTFOLIO ── */}
+              {activeSection === 'portfolio' && (
+                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">WORK.</h2>
+                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                    Explore a curated portfolio of cinematic storytelling, visual effects, and motion graphics workflows, spanning
+                    feature films, television series, and digital platforms. Integrates traditional filmmaking craft with
+                    generative image/video processes and streamlined post-production pipelines.
+                  </p>
+                </div>
+              )}
 
-          {/* ── CONNECT — (social icons live here) ── */}
-          {activeSection === 'connect' && (
-            <div className="w-full flex flex-col items-center text-center px-2 md:px-12 py-2 gap-4">
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-0">HELLO.</h2>
-              <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                Ready to collaborate? Let&apos;s discuss how we can bring your creative vision to life with
-                cinematic quality and cutting-edge visual effects.
-              </p>
-              <div className="flex gap-3">
-                {SOCIAL_ICONS.map((icon, i) => (
-                  <a
-                    key={i}
-                    href={icon.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
-                  >
-                    <img src={icon.src} alt={icon.alt} className="w-5 h-5 object-contain opacity-80" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </Navbar>
+              {/* ── EXPERTISE ── */}
+              {activeSection === 'expertise' && (
+                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">SKILLS.</h2>
+                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                    Proficient in After Effects, Cinema 4D, Unreal Engine, and Nuke. Specializing in title design animation,
+                    social media ads, and intricate visual FX that emphasize leadership in directing and scalable creative production.
+                  </p>
 
+                  <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto mt-6">
+                    {['After Effects', 'Cinema 4D', 'Nuke', 'Unreal Engine', 'DaVinci Resolve', 'Premiere Pro'].map((tool) => (
+                      <span
+                        key={tool}
+                        className="
+                          backdrop-blur-sm bg-white/5 border border-white/10
+                          rounded-full px-4 py-2
+                          font-body text-white/60 text-[11px] tracking-wider
+                          transition-colors hover:bg-white/10 hover:text-white/90
+                          cursor-default
+                        "
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── ABOUT — bio text only; overlays live in content-area above ── */}
+              {activeSection === 'about' && (
+                <div className="w-full flex flex-col text-center px-2 md:px-12 py-1 gap-2">
+                  <p className="font-thick text-bold text-[12px] sm:text-lg tracking-[0.35em] uppercase text-white mb-0.5">
+                    Analog Roots. Digital Future.
+                  </p>
+                  <p className="font-body text-sm md:text-[14px] text-white/80 leading-relaxed max-w-3xl mx-auto font-light">
+                    Filmmaker, motion designer, and visual storyteller with over two decades navigating the evolution
+                    of screen media. From 8-bit gaming and film reels to today&apos;s AI-driven workflow and immersive
+                    production pipelines.
+                  </p>
+                  <p className="font-body text-xs md:text-[13px] text-white/50 leading-relaxed max-w-3xl mx-auto font-light">
+                    Translating traditional cinematic storytelling into modern digital formats, combining craft,
+                    technology, and creative strategy to produce visuals that resonate with contemporary audiences.
+                  </p>
+                </div>
+              )}
+
+              {/* ── JOURNEY ── */}
+              {activeSection === 'journey' && (
+                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
+                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">STORY.</h2>
+                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                    From humble beginnings in indie projects to leading visual effects supervision for major
+                    blockbusters. This is the story of passion, grit, and relentless innovation in motion graphics.
+                  </p>
+                </div>
+              )}
+
+              {/* ── CONNECT ── */}
+              {activeSection === 'connect' && (
+                <div className="w-full flex flex-col items-center text-center px-2 md:px-12 py-2 gap-4">
+                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-0">HELLO.</h2>
+                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                    Ready to collaborate? Let&apos;s discuss how we can bring your creative vision to life with
+                    cinematic quality and cutting-edge visual effects.
+                  </p>
+                  <div className="flex gap-3">
+                    {SOCIAL_ICONS.map((icon, i) => (
+                      <a
+                        key={i}
+                        href={icon.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
+                      >
+                        <img src={icon.src} alt={icon.alt} className="w-5 h-5 object-contain opacity-80" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Navbar>
+          </div>
+        </div>
         {/* ═══════════════════════════════════════════════
             HERO SECTION — Kinetic Typography
-            Minimalist, large text, looping role animations
            ═══════════════════════════════════════════════ */}
         <main className="relative z-10 w-full h-full pointer-events-none">
           <div

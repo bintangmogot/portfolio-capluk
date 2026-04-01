@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "./learn";
 
 /* ── Thunder Font (Background Text & Display) ── */
 @font-face {
@@ -11,9 +12,10 @@
   /* src: url('/fonts/Thunder/Thunder-BoldHC.woff2') format('woff2'); */
   src: url('/fonts/Thunder/Thunder-HC.woff2') format('woff2');
 
-  
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
+  font-synthesis: none; /* Prevent faux styling which breaks Chrome rendering */
 }
 
 /* ── Nohemi Font (New Test) ── */
@@ -33,12 +35,21 @@
   font-style: normal;
   font-display: swap;
 }
-
 @theme {
   --font-display: 'Thunder', sans-serif;
-  --font-heading: var(--font-bebas-neue), 'Bebas Neue', sans-serif;
-  --font-body: var(--font-urbanist), 'Urbanist', sans-serif;
-  --font-tagline: var(--font-bruno-ace), 'Bruno Ace', sans-serif;
+  --font-heading: var(--font-bebas-neue), sans-serif;
+  --font-body: var(--font-urbanist), sans-serif;
+  --font-tagline: var(--font-bruno-ace), sans-serif;
+  
+  /* ══ FONT PILIHAN ANDA ══
+     Uncomment salah satu, comment yang lain.
+     Semua sudah aktif dari Fontshare CDN, tinggal pilih! */
+  /* --font-thick: 'Clash Display', sans-serif; */
+  /* --font-thick: 'Melodrama', serif; */
+  /* --font-thick: 'General Sans', sans-serif; */
+  /* --font-thick: 'Satoshi', sans-serif; */
+  /* --font-thick: 'Zodiak', serif; */
+  --font-thick: 'Cabinet Grotesk', sans-serif;
 }
 
 /* ═══════════════════════════════════════════════════
