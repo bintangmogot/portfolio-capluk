@@ -9,6 +9,9 @@ import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
 import ExpertiseSection from '@/components/sections/ExpertiseSection';
+import ConnectSection from '@/components/sections/ConnectSection';
+import MarqueeGroup from '@/components/ui/Marquee';
+
 
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -31,12 +34,6 @@ const ROLES = [
   'Film Director',
 ];
 
-const SOCIAL_ICONS = [
-  { src: 'https://img.icons8.com/ios-filled/100/ffffff/instagram-new.png', alt: 'Instagram', href: '#' },
-  { src: 'https://img.icons8.com/ios-filled/100/ffffff/vimeo.png', alt: 'Vimeo', href: '#' },
-  { src: 'https://img.icons8.com/ios-filled/100/ffffff/behance.png', alt: 'Behance', href: '#' },
-  { src: 'https://img.icons8.com/ios-filled/100/ffffff/linkedin.png', alt: 'LinkedIn', href: '#' },
-];
 
 export default function Home() {
   const bgRef = useRef<HTMLImageElement>(null);
@@ -266,6 +263,7 @@ export default function Home() {
           <div className="relative flex-1 w-full">
             <AboutSection isActive={activeSection === 'about'} />
             <ExpertiseSection isActive={activeSection === 'expertise'} />
+            <ConnectSection isActive={activeSection === 'connect'} />
           </div>
 
           {/* Navbar: sits at the bottom of the flex container */}
@@ -347,24 +345,9 @@ export default function Home() {
 
               {/* ── CONNECT ── */}
               {activeSection === 'connect' && (
-                <div className="w-full flex flex-col items-center text-center px-2 md:px-12 py-2 gap-4">
-                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-0">HELLO.</h2>
-                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                    Ready to collaborate? Let&apos;s discuss how we can bring your creative vision to life with
-                    cinematic quality and cutting-edge visual effects.
-                  </p>
-                  <div className="flex gap-3">
-                    {SOCIAL_ICONS.map((icon, i) => (
-                      <a
-                        key={i}
-                        href={icon.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
-                      >
-                        <img src={icon.src} alt={icon.alt} className="w-5 h-5 object-contain opacity-80" />
-                      </a>
-                    ))}
+                <div className="w-full flex flex-col items-center text-center px-4 sm:px-12 py-3 gap-6">
+                  <div className="w-full max-w-4xl opacity-100">
+                    <MarqueeGroup />
                   </div>
                 </div>
               )}

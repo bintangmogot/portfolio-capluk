@@ -101,3 +101,21 @@ html, body {
 .animate-moveBackground {
   animation: moveBackground 60s linear infinite;
 }
+
+/* ═════════════════════════════════════════════════
+   MARQUEE — Auto-scrolling company logos
+   ═════════════════════════════════════════════════ */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Pause marquee on hover for readability */
+.marquee-pause:hover > div {
+  animation-play-state: paused;
+}
