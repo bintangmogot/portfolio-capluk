@@ -75,7 +75,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
         className="lg:hidden absolute inset-0 flex flex-col px-4 sm:px-8 pt-10 pb-4 gap-10 overflow-y-auto hide-scrollbar pointer-events-auto"
       >
         {/* Profile + Stats Row */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
+        <div className="flex flex-col sm:flex-row gap-8 items-center">
           <GlassEffect className="flex flex-row justify-start p-3 w-full rounded-2xl border-[#FFD699]/30">
             <div className="w-20 h-20 sm:w-20 sm:h-20 rounded-lg overflow-hidden border border-white/10 mb-2 mr-4 bg-black/30">
               <img 
@@ -96,7 +96,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
             </div>
           </GlassEffect>
 
-          <div className="flex flex-row w-full justify-center gap-3">
+          <div className="flex flex-row w-full justify-between sm:justify-center gap-3">
              {STATS.map(s => (
                <div key={s.label} className="flex flex-col leading-none">
                  <span className="font-display text-white" style={{ fontSize: 'clamp(64px, 15vw, 100px)' }}>{s.value}</span>

@@ -153,7 +153,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         {/* Contact Info */}
         <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-white/5 shrink-0">
           <div className="flex flex-col items-center justify-center gap-3 mb-1 w-full">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border border-white/15 bg-black/30 shadow-lg shrink-0">
+            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden border border-[#FFD699] bg-black/10 shadow-lg shrink-0 text-center">
               <img
                 src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
                 alt="Profile"
@@ -273,7 +273,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
         <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD699]/20">
           {/* Profile Image */}
-          <div className="w-16 h-16 xl:w-20 xl:h-20 rounded-full overflow-hidden border border-white/15 bg-black/30 shadow-lg">
+          <div className="w-20 h-20 xl:w-40 xl:h-40 rounded-full overflow-hidden border border-[#FFD699] bg-black/10 shadow-lg">
             <img
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
               alt="Herdanius Larobu"

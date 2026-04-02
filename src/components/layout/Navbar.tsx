@@ -41,6 +41,15 @@ export default function Navbar({
   const containerRef = useRef<HTMLDivElement>(null);
   const contentWrapRef = useRef<HTMLDivElement>(null);
   const contentInnerRef = useRef<HTMLDivElement>(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px)');
+    setIsLargeScreen(media.matches);
+    const listener = (e: MediaQueryListEvent) => setIsLargeScreen(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
 
   // Maintain local state for children to enable slide-out animations
   const [displayChildren, setDisplayChildren] = useState(children);
@@ -60,21 +69,26 @@ export default function Navbar({
   useGSAP(() => {
     if (!containerRef.current || !contentWrapRef.current) return;
 
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+
     if (isExpanded) {
       const targetWidth = gsap.utils.clamp(320, 1400, window.innerWidth - 32);
 
       gsap.to(containerRef.current, {
         width: targetWidth,
-        borderRadius: '40px',
+        borderRadius: isDesktop ? '40px' : '16px',
         duration: 0.65,
         ease: 'power3.inOut',
         clearProps: 'height',
       });
 
+      // On mobile (< lg), content is above tabs via flex-col-reverse → use marginBottom
+      // On desktop (lg+), content is below tabs → use marginTop
       gsap.to(contentWrapRef.current, {
         autoAlpha: 1,
         height: 'auto',
-        marginTop: '12px',
+        marginTop: isDesktop ? '12px' : '8px',
+        marginBottom: isDesktop ? '0px' : '12px',
         duration: 0.65,
         ease: 'power3.inOut',
       });
@@ -83,12 +97,13 @@ export default function Navbar({
         autoAlpha: 0,
         height: 0,
         marginTop: 0,
+        marginBottom: 0,
         duration: 0.45,
         ease: 'power2.inOut',
         onComplete: () => {
           gsap.to(containerRef.current, {
             width: 'auto',
-            borderRadius: '20px',
+            borderRadius: isDesktop ? '20px' : '12px',
             duration: 0.5,
             ease: 'power3.inOut',
             clearProps: 'width',
@@ -118,8 +133,8 @@ export default function Navbar({
   return (
     <GlassEffect
       ref={containerRef}
-      className="flex flex-col p-1.5 sm:p-2 shadow-2xl w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-64px)]"
-      style={{ borderRadius: '20px' }}
+      className="flex flex-col-reverse lg:flex-col p-2 pt-4 sm:p-4 shadow-2xl w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-64px)]"
+      style={{ borderRadius: isLargeScreen ? '20px' : '12px' }}
     >
         {/* Navigation Buttons */}
         <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-2 px-1 sm:px-3">

@@ -123,7 +123,7 @@ export default function Home() {
         height: '99%',
         x: 7,
         y: 5,
-        borderRadius: isMobile ? '50px' : '100px',
+        borderRadius: isMobile ? '20px' : '100px',
         duration: 1,
         ease: 'power3.inOut',
       });
@@ -365,9 +365,9 @@ export default function Home() {
             {/* Tagline — small, above the name */}
             <div
               ref={taglineRef}
-              className="font-tagline text-[10px] sm:text-xs tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
+              className="font-tagline text-xs sm:text-sm lg:text-lg tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
             >
-              Analog Roots. Digital Future.
+              Herdanius Larobu.
             </div>
 
             {/* Name — massive display font */}
