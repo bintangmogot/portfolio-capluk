@@ -10,6 +10,7 @@ import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
 import ExpertiseSection from '@/components/sections/ExpertiseSection';
 import ConnectSection from '@/components/sections/ConnectSection';
+import PortfolioSection from '@/components/sections/PortfolioSection';
 import MarqueeGroup from '@/components/ui/Marquee';
 
 
@@ -261,6 +262,7 @@ export default function Home() {
 
           {/* Content area: fills all vertical space above the navbar */}
           <div className="relative flex-1 w-full">
+            <PortfolioSection isActive={activeSection === 'portfolio'} />
             <AboutSection isActive={activeSection === 'about'} />
             <ExpertiseSection isActive={activeSection === 'expertise'} />
             <ConnectSection isActive={activeSection === 'connect'} />
@@ -279,9 +281,7 @@ export default function Home() {
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
                   <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">WORK.</h2>
                   <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                    Explore a curated portfolio of cinematic storytelling, visual effects, and motion graphics workflows, spanning
-                    feature films, television series, and digital platforms. Integrates traditional filmmaking craft with
-                    generative image/video processes and streamlined post-production pipelines.
+                    A curated portfolio of cinematic storytelling, visual effects, and motion graphics workflow, spanning feature films, television series, and digital platforms. Integrates traditional filmmaking craft with generative image/video processes and streamlined post-production pipelines. Emphasizes leadership in directing, visual effects supervision, and scalable creative production.
                   </p>
                 </div>
               )}
