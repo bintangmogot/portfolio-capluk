@@ -4,18 +4,11 @@
 /* ── Thunder Font (Background Text & Display) ── */
 @font-face {
   font-family: 'Thunder';
-  /* src: url('/fonts/Thunder/Thunder-BlackHC.woff2') format('woff2'); Sangat Tebal & Rapat (Default) */
-  /* src: url('/fonts/Thunder/Thunder-SemiBoldHC.woff2') format('woff2'); Sedang & Rapat */
-  /* src: url('/fonts/Thunder/Thunder-ExtraLightHC.woff2') format('woff2'); Tipis & Rapat */
-  /* src: url('/fonts/Thunder/Thunder-ThinHC.woff2') format('woff2'); */ /* Sangat Tipis & Rapat */
-  /* src: url('/fonts/Thunder/Thunder-BlackLC.woff2') format('woff2'); */
-  /* src: url('/fonts/Thunder/Thunder-BoldHC.woff2') format('woff2'); */
   src: url('/fonts/Thunder/Thunder-HC.woff2') format('woff2');
-
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  font-synthesis: none; /* Prevent faux styling which breaks Chrome rendering */
+  font-synthesis: none;
 }
 
 /* ── Nohemi Font (New Test) ── */
@@ -35,21 +28,52 @@
   font-style: normal;
   font-display: swap;
 }
+
 @theme {
   --font-display: 'Thunder', sans-serif;
   --font-heading: var(--font-bebas-neue), sans-serif;
   --font-body: var(--font-urbanist), sans-serif;
   --font-tagline: var(--font-bruno-ace), sans-serif;
-  
-  /* ══ FONT PILIHAN ANDA ══
-     Uncomment salah satu, comment yang lain.
-     Semua sudah aktif dari Fontshare CDN, tinggal pilih! */
-  /* --font-thick: 'Clash Display', sans-serif; */
-  /* --font-thick: 'Melodrama', serif; */
-  /* --font-thick: 'General Sans', sans-serif; */
-  /* --font-thick: 'Satoshi', sans-serif; */
-  /* --font-thick: 'Zodiak', serif; */
   --font-thick: 'Cabinet Grotesk', sans-serif;
+
+  /* Theme-aware colors */
+  --color-accent: var(--accent);
+  --color-accent-glow: var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════
+   THEME VARIABLES
+   ═══════════════════════════════════════════════════ */
+:root {
+  --accent: #FFB300;
+  --accent-glow: rgba(255, 179, 0, 0.5);
+}
+
+.cinematic {
+  --accent: #A11F03;
+  --accent-glow: rgba(161, 31, 3, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════
+   CINEMATIC MODE — Grayscale Image Filters
+   ═══════════════════════════════════════════════════ */
+.cinematic img,
+.cinematic video,
+.cinematic iframe {
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic img:hover,
+.cinematic video:hover,
+.cinematic iframe:hover {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* Opt-out class for elements that should stay colorful */
+.cinematic .ignore-grayscale,
+.cinematic .ignore-grayscale img {
+  filter: none !important;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -60,8 +84,8 @@
 }
 
 html, body {
-  background-color: #ffffff;
-  color: #0a0a0b;
+  background-color: #0a0a0b;
+  color: #ffffff;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -73,7 +97,7 @@ html, body {
 }
 
 ::selection {
-  background: #FFB300;
+  background: var(--accent);
   color: #000;
 }
 

@@ -176,11 +176,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                     className="flex items-center justify-between w-full px-3 py-2.5 pointer-events-auto hover:bg-white/10 active:bg-white/5 active:scale-[0.98] rounded-lg transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-3">
-                      <Icon size={15} className="text-amber-500/80 shrink-0 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-300" />
+                      <Icon size={15} className="text-accent/80 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
                       <span className="font-body text-white/80 text-sm sm:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                     </div>
                     {info.href && (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-amber-400 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
                         <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
                       </svg>
                     )}
@@ -208,7 +208,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   </div>
                   <span className="font-body text-white/80 text-sm sm:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-amber-400 group-hover:translate-x-1 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
                   <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                 </svg>
               </a>
@@ -220,11 +220,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         {/* Download CV */}
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl border border-[#FFD699]/40 hover:border-amber-500/60 active:border-amber-500/80 hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-500 pointer-events-auto bg-white/5 shrink-0 group hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl border border-accent/40 hover:border-accent/60 active:border-accent/80 hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-500 pointer-events-auto bg-white/5 shrink-0 group hover:shadow-[0_0_20px_var(--accent-glow)]"
         >
-          <div className="absolute inset-0 bg-linear-to-r from-amber-500/0 via-amber-500/10 to-amber-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-heading text-white/90 group-hover:text-amber-400 text-base tracking-[0.1em] text-center w-full uppercase transition-colors z-10">Download Full CV</span>
-          <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-amber-400 transition-all duration-300 z-10">
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-heading text-white/90 group-hover:text-accent text-base tracking-[0.1em] text-center w-full uppercase transition-colors z-10">Download Full CV</span>
+          <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>
@@ -293,7 +293,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   {...(info.href ? { href: info.href, target: info.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener noreferrer' } : {})}
                   className="flex items-center gap-2.5 w-full justify-center px-3 py-1.5 rounded-lg hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
                 >
-                  <Icon size={14} className="text-amber-500/60 shrink-0 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-300" />
+                  <Icon size={14} className="text-accent/60 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
                   <span className="font-body text-white/70 text-sm xl:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                 </Wrapper>
               );
@@ -324,11 +324,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl hover:bg-white/10 active:bg-white/5 active:scale-[0.98] border border-[#FFD699]/80 hover:border-amber-500 transition-all duration-500 group cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl hover:bg-white/10 active:bg-white/5 active:scale-[0.98] border border-accent/80 hover:border-accent transition-all duration-500 group cursor-pointer shadow-lg hover:shadow-[0_0_20px_var(--accent-glow)]"
         >
-          <div className="absolute inset-0 bg-linear-to-r from-amber-500/0 via-amber-500/10 to-amber-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-body text-white/90 text-sm tracking-[0.05em] group-hover:text-amber-400 transition-colors z-10 relative pr-2">Download CV</span>
-          <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-amber-400 transition-all duration-300 z-10 relative">
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-body text-white/90 text-sm tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2">Download CV</span>
+          <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>

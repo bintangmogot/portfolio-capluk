@@ -87,7 +87,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
             </div>
             <div className="text-start sm:text-center">
               <p className="font-thick text-white text-md md:text-lg tracking-tight uppercase">Herdanius Larobu</p>
-              <p className="font-body text-orange-400 text-sm md:text-base uppercase tracking-widest">(Capluk)</p>
+              <p className="font-body text-accent text-sm md:text-base uppercase tracking-widest">(Capluk)</p>
               <div className="w-full h-px bg-white/10 my-2" />
               <div className="flex sm:items-center items-start justify-start sm:justify-center gap-1 text-white/60 text-sm md:text-base">
                 <MapPin size={16} />
@@ -131,8 +131,8 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
         <div className="flex flex-col gap-3">
           <GlassEffect className="p-4 py-6 flex flex-col justify-between rounded-2xl">
             <div className="flex gap-2">
-              <Film size={16} className="text-orange-400" />
-              <Tv size={16} className="text-orange-400" />
+              <Film size={16} className="text-accent" />
+              <Tv size={16} className="text-accent" />
             </div>
             <div>
               <p className="font-tagline text-white/70 text-[9px] uppercase tracking-widest mb-1">Expertise</p>
@@ -172,7 +172,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
             </div>
             <div className="text-center">
               <p className="font-thick text-white text-[13px] xl:text-[15px] tracking-tight uppercase">Herdanius Larobu</p>
-              <p className="font-body text-orange-400 text-sm xl:text-base uppercase tracking-widest">(Capluk)</p>
+              <p className="font-body text-accent text-sm xl:text-base uppercase tracking-widest">(Capluk)</p>
               <div className="w-full h-px bg-white/10 my-2" />
               <div className="flex items-center justify-center gap-1.5 text-white/40 text-[11px] xl:text-[12px]">
                 <MapPin size={12} />
@@ -222,8 +222,8 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
         <div className="flex flex-col gap-3">
           <GlassEffect className="p-4 flex flex-col justify-between rounded-2xl">
             <div className="flex gap-2">
-              <Film size={16} className="text-orange-400" />
-              <Tv size={16} className="text-orange-400" />
+              <Film size={16} className="text-accent" />
+              <Tv size={16} className="text-accent" />
             </div>
             <div>
               <p className="font-tagline text-white/70 text-[9px] uppercase tracking-widest mb-1">Expertise</p>

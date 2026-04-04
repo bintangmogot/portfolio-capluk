@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Urbanist, Bebas_Neue, Bruno_Ace, Space_Grotesk } from 'next/font/google';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import './globals.css';
 
 const urbanist = Urbanist({
@@ -44,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500,400&f[]=melodrama@700,600,500,400&f[]=general-sans@700,600,500&f[]=satoshi@700,900&f[]=zodiak@700,800&f[]=cabinet-grotesk@700,800&display=swap"
@@ -54,7 +55,9 @@ export default function RootLayout({
       <body
         className={`${urbanist.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} ${brunoAce.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

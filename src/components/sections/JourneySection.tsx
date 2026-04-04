@@ -170,7 +170,7 @@ function MediaCard({ card }: { card: MilestoneCard }) {
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
         {card.title && (
           <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-5 right-4 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent-glow)]" />
             <h4 className="font-heading text-[11px] sm:text-xs text-white tracking-widest uppercase font-bold drop-shadow-md">
               {card.title}
             </h4>
@@ -189,7 +189,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       <div className="flex flex-col gap-1.5">
         {card.role && (
           <div className="inline-flex items-center gap-2.5">
-            <Briefcase size={15} className="text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" />
+            <Briefcase size={15} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)]" />
             <h3 className="font-heading text-lg font-bold tracking-wide text-white">
               {card.role}
             </h3>
@@ -213,8 +213,8 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-1">
           {card.achievements.map((ach, i) => (
-            <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-amber-300/80 bg-amber-400/5 border border-amber-400/20 rounded-full">
-              <Award size={10} className="text-amber-500/70" />
+            <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent/80 bg-accent/5 border border-accent/20 rounded-full">
+              <Award size={10} className="text-accent/70" />
               <span>{ach}</span>
             </div>
           ))}
@@ -351,14 +351,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
                 isActive
-                  ? 'bg-amber-500/20 border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
+                  ? 'bg-accent/20 border-accent/50 shadow-[0_0_20px_var(--accent-glow)]'
                   : 'bg-white/5 border-white/15 group-hover:border-white/30 group-hover:bg-white/10'
               }`}
             >
               <IconComponent
                 size={16}
                 className={`transition-colors duration-300 ${
-                  isActive ? 'text-amber-400' : 'text-white/50 group-hover:text-white/80'
+                  isActive ? 'text-accent' : 'text-white/50 group-hover:text-white/80'
                 }`}
               />
             </div>
@@ -366,7 +366,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             {/* Year Label */}
             <span
               className={`font-heading text-xs tracking-widest uppercase transition-colors duration-300 whitespace-nowrap ${
-                isActive ? 'text-amber-400' : 'text-white/40 group-hover:text-white/70'
+                isActive ? 'text-accent' : 'text-white/40 group-hover:text-white/70'
               }`}
             >
               {milestone.year}
@@ -559,14 +559,14 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
               onClick={() => goTo(idx)}
               className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
                 isActive
-                  ? 'bg-amber-500/20 border-amber-400/50 shadow-[0_0_16px_rgba(245,158,11,0.3)] scale-110'
+                  ? 'bg-accent/20 border-accent/50 shadow-[0_0_16px_var(--accent-glow)] scale-110'
                   : 'bg-white/5 border-white/15'
               }`}
             >
               <Icon
                 size={14}
                 className={`transition-colors duration-300 ${
-                  isActive ? 'text-amber-400' : 'text-white/40'
+                  isActive ? 'text-accent' : 'text-white/40'
                 }`}
               />
             </button>
@@ -577,7 +577,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       {/* ── Active Milestone Info ── */}
       <div className="flex items-center justify-between px-1">
         <div className="flex flex-col">
-          <span className="font-heading text-sm tracking-widest uppercase text-amber-400">
+          <span className="font-heading text-sm tracking-widest uppercase text-accent">
             {milestone.year}
           </span>
           <span className="font-body text-xs text-white/50 tracking-wider">
@@ -649,7 +649,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           <div
             key={idx}
             className={`h-1 rounded-full transition-all duration-300 ${
-              idx === activeIndex ? 'w-5 bg-amber-400/70' : 'w-1 bg-white/20'
+              idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-white/20'
             }`}
           />
         ))}
