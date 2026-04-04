@@ -11,6 +11,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import ExpertiseSection from '@/components/sections/ExpertiseSection';
 import ConnectSection from '@/components/sections/ConnectSection';
 import PortfolioSection from '@/components/sections/PortfolioSection';
+import JourneySection from '@/components/sections/JourneySection';
 import MarqueeGroup from '@/components/ui/Marquee';
 
 
@@ -266,6 +267,7 @@ export default function Home() {
             <AboutSection isActive={activeSection === 'about'} />
             <ExpertiseSection isActive={activeSection === 'expertise'} />
             <ConnectSection isActive={activeSection === 'connect'} />
+            <JourneySection isActive={activeSection === 'journey'} />
           </div>
 
           {/* Navbar: sits at the bottom of the flex container */}
@@ -334,12 +336,20 @@ export default function Home() {
 
               {/* ── JOURNEY ── */}
               {activeSection === 'journey' && (
-                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-                  <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">STORY.</h2>
-                  <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
-                    From humble beginnings in indie projects to leading visual effects supervision for major
-                    blockbusters. This is the story of passion, grit, and relentless innovation in motion graphics.
-                  </p>
+                <div className="w-full flex flex-col text-center px-2 md:px-12 lg:py-2">
+                  <div className="lg:hidden flex flex-col">
+                    {/* <h2 className="font-display text-4xl sm:text-5xl text-white tracking-wide uppercase mb-3">STORY.</h2>
+                    <p className="font-body text-sm md:text-[15px] text-white/80 leading-relaxed max-w-4xl mx-auto font-light">
+                      From humble beginnings in indie projects to leading visual effects supervision for major
+                      blockbusters. This is the story of passion, grit, and relentless innovation in motion graphics.
+                    </p> */}
+                  </div>
+                  
+                  {/* Desktop Portal Target */}
+                  <div 
+                    id="journey-desktop-portal" 
+                    className="hidden lg:flex w-full items-center justify-center min-h-[80px] relative pointer-events-auto"
+                  />
                 </div>
               )}
 

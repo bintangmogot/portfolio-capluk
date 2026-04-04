@@ -42,19 +42,37 @@ export default function Navbar({
   const contentWrapRef = useRef<HTMLDivElement>(null);
   const contentInnerRef = useRef<HTMLDivElement>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [hasContent, setHasContent] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
     setIsLargeScreen(media.matches);
     const listener = (e: MediaQueryListEvent) => setIsLargeScreen(e.matches);
     media.addEventListener('change', listener);
-    return () => media.removeEventListener('change', listener);
+
+    // Track content height to avoid empty space
+    const inner = contentInnerRef.current;
+    if (!inner) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        // Use scrollHeight or height? scrollHeight is 0 if empty
+        const currentHeight = entry.target.scrollHeight;
+        setHasContent(currentHeight > 5); // 5px buffer
+      }
+    });
+
+    observer.observe(inner);
+    return () => {
+      media.removeEventListener('change', listener);
+      observer.disconnect();
+    };
   }, []);
 
   // Maintain local state for children to enable slide-out animations
   const [displayChildren, setDisplayChildren] = useState(children);
 
-  const isExpanded = activeSection !== null;
+  const isExpanded = activeSection !== null && hasContent;
   const activeSectionIndex = activeSection
     ? sections.findIndex((s) => s.id === activeSection)
     : null;
@@ -178,7 +196,7 @@ export default function Navbar({
         >
           <div
             ref={contentInnerRef}
-            className="w-full max-h-[20dvh] sm:max-h-[25dvh] lg:max-h-[20dvh] relative px-3 sm:px-4 pb-4 hide-scrollbar flex flex-col overflow-y-auto"
+            className="w-full max-h-[20dvh] sm:max-h-[25dvh] lg:max-h-[20dvh] relative px-3 sm:px-4 pb-1 hide-scrollbar flex flex-col overflow-y-auto"
           >
             {children}
           </div>
