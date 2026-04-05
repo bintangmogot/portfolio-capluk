@@ -45,6 +45,7 @@ export default function Navbar({
   const [hasContent, setHasContent] = useState(false);
   const [holdingId, setHoldingId] = useState<string | null>(null);
   const holdTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const hoverNavTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
@@ -166,6 +167,22 @@ export default function Navbar({
     setHoldingId(null);
   };
 
+  const handleHoverEnter = (idx: number) => {
+    if (!isLargeScreen) return;
+    if (hoverNavTimerRef.current) clearTimeout(hoverNavTimerRef.current);
+    hoverNavTimerRef.current = setTimeout(() => {
+      onNavigate(idx);
+    }, 150);
+  };
+
+  const handleHoverLeave = () => {
+    if (hoverNavTimerRef.current) {
+      clearTimeout(hoverNavTimerRef.current);
+      hoverNavTimerRef.current = null;
+    }
+    handleHoldEnd();
+  };
+
   return (
     <GlassEffect
       ref={containerRef}
@@ -207,9 +224,10 @@ export default function Navbar({
 
               <button
                 onClick={() => onNavigate(idx)}
+                onMouseEnter={() => handleHoverEnter(idx)}
                 onMouseDown={() => handleHoldStart(section.id)}
                 onMouseUp={handleHoldEnd}
-                onMouseLeave={handleHoldEnd}
+                onMouseLeave={handleHoverLeave}
                 onTouchStart={() => handleHoldStart(section.id)}
                 onTouchEnd={handleHoldEnd}
                 className={`w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${

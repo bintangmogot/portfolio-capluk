@@ -35,6 +35,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Sparkles,
     position: { top: '25%', left: '16%' },
   },
+  /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'social-ads',
     title: 'Social Media Ads',
@@ -44,6 +45,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Megaphone,
     position: { top: '20%', left: '60%' },
   },
+  */
   {
     id: 'title-design',
     title: 'Title Design Animation',
@@ -51,7 +53,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description: 'Film and series title sequences with layered compositing and custom typeface animation.',
     youtubeId: 'pjySNHbdjB0',
     icon: Type,
-    position: { top: '56%', left: '12%' },
+    position: { top: '64%', left: '20%' },
   },
   {
     id: 'visual-fx',
@@ -71,6 +73,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Palette,
     position: { top: '50%', left: '68%' },
   },
+  /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'motion-track',
     title: '3D Compositing',
@@ -80,6 +83,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Box,
     position: { top: '80%', left: '28%' },
   },
+  */
 ];
 
 /* ════════════════════════════════════════════════════
