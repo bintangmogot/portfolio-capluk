@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { GlassFilter } from '@/components/ui/liquid-glass';
+import { GlassFilter, GlassEffect } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
 import BackgroundText from '@/components/layout/BackgroundText';
@@ -188,18 +188,18 @@ export default function Home() {
 
                   <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto mt-6">
                     {['After Effects', 'Cinema 4D', 'Nuke', 'Unreal Engine', 'DaVinci Resolve', 'Premiere Pro'].map((tool) => (
-                      <span
+                      <GlassEffect
                         key={tool}
                         className="
-                          backdrop-blur-sm bg-white/5 border border-white/10
                           rounded-full px-4 py-2
                           font-body text-white/60 text-[11px] tracking-wider
-                          transition-colors hover:bg-white/10 hover:text-white/90
-                          cursor-default
+                          transition-colors hover:bg-[#FFD69911] hover:text-white/90
+                          cursor-default border border-[#FFD69944]
                         "
+                        style={{ padding: '0.5rem 1rem' }}
                       >
                         {tool}
-                      </span>
+                      </GlassEffect>
                     ))}
                   </div>
                 </div>

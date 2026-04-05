@@ -21,11 +21,12 @@ interface DockIcon {
 const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
   ({ children, className = "", style = {}, href, target = "_blank" }, ref) => {
     const glassStyle: React.CSSProperties = {
-      boxShadow: "0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 0.5px rgba(255,255,255,0.08)",
-      background: "rgba(255, 255, 255, 0.08)",
-      backdropFilter: "blur(24px) saturate(180%)",
-      WebkitBackdropFilter: "blur(24px) saturate(180%)",
-      transition: "backdrop-filter 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+      background: "rgba(255, 255, 255, 0.05)",
+      backdropFilter: "blur(20px) saturate(110%)",
+      WebkitBackdropFilter: "blur(20px) saturate(110%)",
+      border: "1px solid #FFD6994D", // #FFD699 with ~30% opacity as base
+      transition: "all 0.5s ease-in-out",
       ...style,
     };
 
@@ -35,19 +36,10 @@ const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
         className={`relative flex overflow-hidden ${className}`}
         style={glassStyle}
       >
-        {/* Tint layer — subtle warm glass */}
+        {/* Subtle background layer */}
         <div
-          className="absolute inset-0 z-10 pointer-events-none transition-all duration-700"
-          style={{ background: "rgba(255, 255, 255, 0.01)" }}
-        />
-        {/* Delicate Glass Rim / Highlight */}
-        <div
-          className="absolute inset-0 z-20 pointer-events-none rounded-inherit transition-all duration-700"
-          style={{
-            boxShadow:
-              "inset 0px 2px 2px 0px rgba(255, 255, 255, 0.4), inset 0px -2px 4px 0px rgba(255, 255, 255, 0.2)",
-            border: "1.5px solid rgba(255, 255, 255, 0.2)",
-          }}
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{ background: "rgba(255, 255, 255, 0.02)" }}
         />
 
         {/* Content wrapper */}
