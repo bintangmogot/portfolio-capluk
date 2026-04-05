@@ -88,7 +88,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
           {/* Tagline — small, above the name */}
           <div
             ref={taglineRef}
-            className="font-tagline text-xs sm:text-sm lg:text-lg tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
+            className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
           >
             Herdanius Larobu.
           </div>
@@ -96,7 +96,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
           {/* Name — massive display font */}
           <h1
             ref={nameRef}
-            className="font-display text-[18vw] sm:text-[14vw] md:text-[12vw] leading-[0.95] tracking-wide text-white uppercase text-center"
+            className="font-display font-w-display text-h1 leading-[0.95] tracking-wide text-white uppercase text-center"
             style={{
               textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
             }}
@@ -110,7 +110,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
               <span
                 key={role}
                 ref={(el) => { roleRefs.current[i] = el; }}
-                className="font-heading text-lg sm:text-lg md:text-xl lg:text-2xl tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white/50 leading-relaxed sm:leading-normal whitespace-nowrap"
+                className="font-heading text-h5 font-h5 tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white/50 leading-relaxed sm:leading-normal whitespace-nowrap"
               >
                 {role}
                 {i < ROLES.length - 1 && (

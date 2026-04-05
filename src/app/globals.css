@@ -29,16 +29,56 @@
   font-display: swap;
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   TAILWIND UTILITY CLASS REGISTRATION
+   Static defaults here — real values are set on body below.
+   ───────────────────────────────────────────────────────────────── */
 @theme {
-  --font-display: 'Thunder', sans-serif;
-  --font-heading: var(--font-bebas-neue), sans-serif;
-  --font-body: var(--font-urbanist), sans-serif;
-  --font-tagline: var(--font-bruno-ace), sans-serif;
-  --font-thick: 'Cabinet Grotesk', sans-serif;
+  --font-display:  sans-serif;
+  --font-heading:  sans-serif;
+  --font-body:     sans-serif;
+  --font-tagline:  sans-serif;
+  --font-thick:    sans-serif;
 
   /* Theme-aware colors */
   --color-accent: var(--accent);
   --color-accent-glow: var(--accent-glow);
+
+  /* ─────────────────────────────────────────────────────────────────
+     GOLDEN RATIO SIZE HIERARCHY
+     These MUST be inline values — @theme resolves at build time,
+     so var() references to :root won't work here.
+     ───────────────────────────────────────────────────────────────── */
+  --text-body: clamp(0.9rem, 0.85rem + 0.2vw, 1.1rem);    /* 14.4→17.6px */
+  --text-h5:   clamp(1rem, 0.95rem + 0.4vw, 1.5rem);      /* ~16→24px */
+  --text-h4:   clamp(1.4rem, 1.2rem + 1vw, 2.2rem);       /* ~22.4→35.2px */
+  --text-h3:   clamp(2rem, 1.5rem + 2vw, 3.5rem);         /* ~32→56px */
+  --text-h2:   clamp(2.5rem, 2rem + 4vw, 5rem);           /* ~40→80px */
+  --text-h1:   clamp(3rem, 2.5rem + 5vw, 8rem);           /* ~48→128px */
+
+  /* ─────────────────────────────────────────────────────────────────
+     THICKNESS HIERARCHY
+     Same rule: inline values only. w- prefix avoids collision with
+     font-family utilities (font-body, font-display, font-tagline).
+     ───────────────────────────────────────────────────────────────── */
+  --font-weight-w-display: 800;
+  --font-weight-h1:        700;
+  --font-weight-h2:        600;
+  --font-weight-h3:        600;
+  --font-weight-h4:        500;
+  --font-weight-h5:        500;
+  --font-weight-w-body:    400;
+  --font-weight-w-tagline: 300;
+
+  /* Standard Weight Scale */
+  --font-weight-thin:      100;
+  --font-weight-light:     300;
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+  --font-weight-extrabold: 800;
+  --font-weight-black:     900;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -46,7 +86,28 @@
    ═══════════════════════════════════════════════════ */
 :root {
   --accent: #FFB300;
-  --accent-glow: rgba(255, 179, 0, 0.5);
+  --accent-glow: rgba(255, 179, 0, 0.4);
+
+  /* === FONT WEIGHTS REMOTE CONTROL === */
+  --fw-light:     300;
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+  --fw-black:     900;
+
+  /* ─────────────────────────────────────────────────────────────────
+     GOLDEN RATIO RESPONSIVE SCALE (Ratio: 1.618)
+     Accessibility focused: Base text starts at 18px (1.125rem) to ensure
+     top-tier legibility for all ages.
+     ───────────────────────────────────────────────────────────────── */
+  --font-size-body:   clamp(0.9rem, 0.85rem + 0.2vw, 1.1rem);    /* 14.4→17.6px */
+  --font-size-h5:     clamp(1rem, 0.95rem + 0.4vw, 1.5rem);      /* ~16→24px */
+  --font-size-h4:     clamp(1.4rem, 1.2rem + 1vw, 2.2rem);       /* ~22.4→35.2px */
+  --font-size-h3:     clamp(2rem, 1.5rem + 2vw, 3.5rem);         /* ~32→56px */
+  --font-size-h2:     clamp(2.5rem, 2rem + 4vw, 5rem);           /* ~40→80px */
+  --font-size-h1:     clamp(3rem, 2.5rem + 5vw, 8rem);           /* ~48→128px */
 }
 
 .cinematic {
@@ -81,6 +142,51 @@
    ═══════════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+body {
+  /* ═══════════════════════════════════════════════════
+     TYPOGRAPHY SYSTEM
+     Font vars MUST live on body because Next.js injects
+     --font-unbounded, --font-syne, etc. on <body> via
+     scoped classes. Declaring them on :root (<html>)
+     breaks the var() chain since the vars don't exist there.
+     ═══════════════════════════════════════════════════ */
+
+  /* Library Gallery — all available font options */
+  --opt-bungee:        var(--font-bungee), sans-serif;
+  --opt-rubik-mono:    var(--font-rubik-mono), sans-serif;
+  --opt-russo:         var(--font-russo-one), sans-serif;
+  --opt-vina:          var(--font-vina-sans), sans-serif;
+  --opt-abeezee:       var(--font-abeezee), sans-serif;
+  --opt-archivo-black: var(--font-archivo-black), sans-serif;
+  --opt-unbounded:     var(--font-unbounded), sans-serif;
+  --opt-syne:          var(--font-syne), sans-serif;
+  --opt-titan:         var(--font-titan-one), sans-serif;
+  --opt-grotesk:       var(--font-space-grotesk), sans-serif;
+  --opt-jakarta:       var(--font-plus-jakarta), sans-serif;
+  --opt-outfit:        var(--font-outfit), sans-serif;
+  --opt-sora:          var(--font-sora), sans-serif;
+  --opt-satoshi:       'Satoshi', sans-serif;
+  --opt-general:       'General Sans', sans-serif;
+  --opt-switzer:       'Switzer', sans-serif;
+  --opt-nohemi:        'Nohemi', sans-serif;
+  --opt-montserrat:    var(--font-montserrat), sans-serif;
+  --opt-poppins:       var(--font-poppins), sans-serif;
+
+  /* 
+      TYPOGRAPHY REMOTE CONTROL
+      Change ONLY these two lines to swap the entire site's fonts.
+  */
+  --active-heading: var(--opt-unbounded);
+  --active-body:    var(--opt-unbounded);
+
+  /* Font Mappings */
+  --font-display:  var(--active-heading);
+  --font-heading:  var(--active-heading);
+  --font-body:     var(--active-body);
+  --font-tagline:  var(--active-body);
+  --font-thick:    var(--active-heading);
 }
 
 html, body {

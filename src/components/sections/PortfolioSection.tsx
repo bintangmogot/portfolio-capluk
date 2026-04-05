@@ -327,7 +327,7 @@ function FloatingPillButton({
           />
         </div>
         {/* Label */}
-        <span className="font-heading text-sm text-white/90 tracking-[0.12em] uppercase whitespace-nowrap
+        <span className="font-heading text-body text-white/90 tracking-[0.12em] uppercase whitespace-nowrap
           group-hover:text-white transition-colors duration-300">
           {item.title}
         </span>
@@ -443,11 +443,11 @@ function PortfolioCard({
             >
               <item.icon size={13} className="text-white" />
             </div>
-            <h4 className="font-heading text-lg sm:text-xl text-white tracking-widest uppercase truncate">
+            <h4 className="font-heading text-h5 text-white tracking-widest uppercase truncate">
               {item.title}
             </h4>
           </div>
-          <p className="font-body text-sm sm:text-base text-white/70 leading-relaxed line-clamp-3">
+          <p className="font-body text-body text-white/70 leading-relaxed line-clamp-3">
             {item.description}
           </p>
         </div>
@@ -633,14 +633,12 @@ function VideoModal({
                   <item.icon size={16} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-extrabold text-white text-base sm:text-lg tracking-[0.12em] uppercase">{item.title}</h3>
+                  <h3 className="font-heading font-extrabold text-white text-h5 mb-2 tracking-[0.12em] uppercase">{item.title}</h3>
                   {/* Category badge — liquid glass */}
-                  <div className="flex items-center gap-1.5 mt-0.5
-                    w-fit bg-white/10 backdrop-blur-md rounded-full px-2 py-0.5
-                    border border-white/20">
-                    <item.icon size={9} className="text-amber-300 shrink-0" />
-                    <span className="font-body text-sm sm:text-base text-white/70">{item.category}</span>
-                  </div>
+                  <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5" style={{ padding: '0.125rem 0.5rem' }}>
+                    <item.icon size={9} className="text-amber-300 shrink-0 mr-2" />
+                    <span className="font-body text-sm text-white/70">{item.category}</span>
+                  </GlassEffect>
                 </div>
               </div>
             </div>

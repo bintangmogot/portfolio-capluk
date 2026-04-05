@@ -190,7 +190,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
         {card.role && (
           <div className="inline-flex items-center gap-2.5">
             <Briefcase size={15} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)]" />
-            <h3 className="font-heading text-lg font-bold tracking-wide text-white">
+            <h3 className="font-heading text-h5 font-bold tracking-wide text-white">
               {card.role}
             </h3>
           </div>
@@ -204,7 +204,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
 
       {/* Description */}
       <div className="relative pt-3 border-t border-white/5 mt-1">
-        <p className="font-body text-[13px] sm:text-sm text-white/70 font-light leading-relaxed">
+        <p className="font-body text-sm text-white/70 font-light leading-relaxed">
           {card.description}
         </p>
       </div>
@@ -452,7 +452,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                         ))}
                       </div>
                       <div className="mt-4 pt-3 border-t border-white/5 w-full text-center">
-                        <span className="font-heading text-lg font-light tracking-wide text-[#ffedd5]">
+                        <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
                           {extraImages.length} Feature Films
                         </span>
                       </div>
@@ -577,10 +577,10 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       {/* ── Active Milestone Info ── */}
       <div className="flex items-center justify-between px-1">
         <div className="flex flex-col">
-          <span className="font-heading text-sm tracking-widest uppercase text-accent">
+          <span className="font-heading text-h5 tracking-widest uppercase text-accent">
             {milestone.year}
           </span>
-          <span className="font-body text-xs text-white/50 tracking-wider">
+          <span className="font-body text-body text-white/50 tracking-wider">
             {milestone.role} — {milestone.company}
           </span>
         </div>
