@@ -100,11 +100,12 @@ export default function Navbar({
         clearProps: 'height',
       });
 
-      // On mobile (< lg), content is above tabs via flex-col-reverse → use marginBottom
-      // On desktop (lg+), content is below tabs → use marginTop
+      // Standardize height on desktop for consistent tab switching
+      const desktopHeight = 140; // Standardize expanded height for desktop
+
       gsap.to(contentWrapRef.current, {
         autoAlpha: 1,
-        height: 'auto',
+        height: isDesktop ? desktopHeight : 'auto',
         marginTop: isDesktop ? '12px' : '8px',
         marginBottom: isDesktop ? '0px' : '12px',
         duration: 0.65,
@@ -151,7 +152,7 @@ export default function Navbar({
   return (
     <GlassEffect
       ref={containerRef}
-      className="flex flex-col-reverse lg:flex-col p-2 pt-4 sm:p-4 shadow-2xl w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-64px)]"
+      className="flex flex-col-reverse lg:flex-col mx-4 p-2 pt-4 sm:p-4 shadow-2xl w-full max-w-7xl"
       style={{ borderRadius: isLargeScreen ? '20px' : '12px' }}
     >
         {/* Navigation Buttons */}
@@ -191,12 +192,12 @@ export default function Navbar({
         {/* Dynamic Inner Content */}
         <div
           ref={contentWrapRef}
-          className="w-full flex flex-col overflow-hidden"
+          className="w-full flex flex-col overflow-hidden h-full"
           style={{ height: 0, opacity: 0, visibility: 'hidden' }}
         >
           <div
             ref={contentInnerRef}
-            className="w-full max-h-[20dvh] sm:max-h-[25dvh] lg:max-h-[20dvh] relative px-3 sm:px-4 pb-1 hide-scrollbar flex flex-col overflow-y-auto"
+            className="w-full h-full max-h-[20dvh] sm:max-h-[25dvh] md:max-h-[30dvh] relative px-2 sm:px-4 pb-1 hide-scrollbar flex flex-col md:w-full overflow-y-auto"
           >
             {children}
           </div>

@@ -142,13 +142,6 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         ref={mobileRef}
         className="lg:hidden absolute inset-0 flex flex-col px-4 sm:px-8 pt-6 pb-4 gap-4 overflow-y-auto hide-scrollbar pointer-events-auto"
       >
-        {/* Availability Badge */}
-        <div className="flex justify-center">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-body text-white/70 text-xs sm:text-sm tracking-wider uppercase">Available for remote collaboration</span>
-          </div>
-        </div>
 
         {/* Contact Info */}
         <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-white/5 shrink-0">
@@ -190,6 +183,23 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
               );
             })}
           </div>
+
+          <a
+            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-2 pointer-events-auto"
+          >
+            <div className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 flex flex-row items-center justify-center gap-2 cursor-pointer transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-95 group shadow-inner">
+              <div className="flex h-1.5 w-1.5 relative mt-0.5">
+                <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </div>
+              <span className="text-[12px] text-white/90 group-hover:text-white sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+                Open for Collab
+              </span>
+            </div>
+          </a>
         </GlassEffect>
         
         {/* Social Links */}
@@ -223,7 +233,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl border border-accent/40 hover:border-accent/60 active:border-accent/80 hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-500 pointer-events-auto bg-white/5 shrink-0 group hover:shadow-[0_0_20px_var(--accent-glow)]"
         >
           <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-heading text-white/90 group-hover:text-accent text-base tracking-[0.1em] text-center w-full uppercase transition-colors z-10">Download Full CV</span>
+          <span className="font-heading text-white/90 group-hover:text-accent text-base tracking-widest text-center w-full uppercase transition-colors z-10">Download Full CV</span>
           <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
@@ -302,16 +312,20 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
 
           <div className="w-full h-px bg-white/8 my-1" />
 
-          {/* Availability Status */}
-          <div ref={statusRef} className="flex items-center gap-2 px-2">
-            <span className="relative flex h-2.5 w-2.5 shrink-0 mt-0.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
-            </span>
-            <span className="font-body text-white/60 text-xs xl:text-sm tracking-wide leading-relaxed">
-              Available for remote collaboration prior to relocation
-            </span>
-          </div>
+          <a
+            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-1 pointer-events-auto"
+          >
+            <div className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2 flex flex-row items-center justify-center gap-2 cursor-pointer transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-95 group shadow-inner">
+              <div className="w-2 h-2 mr-1 rounded-full bg-emerald-500 animate-pulse shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+              <span className="text-[11px] text-white/90 group-hover:text-white sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+                Open for Collab
+              </span>
+            </div>
+          </a>
+
         </GlassEffect>
       </div>
       

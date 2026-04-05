@@ -405,7 +405,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 {/* ── MAIN CONTENT (Anchored to node) ── */}
               <div
                 ref={(el) => { cardGroupRefs.current[milestone.id] = el; }}
-                className="absolute bottom-0 z-20 flex flex-col justify-end"
+                className="absolute bottom-5 z-20 flex flex-col justify-end"
                 style={{
                   left: `${position}%`,
                   transform: 'translateX(-50%)',
@@ -702,7 +702,7 @@ export default function JourneySection({ isActive }: JourneySectionProps) {
   return (
     <div
       ref={sectionRef}
-      className="absolute inset-0 flex flex-col items-center justify-start px-4 sm:px-8 pb-1 pt-12 sm:pt-16 pointer-events-none"
+      className="absolute inset-0 flex flex-col items-center justify-start px-4 sm:px-8 pb-1 pt-20 sm:pt-16 pointer-events-none"
       style={{ opacity: 0, visibility: 'hidden' }}
     >
       <div className="w-full max-w-5xl h-full flex flex-col justify-start relative pointer-events-auto overflow-y-auto lg:overflow-visible no-scrollbar pt-4">
