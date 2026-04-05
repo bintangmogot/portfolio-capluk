@@ -15,12 +15,12 @@ import {
 gsap.registerPlugin(useGSAP);
 
 // Icon map for each section
-const SECTION_ICONS: Record<string, React.ReactNode> = {
-  portfolio: <Clapperboard size={16} strokeWidth={1.8} />,
-  expertise: <Sparkles size={16} strokeWidth={1.8} />,
-  about: <User size={16} strokeWidth={1.8} />,
-  journey: <Route size={16} strokeWidth={1.8} />,
-  connect: <MessageCircle size={16} strokeWidth={1.8} />,
+const SECTION_ICONS: Record<string, any> = {
+  portfolio: Clapperboard,
+  expertise: Sparkles,
+  about: User,
+  journey: Route,
+  connect: MessageCircle,
 };
 
 interface NavbarProps {
@@ -43,6 +43,8 @@ export default function Navbar({
   const contentInnerRef = useRef<HTMLDivElement>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   const [hasContent, setHasContent] = useState(false);
+  const [holdingId, setHoldingId] = useState<string | null>(null);
+  const holdTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
@@ -149,6 +151,21 @@ export default function Navbar({
     );
   }, [activeSection]);
 
+  const handleHoldStart = (id: string) => {
+    if (isLargeScreen) return;
+    holdTimerRef.current = setTimeout(() => {
+      setHoldingId(id);
+    }, 400); // Trigger after 400ms
+  };
+
+  const handleHoldEnd = () => {
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+    setHoldingId(null);
+  };
+
   return (
     <GlassEffect
       ref={containerRef}
@@ -156,7 +173,7 @@ export default function Navbar({
       style={{ borderRadius: isLargeScreen ? '20px' : '12px' }}
     >
         {/* Navigation Buttons */}
-        <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-2 px-1 sm:px-3">
+        <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-1 px-1 sm:px-3">
           
           {/* Logo - Hidden on mobile */}
           <button 
@@ -171,20 +188,45 @@ export default function Navbar({
           </button>
 
           {/* Buttons List */}
-          <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 shrink-0">
+          <div className="flex items-center w-full lg:w-auto lg:justify-center shrink-0 px-2 lg:px-0 gap-[2px] sm:gap-1.5">
           {sections.map((section, idx) => (
-            <button
-              key={section.id}
-              onClick={() => onNavigate(idx)}
-                className={`flex flex-col sm:flex-row items-center gap-0.5 sm:gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
-                activeSection === section.id
-                  ? 'bg-accent/20 text-accent border border-accent/40'
-                  : 'text-white/60 hover:text-white hover:bg-white/10 hover:backdrop-blur-md hover:border hover:border-white/20 hover:shadow-[0_4px_12px_rgba(255,255,255,0.05)] border border-transparent'
-              }`}
-            >
-              <span className="shrink-0">{SECTION_ICONS[section.id]}</span>
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest sm:tracking-[0.15em] leading-none">{section.id}</span>
-            </button>
+            <div key={section.id} className="flex-1 lg:flex-none relative group h-full">
+              {/* Tooltip Label — visible on mobile when holding */}
+              <div 
+                className={`
+                  sm:hidden absolute -top-10 left-1/2 -translate-x-1/2 
+                  px-3 py-1.5 rounded-lg bg-black/80 border border-white/20
+                  text-white text-[10px] tracking-widest uppercase font-bold
+                  transition-all duration-300 pointer-events-none z-50
+                  ${holdingId === section.id ? 'opacity-100 -top-6 scale-100' : 'opacity-0 -top-8 scale-90'}
+                `}
+              >
+                {section.id}
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-r border-b border-white/20" />
+              </div>
+
+              <button
+                onClick={() => onNavigate(idx)}
+                onMouseDown={() => handleHoldStart(section.id)}
+                onMouseUp={handleHoldEnd}
+                onMouseLeave={handleHoldEnd}
+                onTouchStart={() => handleHoldStart(section.id)}
+                onTouchEnd={handleHoldEnd}
+                className={`w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
+                  activeSection === section.id
+                    ? 'bg-accent/20 text-accent border border-accent/40'
+                    : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-white/20'
+                }`}
+              >
+                <span className="shrink-0">
+                  {React.createElement(SECTION_ICONS[section.id], {
+                    size: isLargeScreen ? 16 : 22, // Slightly larger on mobile
+                    strokeWidth: 1.8
+                  })}
+                </span>
+                <span className="hidden sm:inline-block text-[11px] uppercase tracking-[0.15em] leading-none">{section.id}</span>
+              </button>
+            </div>
           ))}
           </div>
         </div>

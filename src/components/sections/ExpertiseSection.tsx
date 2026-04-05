@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -73,9 +73,9 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const footerRef = useRef<HTMLDivElement>(null);
   const isScrolling = useRef(false);
   const currentPage = useRef(0);
+  const [activePage, setActivePage] = useState(0);
 
   useGSAP(() => {
     if (!containerRef.current || !scrollContainerRef.current) return;
@@ -138,6 +138,7 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
         if (scrollContainerRef.current) {
           scrollContainerRef.current.scrollLeft = 0;
           currentPage.current = 0;
+          setActivePage(0);
         }
       }, 400);
     }
@@ -145,30 +146,35 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
     return () => { ScrollTrigger.getAll().forEach(st => { if (st.scroller === scrollContainerRef.current) st.kill(); }); };
   }, [isActive]);
 
-  const scrollToPage = (dir: number) => {
+  const scrollToPageIndex = (index: number) => {
     const scroller = scrollContainerRef.current;
     if (!scroller || isScrolling.current) return;
 
-    const isMobile = window.innerWidth < 768;
+    isScrolling.current = true;
+    currentPage.current = index;
+    setActivePage(index);
+    
+    // Use clientWidth for accurate viewport-relative placement
+    const targetLeft = index * scroller.clientWidth;
+    
+    gsap.to(scroller, {
+      scrollLeft: targetLeft,
+      duration: 0.5,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        // Reinforced lock to prevent skipped pages
+        setTimeout(() => { isScrolling.current = false; }, 400);
+      }
+    });
+  };
+
+  const scrollToPage = (dir: number) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const maxPages = isMobile ? ALL_CATEGORIES.length : 2;
     const nextIndex = Math.max(0, Math.min(currentPage.current + dir, maxPages - 1));
     
     if (nextIndex !== currentPage.current) {
-      isScrolling.current = true;
-      currentPage.current = nextIndex;
-      
-      // Use clientWidth for accurate viewport-relative placement
-      const targetLeft = nextIndex * scroller.clientWidth;
-      
-      gsap.to(scroller, {
-        scrollLeft: targetLeft,
-        duration: 0.5,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          // Reinforced lock to prevent skipped pages
-          setTimeout(() => { isScrolling.current = false; }, 400);
-        }
-      });
+      scrollToPageIndex(nextIndex);
     }
   };
 
@@ -182,7 +188,7 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (Math.abs(delta) > 20) { // Increased threshold to avoid micro-scroll skipping
+      if (Math.abs(delta) > 20) {
         scrollToPage(delta > 0 ? 1 : -1);
       }
     };
@@ -291,7 +297,21 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
              </div>
            ))}
         </div>
-
+      </div>
+      
+      {/* SCROLL DOTS INDICATOR (Both Desktop & Mobile) */}
+      <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20 pointer-events-auto">
+        {Array.from({ length: typeof window !== 'undefined' && window.innerWidth < 768 ? ALL_CATEGORIES.length : 2 }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => scrollToPageIndex(i)}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              activePage === i 
+                ? 'bg-accent w-4 shadow-[0_0_12px_rgba(255,214,153,0.5)]' 
+                : 'bg-white/20 hover:bg-white/40'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
