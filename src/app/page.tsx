@@ -231,7 +231,10 @@ export default function Home() {
 
               {/* ── JOURNEY ── */}
               {activeSection === 'journey' && (
-                <div className="w-full h-full flex flex-col items-center justify-center text-center px-2 md:px-12">
+                <div className="w-full h-full flex flex-col items-center justify-center text-center px-2 md:px-12 py-0">
+                   <p className="lg:hidden font-thick font-h1 text-h6 tracking-[0.2em] uppercase text-(--accent) mb-2 opacity-80">
+                    Project Timeline
+                  </p>
                   <div id="journey-desktop-portal" className="hidden lg:flex w-full items-center justify-center min-h-[100px] relative pointer-events-auto" />
                 </div>
               )}
