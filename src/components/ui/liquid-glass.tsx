@@ -21,11 +21,11 @@ interface DockIcon {
 const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
   ({ children, className = "", style = {}, href, target = "_blank" }, ref) => {
     const glassStyle: React.CSSProperties = {
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-      background: "rgba(255, 255, 255, 0.05)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+      background: "var(--glass-bg, rgba(255, 255, 255, 0.05))",
       backdropFilter: "blur(20px) saturate(110%)",
       WebkitBackdropFilter: "blur(20px) saturate(110%)",
-      border: "1px solid #FFD6994D", // #FFD699 with ~30% opacity as base
+      border: "2px solid var(--border-color)",
       transition: "all 0.5s ease-in-out",
       ...style,
     };
