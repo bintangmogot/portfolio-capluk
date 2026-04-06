@@ -134,7 +134,7 @@ export default function Home() {
             ref={bgRef}
             src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
             alt="Herdanius"
-            className="w-full h-full object-cover opacity-90"
+            className="w-full h-full object-cover opacity-90 main-bg-img"
             style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
           />
           {/* Global Dark Radial Overlay for both themes */}
@@ -155,11 +155,15 @@ export default function Home() {
 
           {/* Content area */}
           <div className="relative flex-1 w-full">
-            <PortfolioSection isActive={activeSection === 'portfolio'} />
+            <div className="portfolio-section-active">
+              <PortfolioSection isActive={activeSection === 'portfolio'} />
+            </div>
             <AboutSection isActive={activeSection === 'about'} />
             <ExpertiseSection isActive={activeSection === 'expertise'} />
             <ConnectSection isActive={activeSection === 'connect'} />
-            <JourneySection isActive={activeSection === 'journey'} />
+            <div className="journey-section-active">
+              <JourneySection isActive={activeSection === 'journey'} />
+            </div>
           </div>
 
           {/* Navbar */}
