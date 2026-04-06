@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { GlassEffect } from '@/components/ui/liquid-glass';
+import { ScrambleText } from '@/components/ui/ScrambleText';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {
@@ -25,7 +26,7 @@ interface MilestoneCard {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
-  images?: string[]; // Array untuk banyak poster
+  images?: string[]; 
   videoSrc?: string;
   role?: string;
   company?: string;
@@ -186,7 +187,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
   return (
     <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full">
       {/* Date & Location Header */}
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col">
         {card.role && (
           <div className="inline-flex items-center gap-2.5">
             <Briefcase size={15} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)]" />
@@ -196,14 +197,14 @@ function InfoCard({ card }: { card: MilestoneCard }) {
           </div>
         )}
         {card.company && (
-          <p className="font-body text-sm text-white/50 tracking-wide font-light pl-[29px] border-l border-white/5 ml-1.5">
+          <p className="font-body text-sm text-white/80 tracking-wide font-light pl-[20px] border-l border-white/5 ml-1.5">
             {card.company}
           </p>
         )}
       </div>
 
       {/* Description */}
-      <div className="relative pt-3 border-t border-white/5 mt-1">
+      <div className="relative pt-2 border-t-2 border-white/20">
         <p className="font-body text-sm text-white/70 font-light leading-relaxed">
           {card.description}
         </p>
@@ -382,86 +383,105 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
     </div>
   );
 
+  const activeMilestone = MILESTONES.find(m => m.id === activeId);
+
   return (
     <>
-      <div className="relative w-full h-full pointer-events-none">
+      <div className="relative w-full h-full pointer-events-none overflow-visible">
+        {/* ── BACKGROUND LAYER (Opening Title) ── z-0 */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
+          <div 
+            className={`flex flex-col items-center justify-center transition-all duration-1000 ease-out-expo ${activeId ? 'opacity-0 scale-90 -translate-y-4 blur-sm' : 'opacity-100 scale-100 translate-y-0 blur-0'}`}
+          >
+            <div className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-3 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+              The Timeline.
+            </div>
+            <h2
+              className="font-display font-w-display text-h2 leading-[0.9] tracking-wide text-white uppercase text-center cursor-default select-none"
+              style={{
+                textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
+              }}
+            >
+              <ScrambleText text="Journey" trigger={isActive && !activeId} />
+            </h2>
+            <div className="mt-8 w-40 h-px bg-linear-to-r from-transparent via-accent/50 to-transparent opacity-0 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }} />
+          </div>
+        </div>
+
         {/* ── Card Containers (float above) ── */}
-        <div className="relative w-full h-full" style={{ minHeight: '300px' }}>
-          {MILESTONES.map((milestone, idx) => {
+          <div className="relative w-full h-full" style={{ minHeight: '300px' }}>
+            {MILESTONES.map((milestone, idx) => {
             // Updated range to match timeline icons (20% - 80%)
-            const position = 20 + (idx / (MILESTONES.length - 1)) * 60;
+              const position = 20 + (idx / (MILESTONES.length - 1)) * 60;
             const isLeftHalf = idx < MILESTONES.length / 2;
-
+              
             // Find extra images
-            const extraImages: string[] = [];
-            milestone.cards.forEach(c => {
-               if (c.type === 'media' && c.images && c.images.length > 1) {
+               const extraImages: string[] = [];
+               milestone.cards.forEach(c => {
+                  if (c.type === 'media' && c.images && c.images.length > 1) {
                   extraImages.push(...c.images.slice(1)); // Show all extra images
-               }
-            });
+                  }
+               });
 
-            return (
-              <React.Fragment key={milestone.id}>
+              return (
+                <React.Fragment key={milestone.id}>
                 {/* ── MAIN CONTENT (Anchored to node) ── */}
-              <div
-                ref={(el) => { cardGroupRefs.current[milestone.id] = el; }}
-                className="absolute bottom-5 z-20 flex flex-col justify-end"
-                style={{
-                  left: `${position}%`,
-                  transform: 'translateX(-50%)',
-                  opacity: 0,
-                  visibility: 'hidden',
-                  width: 'max-content',
-                  maxWidth: 'min(350px, 90vw)',
-                }}
-              >
-                <div className="flex flex-col gap-3 pointer-events-auto pb-2 items-center">
-                  {milestone.cards.map((card, cardIdx) => (
-                    <div 
-                      key={cardIdx} 
-                      className={card.type === 'media' ? 'w-[200px] sm:w-[260px]' : 'w-full'}
-                    >
-                      <RenderCard card={card} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-                {/* ── EXTRA CONTENT (Anchored to opposite screen edge) ── */}
-                {extraImages.length > 0 && (
                   <div
-                    ref={(el) => { extraGroupRefs.current[milestone.id] = el; }}
-                    className="absolute bottom-20 right-0 z-10 flex flex-col justify-end pointer-events-none"
+                    ref={(el) => { cardGroupRefs.current[milestone.id] = el; }}
+                    className="absolute bottom-5 z-20 flex flex-col justify-end"
                     style={{
+                      left: `${position}%`,
+                      transform: 'translateX(-50%)',
                       opacity: 0,
                       visibility: 'hidden',
-                      width: 'fit-content',
-                      maxHeight: '90%',
+                      width: 'max-content',
+                      maxWidth: 'min(350px, 90vw)',
                     }}
                   >
-                    <GlassEffect 
-                      className="p-5 rounded-[24px] w-fit border-[#FFD69933] shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
-                      style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.7), rgba(0,0,0,0.8))' }}
-                    >
-                      <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
-                        {extraImages.map((img, i) => (
-                          <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-white/30">
-                            <img src={img} alt="Extra" className="w-full h-full object-cover transition-transform duration-500 group-hover/poster:scale-110" />
-                            <div className="absolute inset-0 bg-black/40 group-hover/poster:bg-transparent transition-colors duration-300" />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-white/30 w-full text-center">
-                        <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
-                          {extraImages.length} Feature Films
-                        </span>
-                      </div>
-                    </GlassEffect>
+                    <div className="flex flex-col gap-3 pointer-events-auto pb-2 items-center">
+                      {milestone.cards.map((card, cardIdx) => (
+                        <div key={cardIdx} className={card.type === 'media' ? 'w-[200px] sm:w-[260px]' : 'w-full'}>
+                          <RenderCard card={card} />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                )}
-              </React.Fragment>
-            );
-          })}
+
+                {/* ── EXTRA CONTENT (Anchored to opposite screen edge) ── */}
+                  {extraImages.length > 0 && (
+                    <div
+                      ref={(el) => { extraGroupRefs.current[milestone.id] = el; }}
+                      className="absolute bottom-20 right-0 z-10 flex flex-col justify-end pointer-events-none"
+                      style={{
+                        opacity: 0,
+                        visibility: 'hidden',
+                        width: 'fit-content',
+                        maxHeight: '90%',
+                      }}
+                    >
+                      <GlassEffect 
+                        className="p-5 rounded-[24px] w-fit border-[#FFD69933] shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
+                        style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.7), rgba(0,0,0,0.8))' }}
+                      >
+                        <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
+                          {extraImages.map((img, i) => (
+                            <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-white/30">
+                              <img src={img} alt="Extra" className="w-full h-full object-cover transition-transform duration-500 group-hover/poster:scale-110" />
+                              <div className="absolute inset-0 bg-black/40 group-hover/poster:bg-transparent transition-colors duration-300" />
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-4 pt-3 border-t border-white/30 w-full text-center">
+                          <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
+                            {extraImages.length} Feature Films
+                          </span>
+                        </div>
+                      </GlassEffect>
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
         </div>
       </div>
 
@@ -482,13 +502,11 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
 
   const milestone = MILESTONES[activeIndex];
 
-  // Navigate
   const goTo = useCallback((index: number) => {
     const clamped = Math.max(0, Math.min(MILESTONES.length - 1, index));
     setActiveIndex(clamped);
   }, []);
 
-  // Swipe gesture handler (any direction → horizontal only)
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -503,23 +521,18 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       const touch = e.changedTouches[0];
       const dx = touch.clientX - touchStartRef.current.x;
       const dy = touch.clientY - touchStartRef.current.y;
-
-      // Use the larger axis as intent
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
 
-      // Threshold: 40px minimum
       if (Math.max(absDx, absDy) < 40) {
         touchStartRef.current = null;
         return;
       }
 
-      // Only trigger navigation if the swipe is primarily horizontal
       if (absDx >= absDy) {
         if (dx < 0) goTo(activeIndex + 1);
         else goTo(activeIndex - 1);
       }
-
       touchStartRef.current = null;
     };
 
@@ -531,7 +544,6 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
     };
   }, [activeIndex, goTo]);
 
-  // GSAP: Animate card transition
   useGSAP(() => {
     if (!cardsContainerRef.current) return;
     gsap.fromTo(
@@ -541,15 +553,10 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
     );
   }, [activeIndex]);
 
-  const IconComponent = milestone.icon;
-
   return (
     <div ref={containerRef} className="w-full h-full flex flex-col gap-4">
-      {/* ── Timeline Indicators ── */}
       <div className="relative flex items-center justify-between px-2">
-        {/* Line */}
         <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-white/10" />
-
         {MILESTONES.map((m, idx) => {
           const Icon = m.icon;
           const isActive = idx === activeIndex;
@@ -563,12 +570,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
                   : 'bg-white/10 border-white/25'
               }`}
             >
-              <Icon
-                size={14}
-                className={`transition-colors duration-300 ${
-                  isActive ? 'text-accent' : 'text-white/80'
-                }`}
-              />
+              <Icon size={14} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white/80'}`} />
             </button>
           );
         })}
@@ -577,41 +579,23 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       {/* ── Active Milestone Info ── */}
       <div className="flex items-center justify-between px-1">
         <div className="flex flex-col">
-          <span className="font-heading text-h5 tracking-widest uppercase text-accent">
-            {milestone.year}
-          </span>
-          <span className="font-body text-body text-white/80 tracking-wider">
-            {milestone.role} — {milestone.company}
-          </span>
+          <span className="font-heading text-h5 tracking-widest uppercase text-accent">{milestone.year}</span>
+          <span className="font-body text-body text-white/80 tracking-wider">{milestone.role} — {milestone.company}</span>
         </div>
-
-        {/* Nav Arrows */}
         <div className="flex items-center gap-1">
-          <button
-            onClick={() => goTo(activeIndex - 1)}
-            disabled={activeIndex === 0}
-            className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
-          >
+          <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronLeft size={14} className="text-white/80" />
           </button>
-          <button
-            onClick={() => goTo(activeIndex + 1)}
-            disabled={activeIndex === MILESTONES.length - 1}
-            className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
-          >
+          <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === MILESTONES.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronRight size={14} className="text-white/80" />
           </button>
         </div>
       </div>
 
-      {/* ── Bento Cards ── */}
       <div ref={cardsContainerRef} className="flex flex-col gap-4 w-full pb-[40px] lg:pb-0 lg:overflow-y-auto no-scrollbar">
-        {/* Main Cards */}
         {milestone.cards.map((card, cardIdx) => (
           <RenderCard key={`${milestone.id}-${cardIdx}`} card={card} />
         ))}
-        
-        {/* Extra Mobile Cards */}
         {(() => {
           const extraImages: string[] = [];
           milestone.cards.forEach(c => {
@@ -619,15 +603,11 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
                 extraImages.push(...c.images.slice(1));
              }
           });
-
           if (extraImages.length === 0) return null;
-
           return (
             <div className="w-full mt-1">
               <div className="flex items-center justify-between mb-3 px-2">
-                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">
-                  Feature Films ({extraImages.length})
-                </span>
+                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">Feature Films ({extraImages.length})</span>
                 <div className="h-px flex-1 bg-linear-to-r from-white/10 to-transparent" />
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-3 w-full snap-x snap-mandatory px-2 pb-2">
@@ -643,15 +623,9 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
         })()}
       </div>
 
-      {/* ── Swipe Hint Dots ── */}
       <div className="flex justify-center gap-1.5 mt-1">
         {MILESTONES.map((_, idx) => (
-          <div
-            key={idx}
-            className={`h-1 rounded-full transition-all duration-300 ${
-              idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-white/20'
-            }`}
-          />
+          <div key={idx} className={`h-1 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-white/20'}`} />
         ))}
       </div>
     </div>
@@ -678,7 +652,6 @@ export default function JourneySection({ isActive }: JourneySectionProps) {
     return () => media.removeEventListener('change', listener);
   }, []);
 
-  // GSAP: Section entrance/exit
   useGSAP(() => {
     if (!sectionRef.current) return;
     if (isActive) {
