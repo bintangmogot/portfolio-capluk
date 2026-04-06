@@ -213,8 +213,8 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-1">
           {card.achievements.map((ach, i) => (
-            <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent/80 bg-accent/5 border border-accent/20 rounded-full">
-              <Award size={10} className="text-accent/70" />
+            <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent bg-black/40 border border-accent/20 rounded-full">
+              <Award size={14} className="text-accent" />
               <span>{ach}</span>
             </div>
           ))}

@@ -9,6 +9,8 @@ interface GlassEffectProps {
   style?: React.CSSProperties;
   href?: string;
   target?: string;
+  isSolid?: boolean;
+  solidOnHover?: boolean;
 }
 
 interface DockIcon {
@@ -19,21 +21,22 @@ interface DockIcon {
 
 // Glass Effect Wrapper Component — elastic, springy, alive
 const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
-  ({ children, className = "", style = {}, href, target = "_blank" }, ref) => {
+  ({ children, className = "", style = {}, href, target = "_blank", isSolid = false, solidOnHover = false }, ref) => {
     const glassStyle: React.CSSProperties = {
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
-      background: "var(--glass-bg, rgba(255, 255, 255, 0.05))",
-      backdropFilter: "blur(20px) saturate(110%)",
-      WebkitBackdropFilter: "blur(20px) saturate(110%)",
+      boxShadow: isSolid ? "0 12px 40px rgba(0, 0, 0, 0.15)" : "0 8px 32px rgba(0, 0, 0, 0.2)",
+      background: isSolid ? "var(--solid-hover-bg, #f9f9f9)" : "var(--glass-bg, rgba(255, 255, 255, 0.05))",
+      backdropFilter: isSolid ? "blur(8px)" : "blur(20px) saturate(110%)",
+      WebkitBackdropFilter: isSolid ? "blur(8px)" : "blur(20px) saturate(110%)",
       border: "2px solid var(--border-color)",
-      transition: "all 0.5s ease-in-out",
+      color: isSolid ? "var(--solid-hover-text, var(--accent))" : "inherit",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
       ...style,
     };
 
     const content = (
       <div
         ref={ref}
-        className={`relative flex overflow-hidden ${className}`}
+        className={`relative flex overflow-hidden ${solidOnHover ? "solid-hover" : ""} ${className}`}
         style={glassStyle}
       >
         {/* Subtle background layer */}
@@ -49,6 +52,7 @@ const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
             flexDirection: "inherit" as "row",
             alignItems: "inherit",
             justifyContent: "inherit",
+            gap: "inherit",
           }}
         >
           {children}
@@ -62,7 +66,7 @@ const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
         target={target}
         rel="noopener noreferrer"
         className="block outline-none"
-        style={{ transition: "all 0.7s cubic-bezier(0.175, 0.885, 0.32, 2.275)" }}
+        style={{ transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.275)" }}
       >
         {content}
       </a>
@@ -106,11 +110,17 @@ const GlassButton: React.FC<{
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
-}> = ({ children, href, onClick }) => {
+  isSolid?: boolean;
+  solidOnHover?: boolean;
+}> = ({ children, href, onClick, isSolid = false, solidOnHover = false }) => {
   const content = (
-    <GlassEffect className="rounded-3xl px-8 py-5 hover:px-9 hover:py-6 hover:rounded-[36px] active:scale-[0.96] active:px-8 active:py-5 overflow-hidden">
+    <GlassEffect 
+      isSolid={isSolid}
+      solidOnHover={solidOnHover}
+      className="rounded-3xl px-8 py-5 hover:px-9 hover:py-6 hover:rounded-[36px] active:scale-[0.96] active:px-8 active:py-5 overflow-hidden"
+    >
       <div
-        className="transition-all duration-700 hover:scale-[0.98] active:scale-[0.95]"
+        className="transition-all duration-300 hover:scale-[0.98] active:scale-[0.95]"
         style={{
           transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.275)",
         }}

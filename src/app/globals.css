@@ -123,6 +123,8 @@
   --border-color: #FFD6994D;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --mouse-glow: rgba(255, 214, 153, 0.2);
+  --solid-hover-bg: rgba(0, 0, 0, 0.4);
+  --solid-hover-text: var(--accent);
 }
 
 /* Cinematic Mode: Greyscale + Accent Orange (Noir vibe) */
@@ -135,6 +137,8 @@
   --border-color:    #FF8C004D;
   --glass-bg:        rgba(0, 0, 0, 0.6); /* Black Glass */
   --mouse-glow:      rgba(255, 140, 0, 0.03); /* Darker color for mouse glow */
+  --solid-hover-bg:   #040000;
+  --solid-hover-text: var(--accent);
 }
 
 /* Grayscale Optimization — B&W by default in Cinematic mode */
@@ -190,6 +194,20 @@
 .cinematic .ignore-grayscale,
 .cinematic .ignore-grayscale img {
   filter: none !important;
+}
+
+/* 💎 Solid Hover Component: Transitions glass to solid high-contrast on hover */
+.solid-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.solid-hover:hover {
+  background: var(--solid-hover-bg) !important;
+  color: var(--solid-hover-text) !important;
+  border: 2px solid var(--border-color) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* ═══════════════════════════════════════════════════

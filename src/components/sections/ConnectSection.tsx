@@ -190,15 +190,18 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             rel="noopener noreferrer"
             className="w-full mt-2 pointer-events-auto"
           >
-            <div className="w-full rounded-xl bg-[#FFD69908] border border-[#FFD69933] px-4 py-2.5 flex flex-row items-center justify-center gap-2 cursor-pointer transition-all duration-300 hover:bg-[#FFD69915] hover:border-[#FFD69955] active:bg-[#1B1D1D66] active:scale-95 group shadow-inner">
+            <GlassEffect 
+              solidOnHover={true}
+              className="w-full rounded-xl px-4 py-2.5 flex flex-row items-center justify-center gap-3 cursor-pointer transition-all duration-300 group shadow-inner"
+            >
               <div className="flex h-1.5 w-1.5 relative mt-0.5">
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </div>
-              <span className="text-[12px] text-white/90 group-hover:text-white sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+              <span className="text-[12px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
                 Open for Collab
               </span>
-            </div>
+            </GlassEffect>
           </a>
         </GlassEffect>
         
@@ -230,12 +233,13 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         {/* Download CV */}
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl border border-[#FFD69966] hover:border-[#FFD699AA] active:border-[#FFD699] hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-500 pointer-events-auto bg-[#FFD69908] shrink-0 group hover:shadow-[0_0_20px_rgba(255,214,153,0.2)]"
+          solidOnHover={true}
+          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl active:scale-[0.98] transition-all duration-500 pointer-events-auto shrink-0 group"
         >
-          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-heading text-white/90 group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10">Download Full CV</span>
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-heading group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10 font-bold">Download Full CV</span>
           <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>
           </div>
@@ -318,12 +322,15 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             rel="noopener noreferrer"
             className="w-full mt-1 pointer-events-auto"
           >
-            <div className="w-full rounded-xl bg-[#FFD69908] border border-[#FFD69933] px-4 py-2 flex flex-row items-center justify-center gap-2 cursor-pointer transition-all duration-300 hover:bg-[#FFD69911] hover:border-[#FFD69955] active:bg-[#1B1D1D66] active:scale-95 group shadow-inner">
+            <GlassEffect 
+              solidOnHover={true} 
+              className="w-full rounded-xl px-4 py-3 flex flex-row items-center justify-center gap-3 cursor-pointer transition-all duration-300 group shadow-inner"
+            >
               <div className="w-2 h-2 mr-1 rounded-full bg-emerald-500 animate-pulse shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-              <span className="text-[11px] text-white/90 group-hover:text-white sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+              <span className="text-[11px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
                 Open for Collab
               </span>
-            </div>
+            </GlassEffect>
           </a>
 
         </GlassEffect>
@@ -338,12 +345,14 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] border border-[#FFD699AA] hover:border-[#FFD699] transition-all duration-500 group cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(255,214,153,0.2)]"
-        >
-          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-body text-white/90 text-body tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2">Download CV</span>
+          solidOnHover={true}
+          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer"
+
+>
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-body tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2 font-bold">Download CV</span>
           <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>
           </div>
