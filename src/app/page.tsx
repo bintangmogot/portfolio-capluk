@@ -41,15 +41,14 @@ export default function Home() {
   useGSAP(() => {
     if (!bgWrapRef.current || !bgRef.current) return;
     const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
     
     // Always maintain rounded corner and slightly inset appearance for all sections
     gsap.to(bgWrapRef.current, {
-      width: '99%',
-      height: '99%',
-      x: 7,
-      y: 5,
+      width: isMobile ? '97%' : isTablet ? '97%' : '97%',
+      height: isMobile ? '97%' : isTablet ? '95%' : '90%',
       // Always maintain rounded corner and slightly inset appearance for all sections
-      borderRadius: isMobile ? '24px' : '100px', // Using soft, consistent radius
+      borderRadius: isMobile ? '40px' : isTablet ? '80px' : '150px', // Responsive corner radius hierarchy
       duration: 1,
       ease: 'power3.inOut',
     });
@@ -126,8 +125,8 @@ export default function Home() {
 
       <div 
         ref={bgWrapRef}
-        className="absolute top-0 left-0 z-0 overflow-hidden bg-(--bg-premium) will-change-transform shadow-2xl transition-colors duration-700"
-        style={{ width: '99%', height: '99%', transform: 'translate(7px, 5px)', borderRadius: '48px' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 overflow-hidden bg-(--bg-premium) will-change-transform shadow-2xl transition-colors duration-700"
+        style={{ width: '99%', height: '99%', borderRadius: '48px' }}
       >
         <div className="absolute inset-0 z-0">
           <img
