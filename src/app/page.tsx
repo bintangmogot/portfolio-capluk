@@ -48,7 +48,8 @@ export default function Home() {
       height: '99%',
       x: 7,
       y: 5,
-      borderRadius: isMobile ? '20px' : '100px',
+      // Always maintain rounded corner and slightly inset appearance for all sections
+      borderRadius: isMobile ? '24px' : '100px', // Using soft, consistent radius
       duration: 1,
       ease: 'power3.inOut',
     });
@@ -114,7 +115,7 @@ export default function Home() {
   );
 
   return (
-    <div className="relative w-full h-dvh overflow-hidden bg-white text-[#0a0a0b] cursor-default">
+    <div className="relative w-full h-dvh overflow-hidden bg-(--bg-premium) text-(--text-main) cursor-default transition-colors duration-700">
       <GlassFilter />
 
       <BackgroundLight mouseX={mousePos.x} mouseY={mousePos.y} />
@@ -125,10 +126,10 @@ export default function Home() {
 
       <div 
         ref={bgWrapRef}
-        className="absolute top-0 left-0 z-0 overflow-hidden bg-[#0a0a0b] will-change-transform shadow-2xl"
-        style={{ width: '99%', height: '99%', transform: 'translate(7px, 5px)', borderRadius: '100px' }}
+        className="absolute top-0 left-0 z-0 overflow-hidden bg-(--bg-premium) will-change-transform shadow-2xl transition-colors duration-700"
+        style={{ width: '99%', height: '99%', transform: 'translate(7px, 5px)', borderRadius: '48px' }}
       >
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <img
             ref={bgRef}
             src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
@@ -136,10 +137,12 @@ export default function Home() {
             className="w-full h-full object-cover opacity-90"
             style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
           />
+          {/* Global Dark Radial Overlay for both themes */}
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.2)_100%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}
-          className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80 opacity-0 invisible"
+          className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-(--bg-premium)/80 opacity-0 invisible"
         />
 
         <ThemeToggle isVisible={true} />
@@ -193,8 +196,8 @@ export default function Home() {
                         className="
                           rounded-full px-4 py-2
                           font-body text-white/60 text-[11px] tracking-wider
-                          transition-colors hover:bg-[#FFD69911] hover:text-white/90
-                          cursor-default border border-[#FFD69944]
+                          transition-colors hover:bg-(--accent)/10 hover:text-white/90
+                          cursor-default border border-(--accent)/30
                         "
                         style={{ padding: '0.5rem 1rem' }}
                       >
