@@ -25,7 +25,7 @@ const ALL_CATEGORIES = [
       'Media Asset management',
     ],
     align: 'start',
-    desktopStyle: { top: '10%', left: '8%' }
+    desktopStyle: { top: '6%', left: '8%' }
   },
   {
     id: 'tools',
@@ -39,7 +39,7 @@ const ALL_CATEGORIES = [
       'Digital Camera Production',
     ],
     align: 'end',
-    desktopStyle: { top: '35%', right: '10%' }
+    desktopStyle: { top: '38%', right: '10%' }
   },
   {
     id: 'ai-emerging',
@@ -52,11 +52,11 @@ const ALL_CATEGORIES = [
       'AI-Driven Workflow Automation',
     ],
     align: 'start',
-    desktopStyle: { top: '22%', left: '12%' }
+    desktopStyle: { top: '22%', left: '6%' }
   },
   {
     id: 'vfx-motion',
-    title: 'Motion Graphics & Visual Effects',
+    title: 'Motion Graphics &\nVisual Effects',
     items: [
       'Motion graphics design',
       '2D/3D animation',
@@ -65,7 +65,7 @@ const ALL_CATEGORIES = [
       'Particle system',
     ],
     align: 'end',
-    desktopStyle: { bottom: '15%', right: '5%' }
+    desktopStyle: { bottom: '15%', right: '12%' }
   },
 ];
 
@@ -217,16 +217,24 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
       }
     };
 
+    const handleResize = () => {
+      if (scroller) {
+        scroller.scrollLeft = currentPage.current * scroller.clientWidth;
+      }
+    };
+
     scroller.addEventListener('wheel', handleWheel, { passive: false });
     scroller.addEventListener('touchstart', handleTouchStart, { passive: true });
     scroller.addEventListener('touchmove', handleTouchMove, { passive: false });
     scroller.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('resize', handleResize);
 
     return () => {
       scroller.removeEventListener('wheel', handleWheel);
       scroller.removeEventListener('touchstart', handleTouchStart);
       scroller.removeEventListener('touchmove', handleTouchMove);
       scroller.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('resize', handleResize);
     };
   }, [isActive]);
 
@@ -243,7 +251,7 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
              {ALL_CATEGORIES.slice(0, 2).map((cat, i) => (
                 <div key={cat.id} ref={el => { blockRefs.current[i] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={cat.desktopStyle}>
                   <div className={`relative mb-4 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300">{cat.title}</h3>
+                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300 whitespace-pre-line">{cat.title}</h3>
                     <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-500 ease-in-out`} />
                   </div>
                   <ul className="flex flex-col space-y-2">
@@ -261,8 +269,8 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
            <div className="shrink-0 w-screen h-full relative">
              {ALL_CATEGORIES.slice(2).map((cat, i) => (
                 <div key={cat.id} ref={el => { blockRefs.current[i+2] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={cat.desktopStyle}>
-                  <div className={`relative mb-4 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500">{cat.title}</h3>
+                  <div className={`relative mb-2 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
+                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
                     <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out`} />
                   </div>
                   <ul className="flex flex-col space-y-2">
@@ -285,7 +293,7 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
              <div key={cat.id} className="shrink-0 w-screen h-full relative flex flex-col items-center justify-center px-8">
                 <div ref={el => { blockRefs.current[i+4] = el; }} className="flex flex-col items-center text-center opacity-0 group">
                   <div className="relative mb-6 flex flex-col items-center">
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500">{cat.title}</h3>
+                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
                     <div className="h-[2px] bg-linear-to-r from-transparent via-accent to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out" />
                   </div>
                   <ul className="flex flex-col space-y-2">

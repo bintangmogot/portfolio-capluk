@@ -56,10 +56,10 @@ function BehanceIcon({ className }: { className?: string }) {
    ═══════════════════════════════════════════════════ */
 
 const SOCIAL_LINKS = [
-  { id: 'ig', renderIcon: (cls: string) => <InstagramIcon className={cls} />, label: '@capluk', href: 'https://instagram.com/capluk', hoverColor: 'group-hover:text-[#E1306C]' },
-  { id: 'yt', renderIcon: (cls: string) => <YoutubeIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://youtube.com/@herdaniuslarobu', hoverColor: 'group-hover:text-[#FF0000]' },
-  { id: 'li', renderIcon: (cls: string) => <LinkedinIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://linkedin.com/in/herdaniuslarobu', hoverColor: 'group-hover:text-[#0A66C2]' },
-  { id: 'be', renderIcon: (cls: string) => <BehanceIcon className={cls} />, label: 'Herdanius Capluk', href: 'https://behance.net/herdaniuscapluk', hoverColor: 'group-hover:text-[#1769FF]' },
+  { id: 'ig', renderIcon: (cls: string) => <InstagramIcon className={cls} />, label: '@capluk', href: 'https://instagram.com/capluk' },
+  { id: 'yt', renderIcon: (cls: string) => <YoutubeIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://youtube.com/@herdaniuslarobu' },
+  { id: 'li', renderIcon: (cls: string) => <LinkedinIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://linkedin.com/in/herdaniuslarobu' },
+  { id: 'be', renderIcon: (cls: string) => <BehanceIcon className={cls} />, label: 'Herdanius Capluk', href: 'https://behance.net/herdaniuscapluk' },
 ];
 
 const CONTACT_INFO = [
@@ -213,11 +213,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center shrink-0 group-hover:border-[#FFD69966] group-hover:bg-[#FFD69911] transition-all duration-300">
-                    {link.renderIcon(`w-4 h-4 text-white/60 ${link.hoverColor} group-hover:scale-110 transition-all duration-300`)}
+                  <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
+                    {link.renderIcon(`w-4 h-4 text-white/60 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
                   </div>
                   <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
@@ -265,10 +265,10 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-300 group cursor-pointer"
+              className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center group-hover:border-[#FFD69966] group-hover:bg-[#FFD69911] group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
-                {link.renderIcon(`w-4 h-4 text-white/50 ${link.hoverColor} group-hover:scale-110 transition-all duration-300`)}
+              <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
+                {link.renderIcon(`w-4 h-4 text-white/50 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
               </div>
               <div className="flex flex-col">
                 <span className="font-body text-white/80 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
@@ -287,12 +287,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
         <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD69944]">
           {/* Profile Image */}
-          <div className="w-20 h-20 xl:w-40 xl:h-40 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
+          <div className="w-20 h-20 xl:w-auto xl:h-40 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
             <img
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
               alt="Herdanius Larobu"
               className="w-full h-full object-cover"
-              style={{ objectPosition: '48% 6%' }}
             />
           </div>
 

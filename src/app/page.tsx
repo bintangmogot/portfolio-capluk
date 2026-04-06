@@ -35,7 +35,15 @@ export default function Home() {
 
   const [activeSection, setActiveSection] = useState<string | null>('about');
   const [prevSectionIndex, setPrevSectionIndex] = useState<number | null>(null);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // ─── Background and Card Logic ───
   useGSAP(() => {
@@ -46,7 +54,7 @@ export default function Home() {
     // Always maintain rounded corner and slightly inset appearance for all sections
     gsap.to(bgWrapRef.current, {
       width: isMobile ? '97%' : isTablet ? '97%' : '97%',
-      height: isMobile ? '97%' : isTablet ? '95%' : '90%',
+      height: isMobile ? '97%' : isTablet ? '95%' : '92%',
       // Always maintain rounded corner and slightly inset appearance for all sections
       borderRadius: isMobile ? '40px' : isTablet ? '80px' : '150px', // Responsive corner radius hierarchy
       duration: 1,
@@ -60,7 +68,7 @@ export default function Home() {
       duration: 1,
       ease: 'power3.inOut',
     });
-  }, [activeSection]);
+  }, [activeSection, windowSize]);
 
   // ─── Vignette overlay ───
   useGSAP(() => {

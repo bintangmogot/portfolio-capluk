@@ -366,14 +366,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             {/* Year Label */}
             <span
               className={`font-heading text-xs tracking-widest uppercase transition-colors duration-300 whitespace-nowrap ${
-                isActive ? 'text-accent' : 'text-white/40 group-hover:text-white/70'
+                isActive ? 'text-accent' : 'text-white/90 group-hover:text-white'
               }`}
             >
               {milestone.year}
             </span>
 
             {/* Role Label */}
-            <span className="font-body text-xs text-white/30 tracking-wider whitespace-nowrap">
+            <span className="font-body text-xs text-white/60 tracking-wider whitespace-nowrap">
               {milestone.role}
             </span>
           </div>
@@ -445,13 +445,13 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                     >
                       <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
                         {extraImages.map((img, i) => (
-                          <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-white/10">
+                          <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-white/30">
                             <img src={img} alt="Extra" className="w-full h-full object-cover transition-transform duration-500 group-hover/poster:scale-110" />
                             <div className="absolute inset-0 bg-black/40 group-hover/poster:bg-transparent transition-colors duration-300" />
                           </div>
                         ))}
                       </div>
-                      <div className="mt-4 pt-3 border-t border-white/5 w-full text-center">
+                      <div className="mt-4 pt-3 border-t border-white/30 w-full text-center">
                         <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
                           {extraImages.length} Feature Films
                         </span>
@@ -560,13 +560,13 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
               className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
                 isActive
                   ? 'bg-accent/20 border-accent/50 shadow-[0_0_16px_var(--accent-glow)] scale-110'
-                  : 'bg-white/5 border-white/15'
+                  : 'bg-white/10 border-white/25'
               }`}
             >
               <Icon
                 size={14}
                 className={`transition-colors duration-300 ${
-                  isActive ? 'text-accent' : 'text-white/40'
+                  isActive ? 'text-accent' : 'text-white/80'
                 }`}
               />
             </button>
@@ -580,7 +580,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           <span className="font-heading text-h5 tracking-widest uppercase text-accent">
             {milestone.year}
           </span>
-          <span className="font-body text-body text-white/50 tracking-wider">
+          <span className="font-body text-body text-white/80 tracking-wider">
             {milestone.role} — {milestone.company}
           </span>
         </div>
@@ -590,16 +590,16 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           <button
             onClick={() => goTo(activeIndex - 1)}
             disabled={activeIndex === 0}
-            className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
+            className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
           >
-            <ChevronLeft size={14} className="text-white/60" />
+            <ChevronLeft size={14} className="text-white/80" />
           </button>
           <button
             onClick={() => goTo(activeIndex + 1)}
             disabled={activeIndex === MILESTONES.length - 1}
-            className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
+            className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
           >
-            <ChevronRight size={14} className="text-white/60" />
+            <ChevronRight size={14} className="text-white/80" />
           </button>
         </div>
       </div>
@@ -628,13 +628,13 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
                 <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">
                   Feature Films ({extraImages.length})
                 </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+                <div className="h-px flex-1 bg-linear-to-r from-white/10 to-transparent" />
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-3 w-full snap-x snap-mandatory px-2 pb-2">
                 {extraImages.map((img, i) => (
                   <div key={i} className="relative shrink-0 w-[90px] aspect-2/3 rounded-xl overflow-hidden border border-white/10 snap-center shadow-lg bg-black/50">
                     <img src={img} alt={`Poster ${i + 1}`} className="absolute inset-0 w-full h-full object-cover opacity-90" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                   </div>
                 ))}
               </div>

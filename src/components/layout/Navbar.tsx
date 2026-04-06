@@ -42,7 +42,8 @@ export default function Navbar({
   const contentWrapRef = useRef<HTMLDivElement>(null);
   const contentInnerRef = useRef<HTMLDivElement>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
-  const [hasContent, setHasContent] = useState(false);
+  // Initialize hasContent based on whether children are present to avoid initial jumps
+  const [hasContent, setHasContent] = useState(!!children);
   const [holdingId, setHoldingId] = useState<string | null>(null);
   const holdTimerRef = useRef<NodeJS.Timeout | null>(null);
   const hoverNavTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -86,7 +87,15 @@ export default function Navbar({
     return activeSectionIndex > prevSectionIndex ? 1 : -1;
   }, [prevSectionIndex, activeSectionIndex]);
 
-  // GSAP: Container expand/collapse
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // GSAP: Premium Container expand/collapse
   useGSAP(() => {
     if (!containerRef.current || !contentWrapRef.current) return;
 
@@ -94,12 +103,13 @@ export default function Navbar({
 
     if (isExpanded) {
       const targetWidth = gsap.utils.clamp(320, 1400, window.innerWidth - 32);
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
       gsap.to(containerRef.current, {
         width: targetWidth,
-        borderRadius: isDesktop ? '40px' : '16px',
-        duration: 0.65,
-        ease: 'power3.inOut',
+        borderRadius: isDesktop ? '60px' : isTablet ? '40px' : '24px',
+        duration: 0.8,
+        ease: 'expo.out',
         clearProps: 'height',
       });
 
@@ -111,8 +121,8 @@ export default function Navbar({
         height: isDesktop ? desktopHeight : 'auto',
         marginTop: isDesktop ? '12px' : '8px',
         marginBottom: isDesktop ? '0px' : '12px',
-        duration: 0.65,
-        ease: 'power3.inOut',
+        duration: 0.7,
+        ease: 'power3.in',
       });
     } else {
       gsap.to(contentWrapRef.current, {
@@ -120,8 +130,8 @@ export default function Navbar({
         height: 0,
         marginTop: 0,
         marginBottom: 0,
-        duration: 0.45,
-        ease: 'power2.inOut',
+        duration: 0.5,
+        ease: 'power3.in',
         onComplete: () => {
           gsap.to(containerRef.current, {
             width: 'auto',
@@ -134,7 +144,18 @@ export default function Navbar({
         },
       });
     }
-  }, [isExpanded]);
+  }, [isExpanded, windowWidth]);
+
+  // GSAP: Staggered Button Reveal on Mount for a premium entrance
+  useGSAP(() => {
+    const buttons = containerRef.current?.querySelectorAll('.nav-btn-target');
+    if (buttons && buttons.length > 0) {
+      gsap.fromTo(buttons, 
+        { y: 25, opacity: 0, scale: 0.9 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.08, ease: 'back.out(1.5)', delay: 0.5 }
+      );
+    }
+  }, []);
 
   // GSAP: Slide content when switching between tabs (not on first open/close)
   useGSAP(() => {
@@ -186,16 +207,16 @@ export default function Navbar({
   return (
     <GlassEffect
       ref={containerRef}
-      className="flex flex-col-reverse lg:flex-col mx-4 p-2 pt-4 sm:p-4 shadow-2xl w-full max-w-7xl"
+      className="flex flex-col-reverse lg:flex-col mx-4 p-2 pt-4 shadow-2xl w-full max-w-7xl"
       style={{ borderRadius: isLargeScreen ? '20px' : '12px' }}
     >
         {/* Navigation Buttons */}
-        <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-1 px-1 sm:px-3">
+        <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-1 px-1">
           
-          {/* Logo - Hidden on mobile */}
+          {/* Logo - Hidden on mobile and tablet */}
           <button 
             onClick={() => onNavigate(-1)}
-            className="hidden md:flex items-center shrink-0 pr-3 mr-1 border-r border-white/10 cursor-pointer hover:opacity-80 transition-opacity"
+            className="hidden lg:flex items-center shrink-0 pr-3 mr-1 border-r border-white/10 cursor-pointer hover:opacity-80 transition-opacity"
           >
             <img 
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1" 
@@ -211,7 +232,7 @@ export default function Navbar({
               {/* Tooltip Label — visible on mobile when holding */}
               <div 
                 className={`
-                  sm:hidden absolute -top-10 left-1/2 -translate-x-1/2 
+                  md:hidden absolute -top-10 left-1/2 -translate-x-1/2 
                   px-3 py-1.5 rounded-lg bg-black/80 border border-white/20
                   text-white text-[10px] tracking-widest uppercase font-bold
                   transition-all duration-300 pointer-events-none z-50
@@ -230,7 +251,7 @@ export default function Navbar({
                 onMouseLeave={handleHoverLeave}
                 onTouchStart={() => handleHoldStart(section.id)}
                 onTouchEnd={handleHoldEnd}
-                className={`w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
+                className={`nav-btn-target w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
                   activeSection === section.id
                     ? 'bg-black/40 text-(--accent) border border-(--accent)/40 shadow-[0_0_15px_rgba(255,214,153,0.1)]'
                     : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-(--accent)/30'
@@ -242,7 +263,7 @@ export default function Navbar({
                     strokeWidth: 1.8
                   })}
                 </span>
-                <span className="hidden sm:inline-block text-[11px] uppercase tracking-[0.15em] leading-none">{section.id}</span>
+                <span className="hidden md:inline-block text-[11px] uppercase tracking-[0.15em] leading-none">{section.id}</span>
               </button>
             </div>
           ))}
