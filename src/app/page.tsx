@@ -144,7 +144,7 @@ export default function Home() {
           className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-(--bg-premium)/80 opacity-0 invisible"
         />
 
-        <ThemeToggle isVisible={true} />
+        <ThemeToggle isVisible={activeSection === 'about'} />
 
 
         {/* ═══════════════════════════════════════════════════════
