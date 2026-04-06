@@ -160,7 +160,7 @@ function MediaCard({ card }: { card: MilestoneCard }) {
   if (!imgSrc) return null;
 
   return (
-    <GlassEffect className="rounded-[20px] overflow-hidden border-white/10 w-full sm:w-1/2 lg:w-full sm:mx-auto bg-black/40 shrink-0 shadow-[0_8px_30px_rgba(0,0,0,0.5)] group relative">
+    <GlassEffect className="rounded-[20px] overflow-hidden border-[#FFD69933] w-full sm:w-1/2 lg:w-full sm:mx-auto bg-black/40 shrink-0 shadow-xl group relative">
       <div className="relative w-full h-auto lg:h-[180px]">
         <img
           src={imgSrc}
@@ -184,8 +184,8 @@ function MediaCard({ card }: { card: MilestoneCard }) {
 // ─── Info Card ───
 function InfoCard({ card }: { card: MilestoneCard }) {
   return (
-    <GlassEffect className="rounded-[20px] p-5 sm:p-6 border-white/10 flex flex-col gap-3 sm:gap-4 w-full bg-black/30 backdrop-blur-md">
-      {/* Header */}
+    <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full">
+      {/* Date & Location Header */}
       <div className="flex flex-col gap-1.5">
         {card.role && (
           <div className="inline-flex items-center gap-2.5">
@@ -213,8 +213,8 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-1">
           {card.achievements.map((ach, i) => (
-            <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent/80 bg-accent/5 border border-accent/20 rounded-full">
-              <Award size={10} className="text-accent/70" />
+            <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent bg-black/40 border border-accent/20 rounded-full">
+              <Award size={14} className="text-accent" />
               <span>{ach}</span>
             </div>
           ))}
@@ -351,8 +351,8 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
                 isActive
-                  ? 'bg-accent/20 border-accent/50 shadow-[0_0_20px_var(--accent-glow)]'
-                  : 'bg-white/5 border-white/15 group-hover:border-white/30 group-hover:bg-white/10'
+                  ? 'bg-[#1B1D1D66] border-[#FFD69966] shadow-[0_0_20px_rgba(255,214,153,0.3)]'
+                  : 'bg-white/5 border-white/15 group-hover:border-[#FFD69944] group-hover:bg-white/10'
               }`}
             >
               <IconComponent
@@ -440,8 +440,8 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                     }}
                   >
                     <GlassEffect 
-                      className="p-5 rounded-[24px] w-fit border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] pointer-events-auto mb-2 flex flex-col items-center"
-                      style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.8), rgba(0,0,0,0.9))' }}
+                      className="p-5 rounded-[24px] w-fit border-[#FFD69933] shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
+                      style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.7), rgba(0,0,0,0.8))' }}
                     >
                       <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
                         {extraImages.map((img, i) => (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { GlassFilter } from '@/components/ui/liquid-glass';
+import { GlassFilter, GlassEffect } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
 import BackgroundText from '@/components/layout/BackgroundText';
@@ -41,14 +41,14 @@ export default function Home() {
   useGSAP(() => {
     if (!bgWrapRef.current || !bgRef.current) return;
     const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
     
     // Always maintain rounded corner and slightly inset appearance for all sections
     gsap.to(bgWrapRef.current, {
-      width: '99%',
-      height: '99%',
-      x: 7,
-      y: 5,
-      borderRadius: isMobile ? '20px' : '100px',
+      width: isMobile ? '97%' : isTablet ? '97%' : '97%',
+      height: isMobile ? '97%' : isTablet ? '95%' : '90%',
+      // Always maintain rounded corner and slightly inset appearance for all sections
+      borderRadius: isMobile ? '40px' : isTablet ? '80px' : '150px', // Responsive corner radius hierarchy
       duration: 1,
       ease: 'power3.inOut',
     });
@@ -114,7 +114,7 @@ export default function Home() {
   );
 
   return (
-    <div className="relative w-full h-dvh overflow-hidden bg-white text-[#0a0a0b] cursor-default">
+    <div className="relative w-full h-dvh overflow-hidden bg-(--bg-premium) text-(--text-main) cursor-default transition-colors duration-700">
       <GlassFilter />
 
       <BackgroundLight mouseX={mousePos.x} mouseY={mousePos.y} />
@@ -125,21 +125,23 @@ export default function Home() {
 
       <div 
         ref={bgWrapRef}
-        className="absolute top-0 left-0 z-0 overflow-hidden bg-[#0a0a0b] will-change-transform shadow-2xl"
-        style={{ width: '99%', height: '99%', transform: 'translate(7px, 5px)', borderRadius: '100px' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 overflow-hidden bg-(--bg-premium) will-change-transform shadow-2xl transition-colors duration-700"
+        style={{ width: '99%', height: '99%', borderRadius: '48px' }}
       >
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <img
             ref={bgRef}
             src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
             alt="Herdanius"
-            className="w-full h-full object-cover opacity-90"
+            className="w-full h-full object-cover opacity-90 main-bg-img"
             style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
           />
+          {/* Global Dark Radial Overlay for both themes */}
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.2)_100%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}
-          className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-[#0a0a0b]/80 opacity-0 invisible"
+          className="absolute inset-0 z-1 bg-radial-[circle_at_center] from-transparent to-(--bg-premium)/80 opacity-0 invisible"
         />
 
         <ThemeToggle isVisible={true} />
@@ -152,11 +154,15 @@ export default function Home() {
 
           {/* Content area */}
           <div className="relative flex-1 w-full">
-            <PortfolioSection isActive={activeSection === 'portfolio'} />
+            <div className="portfolio-section-active">
+              <PortfolioSection isActive={activeSection === 'portfolio'} />
+            </div>
             <AboutSection isActive={activeSection === 'about'} />
             <ExpertiseSection isActive={activeSection === 'expertise'} />
             <ConnectSection isActive={activeSection === 'connect'} />
-            <JourneySection isActive={activeSection === 'journey'} />
+            <div className="journey-section-active">
+              <JourneySection isActive={activeSection === 'journey'} />
+            </div>
           </div>
 
           {/* Navbar */}
@@ -188,18 +194,18 @@ export default function Home() {
 
                   <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto mt-6">
                     {['After Effects', 'Cinema 4D', 'Nuke', 'Unreal Engine', 'DaVinci Resolve', 'Premiere Pro'].map((tool) => (
-                      <span
+                      <GlassEffect
                         key={tool}
                         className="
-                          backdrop-blur-sm bg-white/5 border border-white/10
                           rounded-full px-4 py-2
                           font-body text-white/60 text-[11px] tracking-wider
-                          transition-colors hover:bg-white/10 hover:text-white/90
-                          cursor-default
+                          transition-colors hover:bg-(--accent)/10 hover:text-white/90
+                          cursor-default border border-(--accent)/30
                         "
+                        style={{ padding: '0.5rem 1rem' }}
                       >
                         {tool}
-                      </span>
+                      </GlassEffect>
                     ))}
                   </div>
                 </div>

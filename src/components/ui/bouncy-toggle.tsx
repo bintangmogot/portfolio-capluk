@@ -85,8 +85,8 @@ export function PremiumToggle({
         
         {/* Thumb tactile ridges */}
         <div className="relative flex gap-[2px] opacity-70">
-          <div className={cn("w-[1.5px] h-3 rounded-full transition-colors", isChecked ? "bg-orange-800/40" : "bg-black/20")} />
-          <div className={cn("w-[1.5px] h-3 rounded-full transition-colors", isChecked ? "bg-orange-800/40" : "bg-black/20")} />
+          <div className={cn("w-[1.5px] h-3 rounded-full transition-colors", isChecked ? "bg-black/40" : "bg-black/20")} />
+          <div className={cn("w-[1.5px] h-3 rounded-full transition-colors", isChecked ? "bg-black/40" : "bg-black/20")} />
         </div>
       </div>
     </button>

@@ -232,8 +232,8 @@ export default function Navbar({
                 onTouchEnd={handleHoldEnd}
                 className={`w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
                   activeSection === section.id
-                    ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-white/20'
+                    ? 'bg-black/40 text-(--accent) border border-(--accent)/40 shadow-[0_0_15px_rgba(255,214,153,0.1)]'
+                    : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-(--accent)/30'
                 }`}
               >
                 <span className="shrink-0">

@@ -185,8 +185,8 @@ function CursorVideoPreview({
       <div
         className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
         style={{
-          border: '1.5px solid #FFD699CC',
-          boxShadow: '0 12px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,153,0.15), 0 0 30px rgba(255,180,80,0.12)',
+          border: '1.5px solid #FFD69980',
+          boxShadow: '0 12px 48px rgba(0,0,0,0.5)',
         }}
       >
         {/* YouTube embed as live preview with autoplay + sound */}
@@ -305,18 +305,17 @@ function FloatingPillButton({
       onClick={() => onClick(item)}
     >
       <GlassEffect
-        className="flex items-center gap-4 rounded-full px-5 py-3
-          hover:bg-white/15 active:scale-[0.96]
-          transition-colors duration-300"
-        style={{ border: '1.5px solid #FFD699CC' }}
+        className="group flex items-center px-6 py-2.5 rounded-full transition-all duration-300
+          hover:bg-white/15 active:bg-[#1B1D1D66] active:scale-[0.96]"
+        style={{ border: '1px solid #FFD69980' }}
       >
         {/* Play icon — white default, orange on hover */}
         <div
           ref={iconRef}
           className="w-8 h-8 rounded-full flex items-center justify-center shrink-0
-            bg-white/10 border border-white/30
+            bg-[#FFD69908] border border-[#FFD69944]
             group-hover:bg-linear-to-br group-hover:from-orange-500/80 group-hover:to-orange-700/80
-            group-hover:border-orange-400/40
+            group-hover:border-[#FFD69966]
             transition-all duration-300 mr-4"
         >
           <Play
@@ -397,7 +396,7 @@ function PortfolioCard({
       <GlassEffect
         className="flex flex-col pb-2 sm:pb-5 rounded-2xl overflow-hidden transition-all duration-300
           active:scale-[0.97]"
-        style={{ border: '1.5px solid #FFD699CC' }}
+        style={{ border: '1px solid #FFD69980' }}
       >
         {/* Thumbnail — 3:4 portrait ratio */}
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
@@ -410,26 +409,23 @@ function PortfolioCard({
           <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
           {/* Play overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div
+            <GlassEffect
               className="w-14 h-14 rounded-full flex items-center justify-center
-                bg-white/15 backdrop-blur-sm border border-white/30
-                group-active:bg-orange-500/30 group-active:border-orange-400/40
+                group-active:bg-[#1B1D1D66] group-active:border-orange-400/40
                 transition-all duration-300"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
+              style={{ padding: 0 }}
             >
               <Play size={22} className="text-white ml-0.5" fill="white" strokeWidth={0} />
-            </div>
+            </GlassEffect>
           </div>
           {/* Category badge — liquid glass */}
           <div className="absolute top-3 left-3">
-            <div className="flex items-center gap-1.5
-              bg-white/10 backdrop-blur-md rounded-full px-2.5 py-1
-              border border-white/20">
+            <GlassEffect className="flex items-center gap-1.5 rounded-full px-2.5 py-1" style={{ padding: '0.25rem 0.625rem' }}>
               <item.icon size={9} className="text-amber-300 shrink-0" />
               <span className="font-body text-xs text-white/90 leading-none">
                 {item.category}
               </span>
-            </div>
+            </GlassEffect>
           </div>
         </div>
 
@@ -604,7 +600,7 @@ function VideoModal({
           >
           <GlassEffect
             className="flex flex-col w-full rounded-3xl p-4 pb-8 sm:p-5 md:p-15 md:pt-5"
-            style={{ border: '1.5px solid #FFD699CC' }}
+            style={{ border: '1px solid #FFD69980' }}
           >
             <div className="w-full flex flex-row justify-between pb-3">
             {/* ✦ FLOATING CLOSE BUTTON — always visible, above everything ✦ */}
@@ -618,7 +614,7 @@ function VideoModal({
                 w-12 h-12 sm:w-14 sm:h-14 rounded-full
                 bg-black/60 hover:bg-red-500/40 backdrop-blur-md
                 flex items-center justify-center transition-all duration-300 cursor-pointer
-                border border-white/20 hover:border-red-400/40
+                border border-[#FFD69933] hover:border-red-400/40
                 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
               style={{ zIndex: 10000 }}
             >
@@ -629,15 +625,15 @@ function VideoModal({
             <div className="flex items-center justify-between mb-3 sm:mb-5">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center
-                  bg-linear-to-br from-orange-500/80 to-orange-700/80 border border-orange-400/30">
+                  bg-accent border border-orange-400/30">
                   <item.icon size={16} className="text-white" />
                 </div>
                 <div>
                   <h3 className="font-heading font-extrabold text-white text-h5 mb-2 tracking-[0.12em] uppercase">{item.title}</h3>
                   {/* Category badge — liquid glass */}
                   <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5" style={{ padding: '0.125rem 0.5rem' }}>
-                    <item.icon size={9} className="text-amber-300 shrink-0 mr-2" />
-                    <span className="font-body text-sm text-white/70">{item.category}</span>
+                    <item.icon size={9} className="text-amber-300 shrink-0" />
+                    <span className="font-body text-sm sm:text-base text-white/70">{item.category}</span>
                   </GlassEffect>
                 </div>
               </div>
@@ -645,10 +641,10 @@ function VideoModal({
             </div>
 
             {/* YouTube Embed */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10"
+            <div className="relative rounded-2xl overflow-hidden border border-[#FFD69922]"
               style={{
                 aspectRatio: '16/9',
-                boxShadow: '0 20px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+                boxShadow: '0 20px 80px rgba(0,0,0,0.6)',
               }}
             >
               <iframe
