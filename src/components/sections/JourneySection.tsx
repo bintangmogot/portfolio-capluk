@@ -3,7 +3,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { GlassEffect } from '@/components/ui/liquid-glass';
-import { ScrambleText } from '@/components/ui/ScrambleText';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {
@@ -402,7 +401,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
               }}
             >
-              <ScrambleText text="Journey" trigger={isActive && !activeId} />
+              Journey
             </h2>
             <div className="mt-8 w-40 h-px bg-linear-to-r from-transparent via-accent/50 to-transparent opacity-0 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }} />
           </div>
