@@ -35,7 +35,7 @@ export default function CollabBadge({ isVisible = true }: CollabBadgeProps) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <GlassEffect className="rounded-full px-4 sm:px-5 py-2 flex flex-row items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95">
+        <GlassEffect className="rounded-full px-4 sm:px-5 py-2 flex flex-row items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95 active:bg-[#1B1D1D66]">
           <div className="w-2 h-2 mr-2 rounded-full bg-green-500 animate-pulse shrink-0" />
           <span className="text-[11px] text-white sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
             Open for Collab

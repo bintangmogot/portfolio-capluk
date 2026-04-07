@@ -56,10 +56,10 @@ function BehanceIcon({ className }: { className?: string }) {
    ═══════════════════════════════════════════════════ */
 
 const SOCIAL_LINKS = [
-  { id: 'ig', renderIcon: (cls: string) => <InstagramIcon className={cls} />, label: '@capluk', href: 'https://instagram.com/capluk', hoverColor: 'group-hover:text-[#E1306C]' },
-  { id: 'yt', renderIcon: (cls: string) => <YoutubeIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://youtube.com/@herdaniuslarobu', hoverColor: 'group-hover:text-[#FF0000]' },
-  { id: 'li', renderIcon: (cls: string) => <LinkedinIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://linkedin.com/in/herdaniuslarobu', hoverColor: 'group-hover:text-[#0A66C2]' },
-  { id: 'be', renderIcon: (cls: string) => <BehanceIcon className={cls} />, label: 'Herdanius Capluk', href: 'https://behance.net/herdaniuscapluk', hoverColor: 'group-hover:text-[#1769FF]' },
+  { id: 'ig', renderIcon: (cls: string) => <InstagramIcon className={cls} />, label: '@capluk', href: 'https://instagram.com/capluk' },
+  { id: 'yt', renderIcon: (cls: string) => <YoutubeIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://youtube.com/@herdaniuslarobu' },
+  { id: 'li', renderIcon: (cls: string) => <LinkedinIcon className={cls} />, label: 'Herdanius Larobu', href: 'https://linkedin.com/in/herdaniuslarobu' },
+  { id: 'be', renderIcon: (cls: string) => <BehanceIcon className={cls} />, label: 'Herdanius Capluk', href: 'https://behance.net/herdaniuscapluk' },
 ];
 
 const CONTACT_INFO = [
@@ -142,18 +142,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         ref={mobileRef}
         className="lg:hidden absolute inset-0 flex flex-col px-4 sm:px-8 pt-6 pb-4 gap-4 overflow-y-auto hide-scrollbar pointer-events-auto"
       >
-        {/* Availability Badge */}
-        <div className="flex justify-center">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-body text-white/70 text-xs sm:text-sm tracking-wider uppercase">Available for remote collaboration</span>
-          </div>
-        </div>
 
         {/* Contact Info */}
-        <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-white/5 shrink-0">
+        <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-[#FFD69933] shrink-0">
           <div className="flex flex-col items-center justify-center gap-3 mb-1 w-full">
-            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden border border-[#FFD699] bg-black/10 shadow-lg shrink-0 text-center">
+            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg shrink-0 text-center">
               <img
                 src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
                 alt="Profile"
@@ -163,7 +156,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             </div>
           </div>
           
-          <div className="w-full h-px bg-white/10 mb-1" />
+          <div className="w-full h-px bg-[#FFD69922] mb-1" />
           
           <div className="flex flex-col w-full">
             {CONTACT_INFO.map((info, i) => {
@@ -173,11 +166,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 <div key={info.text} className="flex flex-col">
                   <Wrapper
                     {...(info.href ? { href: info.href, target: info.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener noreferrer' } : {})}
-                    className="flex items-center justify-between w-full px-3 py-2.5 pointer-events-auto hover:bg-white/10 active:bg-white/5 active:scale-[0.98] rounded-lg transition-all duration-300 group"
+                    className="flex items-center justify-between w-full px-3 py-2.5 pointer-events-auto hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] rounded-lg transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-3">
                       <Icon size={15} className="text-accent/80 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                      <span className="font-body text-white/80 text-sm sm:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                      <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                     </div>
                     {info.href && (
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
@@ -185,34 +178,54 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                       </svg>
                     )}
                   </Wrapper>
-                  {i !== CONTACT_INFO.length - 1 && <div className="w-full h-px bg-white/5 my-0.5 ml-8" />}
+                  {i !== CONTACT_INFO.length - 1 && <div className="w-full h-px bg-[#FFD69911] my-0.5 ml-8" />}
                 </div>
               );
             })}
           </div>
+
+          <a
+            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-2 pointer-events-auto"
+          >
+            <GlassEffect 
+              solidOnHover={true}
+              className="w-full rounded-xl px-4 py-2.5 flex flex-row items-center justify-center gap-3 cursor-pointer transition-all duration-300 group shadow-inner"
+            >
+              <div className="flex h-1.5 w-1.5 relative mt-0.5">
+                <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </div>
+              <span className="text-[12px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+                Open for Collab
+              </span>
+            </GlassEffect>
+          </a>
         </GlassEffect>
         
         {/* Social Links */}
-        <GlassEffect className="flex flex-col p-3 sm:p-4 rounded-2xl border-white/5 shrink-0">
+        <GlassEffect className="flex flex-col p-3 sm:p-4 rounded-2xl border-[#FFD69922] shrink-0">
           {SOCIAL_LINKS.map((link, i) => (
             <div key={link.id} className="flex flex-col">
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-white/20 group-hover:bg-white/10 transition-all duration-300">
-                    {link.renderIcon(`w-4 h-4 text-white/60 ${link.hoverColor} group-hover:scale-110 transition-all duration-300`)}
+                  <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
+                    {link.renderIcon(`w-4 h-4 text-white/60 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
                   </div>
-                  <span className="font-body text-white/80 text-sm sm:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
+                  <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
                   <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                 </svg>
               </a>
-              {i !== SOCIAL_LINKS.length - 1 && <div className="w-full h-px bg-white/5 my-0.5" />}
+              {i !== SOCIAL_LINKS.length - 1 && <div className="w-full h-px bg-[#FFD69911] my-0.5" />}
             </div>
           ))}
         </GlassEffect>
@@ -220,12 +233,13 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         {/* Download CV */}
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl border border-accent/40 hover:border-accent/60 active:border-accent/80 hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-500 pointer-events-auto bg-white/5 shrink-0 group hover:shadow-[0_0_20px_var(--accent-glow)]"
+          solidOnHover={true}
+          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl active:scale-[0.98] transition-all duration-500 pointer-events-auto shrink-0 group"
         >
-          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-heading text-white/90 group-hover:text-accent text-base tracking-[0.1em] text-center w-full uppercase transition-colors z-10">Download Full CV</span>
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-heading group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10 font-bold">Download Full CV</span>
           <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>
           </div>
@@ -244,20 +258,20 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         ref={socialRef}
         className="hidden lg:flex absolute top-[32px] bottom-[20%] xl:bottom-[8%] left-[6%] xl:left-[10%] flex-col justify-start gap-4 w-[260px] xl:w-[300px] pointer-events-auto"
       >
-        <GlassEffect className="flex flex-col p-5 rounded-2xl gap-3 border-[#FFD699]/20">
+        <GlassEffect className="flex flex-col p-5 rounded-2xl gap-3 border-[#FFD69944]">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.id}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-300 group cursor-pointer"
+              className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/20 group-hover:bg-white/10 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.05)] transition-all duration-300">
-                {link.renderIcon(`w-4 h-4 text-white/50 ${link.hoverColor} group-hover:scale-110 transition-all duration-300`)}
+              <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
+                {link.renderIcon(`w-4 h-4 text-white/50 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
               </div>
               <div className="flex flex-col">
-                <span className="font-body text-white/80 text-sm xl:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
+                <span className="font-body text-white/80 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
               </div>
             </a>
           ))}
@@ -271,14 +285,13 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         ref={profileRef}
         className="hidden lg:flex absolute top-[32px] bottom-[20%] xl:bottom-[8%] right-[6%] xl:right-[10%] flex-col justify-start gap-4 w-[280px] xl:w-[320px] pointer-events-auto"
       >
-        <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD699]/20">
+        <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD69944]">
           {/* Profile Image */}
-          <div className="w-20 h-20 xl:w-40 xl:h-40 rounded-full overflow-hidden border border-[#FFD699] bg-black/10 shadow-lg">
+          <div className="w-20 h-20 xl:w-auto xl:h-40 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
             <img
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
               alt="Herdanius Larobu"
               className="w-full h-full object-cover"
-              style={{ objectPosition: '48% 6%' }}
             />
           </div>
 
@@ -291,27 +304,34 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 <Wrapper
                   key={info.text}
                   {...(info.href ? { href: info.href, target: info.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener noreferrer' } : {})}
-                  className="flex items-center gap-2.5 w-full justify-center px-3 py-1.5 rounded-lg hover:bg-white/10 active:bg-white/5 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
+                  className="flex items-center gap-2.5 w-full justify-center px-3 py-1.5 rounded-lg hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-300 cursor-pointer group"
                 >
                   <Icon size={14} className="text-accent/60 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                  <span className="font-body text-white/70 text-sm xl:text-base group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                  <span className="font-body text-white/70 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                 </Wrapper>
               );
             })}
           </div>
 
-          <div className="w-full h-px bg-white/8 my-1" />
+          <div className="w-full h-px bg-[#FFD6991A] my-1" />
 
-          {/* Availability Status */}
-          <div ref={statusRef} className="flex items-center gap-2 px-2">
-            <span className="relative flex h-2.5 w-2.5 shrink-0 mt-0.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
-            </span>
-            <span className="font-body text-white/60 text-xs xl:text-sm tracking-wide leading-relaxed">
-              Available for remote collaboration prior to relocation
-            </span>
-          </div>
+          <a
+            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-1 pointer-events-auto"
+          >
+            <GlassEffect 
+              solidOnHover={true} 
+              className="w-full rounded-xl px-4 py-3 flex flex-row items-center justify-center gap-3 cursor-pointer transition-all duration-300 group shadow-inner"
+            >
+              <div className="w-2 h-2 mr-1 rounded-full bg-emerald-500 animate-pulse shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+              <span className="text-[11px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+                Open for Collab
+              </span>
+            </GlassEffect>
+          </a>
+
         </GlassEffect>
       </div>
       
@@ -324,12 +344,14 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
-          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl hover:bg-white/10 active:bg-white/5 active:scale-[0.98] border border-accent/80 hover:border-accent transition-all duration-500 group cursor-pointer shadow-lg hover:shadow-[0_0_20px_var(--accent-glow)]"
-        >
-          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/10 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-body text-white/90 text-sm tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2">Download CV</span>
+          solidOnHover={true}
+          className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer"
+
+>
+          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="font-body tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2 font-bold">Download CV</span>
           <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
               <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
             </svg>
           </div>

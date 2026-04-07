@@ -35,6 +35,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Sparkles,
     position: { top: '25%', left: '16%' },
   },
+  /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'social-ads',
     title: 'Social Media Ads',
@@ -44,6 +45,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Megaphone,
     position: { top: '20%', left: '60%' },
   },
+  */
   {
     id: 'title-design',
     title: 'Title Design Animation',
@@ -51,7 +53,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description: 'Film and series title sequences with layered compositing and custom typeface animation.',
     youtubeId: 'pjySNHbdjB0',
     icon: Type,
-    position: { top: '56%', left: '12%' },
+    position: { top: '64%', left: '20%' },
   },
   {
     id: 'visual-fx',
@@ -71,6 +73,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Palette,
     position: { top: '50%', left: '68%' },
   },
+  /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'motion-track',
     title: '3D Compositing',
@@ -80,6 +83,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Box,
     position: { top: '80%', left: '28%' },
   },
+  */
 ];
 
 /* ════════════════════════════════════════════════════
@@ -179,10 +183,10 @@ function CursorVideoPreview({
       }}
     >
       <div
-        className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
+        className="w-full h-full rounded-xl overflow-hidden shadow-2xl bg-black"
         style={{
-          border: '1.5px solid #FFD699CC',
-          boxShadow: '0 12px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,153,0.15), 0 0 30px rgba(255,180,80,0.12)',
+          border: '1px solid #FFD699',
+          boxShadow: '0 12px 48px rgba(0,0,0,0.5)',
         }}
       >
         {/* YouTube embed as live preview with autoplay + sound */}
@@ -301,29 +305,27 @@ function FloatingPillButton({
       onClick={() => onClick(item)}
     >
       <GlassEffect
-        className="flex items-center gap-4 rounded-full px-5 py-3
-          hover:bg-white/15 active:scale-[0.96]
-          transition-colors duration-300"
-        style={{ border: '1.5px solid #FFD699CC' }}
+        className="group flex items-center px-6 py-2.5 rounded-full transition-all duration-300
+          hover:bg-white/10 active:bg-black/40 active:scale-[0.96]"
+        style={{ border: '1px solid #FFD699' }}
       >
-        {/* Play icon — white default, orange on hover */}
+        {/* Play icon — white default, accent on hover */}
         <div
           ref={iconRef}
           className="w-8 h-8 rounded-full flex items-center justify-center shrink-0
-            bg-white/10 border border-white/30
-            group-hover:bg-linear-to-br group-hover:from-orange-500/80 group-hover:to-orange-700/80
-            group-hover:border-orange-400/40
+            bg-transparent border border-[#FFD699]
+            group-hover:bg-accent
             transition-all duration-300 mr-4"
         >
           <Play
             size={13}
-            className="text-white ml-0.5 group-hover:text-orange-300 transition-colors duration-300"
+            className="text-white ml-0.5 group-hover:text-black transition-colors duration-300"
             fill="currentColor"
             strokeWidth={0}
           />
         </div>
         {/* Label */}
-        <span className="font-heading text-sm text-white/90 tracking-[0.12em] uppercase whitespace-nowrap
+        <span className="font-heading text-body text-white/90 tracking-[0.12em] uppercase whitespace-nowrap
           group-hover:text-white transition-colors duration-300">
           {item.title}
         </span>
@@ -392,8 +394,8 @@ function PortfolioCard({
     >
       <GlassEffect
         className="flex flex-col pb-2 sm:pb-5 rounded-2xl overflow-hidden transition-all duration-300
-          active:scale-[0.97]"
-        style={{ border: '1.5px solid #FFD699CC' }}
+          active:scale-[0.97] bg-black/40"
+        style={{ border: '1px solid #FFD699' }}
       >
         {/* Thumbnail — 3:4 portrait ratio */}
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
@@ -406,26 +408,23 @@ function PortfolioCard({
           <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
           {/* Play overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center
-                bg-white/15 backdrop-blur-sm border border-white/30
-                group-active:bg-orange-500/30 group-active:border-orange-400/40
+            <GlassEffect
+              className="w-14 h-14 rounded-full flex items-center justify-center border border-[#FFD699]
+                group-active:bg-accent group-active:border-[#FFD699]
                 transition-all duration-300"
-              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
+              style={{ padding: 0 }}
             >
-              <Play size={22} className="text-white ml-0.5" fill="white" strokeWidth={0} />
-            </div>
+              <Play size={22} className="text-[#FFD699] group-active:text-black ml-0.5 transition-colors" fill="currentColor" strokeWidth={0} />
+            </GlassEffect>
           </div>
           {/* Category badge — liquid glass */}
           <div className="absolute top-3 left-3">
-            <div className="flex items-center gap-1.5
-              bg-white/10 backdrop-blur-md rounded-full px-2.5 py-1
-              border border-white/20">
-              <item.icon size={9} className="text-amber-300 shrink-0" />
+            <GlassEffect className="flex items-center gap-1.5 rounded-full px-2.5 py-1 border border-[#FFD699]" style={{ padding: '0.25rem 0.625rem' }}>
+              <item.icon size={9} className="text-accent shrink-0" />
               <span className="font-body text-xs text-white/90 leading-none">
                 {item.category}
               </span>
-            </div>
+            </GlassEffect>
           </div>
         </div>
 
@@ -434,16 +433,15 @@ function PortfolioCard({
           <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-full flex items-center justify-center shrink-0
-                bg-linear-to-br from-orange-500/80 to-orange-700/80 border border-orange-400/40
-                shadow-[0_0_10px_rgba(255,140,50,0.25)]"
+                bg-accent border border-[#FFD699]"
             >
-              <item.icon size={13} className="text-white" />
+              <item.icon size={13} className="text-black" />
             </div>
-            <h4 className="font-heading text-lg sm:text-xl text-white tracking-widest uppercase truncate">
+            <h4 className="font-heading text-h5 text-white tracking-widest uppercase truncate">
               {item.title}
             </h4>
           </div>
-          <p className="font-body text-sm sm:text-base text-white/70 leading-relaxed line-clamp-3">
+          <p className="font-body text-body text-white/70 leading-relaxed line-clamp-3">
             {item.description}
           </p>
         </div>
@@ -599,8 +597,8 @@ function VideoModal({
             onClick={(e) => e.stopPropagation()}
           >
           <GlassEffect
-            className="flex flex-col w-full rounded-3xl p-4 pb-8 sm:p-5 md:p-15 md:pt-5"
-            style={{ border: '1.5px solid #FFD699CC' }}
+            className="flex flex-col w-full rounded-3xl p-4 pb-8 sm:p-5 md:p-15 md:pt-5 bg-black/80"
+            style={{ border: '1px solid #FFD699' }}
           >
             <div className="w-full flex flex-row justify-between pb-3">
             {/* ✦ FLOATING CLOSE BUTTON — always visible, above everything ✦ */}
@@ -612,41 +610,38 @@ function VideoModal({
               }}
               className="order-2 mb-3 sm:mb-5
                 w-12 h-12 sm:w-14 sm:h-14 rounded-full
-                bg-black/60 hover:bg-red-500/40 backdrop-blur-md
+                bg-black backdrop-blur-md
                 flex items-center justify-center transition-all duration-300 cursor-pointer
-                border border-white/20 hover:border-red-400/40
-                shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                border border-[#FFD699] hover:bg-accent group"
               style={{ zIndex: 10000 }}
             >
-              <X size={22} className="text-white" />
+              <X size={22} className="text-[#FFD699] group-hover:text-black transition-colors" />
             </button>
 
             {/* Header bar */}
             <div className="flex items-center justify-between mb-3 sm:mb-5">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center
-                  bg-linear-to-br from-orange-500/80 to-orange-700/80 border border-orange-400/30">
-                  <item.icon size={16} className="text-white" />
+                  bg-accent border border-[#FFD699]">
+                  <item.icon size={16} className="text-black" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-extrabold text-white text-base sm:text-lg tracking-[0.12em] uppercase">{item.title}</h3>
+                  <h3 className="font-heading font-extrabold text-[#FFD699] text-h5 mb-2 tracking-[0.12em] uppercase">{item.title}</h3>
                   {/* Category badge — liquid glass */}
-                  <div className="flex items-center gap-1.5 mt-0.5
-                    w-fit bg-white/10 backdrop-blur-md rounded-full px-2 py-0.5
-                    border border-white/20">
-                    <item.icon size={9} className="text-amber-300 shrink-0" />
+                  <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5 border border-[#FFD699]" style={{ padding: '0.125rem 0.5rem' }}>
+                    <item.icon size={9} className="text-accent shrink-0" />
                     <span className="font-body text-sm sm:text-base text-white/70">{item.category}</span>
-                  </div>
+                  </GlassEffect>
                 </div>
               </div>
             </div>
             </div>
 
             {/* YouTube Embed */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10"
+            <div className="relative rounded-2xl overflow-hidden border border-[#FFD69922]"
               style={{
                 aspectRatio: '16/9',
-                boxShadow: '0 20px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+                boxShadow: '0 20px 80px rgba(0,0,0,0.6)',
               }}
             >
               <iframe
