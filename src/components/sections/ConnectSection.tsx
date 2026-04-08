@@ -94,20 +94,20 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       // Desktop animations
       if (profileRef.current) {
         gsap.fromTo(profileRef.current,
-          { x: -50, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+          { x: -100, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out', delay: 0.1 }
         );
       }
       if (socialRef.current) {
         gsap.fromTo(socialRef.current,
-          { x: 50, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out', delay: 0.15 }
+          { x: 100, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out', delay: 0.15 }
         );
       }
       if (cvRef.current) {
         gsap.fromTo(cvRef.current,
-          { x: 50, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, duration: 0.6, ease: 'back.out(1.5)', delay: 0.35 }
+          { x: 100, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.6, ease: 'back.out(1.5)', delay: 0.25 }
         );
       }
       if (statusRef.current) {
@@ -255,9 +255,9 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
 
       {/* Right Column: Social Links and CV */}
       <div
-        className="hidden lg:flex absolute top-[32px] bottom-[32px] right-[6%] xl:right-[5%] flex-col justify-between items-end w-[280px] xl:w-[320px] pointer-events-auto"
+        className="hidden lg:flex absolute bottom-[48px] right-[6%] xl:right-[1%] flex-col gap-18 items-end w-[280px] xl:w-[320px] pointer-events-auto"
       >
-        {/* Social Links (Top/Center Right) */}
+        {/* Social Links */}
         <div
           ref={socialRef}
           className="w-full"
@@ -282,10 +282,10 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           </GlassEffect>
         </div>
 
-        {/* Download CV (Right side, Vertically Lower/Centered) */}
+        {/* Download CV (Right side, below socials) */}
         <div 
           ref={cvRef}
-          className="w-full flex justify-start mb-[5%] mr-[30%]">
+          className="w-full flex justify-start mr-20">
           <GlassEffect 
             href="/cv-herdanius-larobu.pdf" 
             solidOnHover={true}
@@ -305,11 +305,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       {/* Left Column: Profile Info Card */}
       <div
         ref={profileRef}
-        className="hidden lg:flex absolute top-[32px] left-[6%] xl:left-[10%] flex-col justify-start gap-4 w-[280px] xl:w-[320px] pointer-events-auto"
+        className="hidden lg:flex absolute bottom-[24px] left-[6%] flex-col justify-end gap-4 w-[320px] pointer-events-auto"
       >
         <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD69944]">
           {/* Profile Image */}
-          <div className="w-20 h-20 xl:w-auto xl:h-40 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
+          <div className="w-20 h-20 md:w-30 md:h-30 xl:w-auto xl:h-32 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
             <img
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
               alt="Herdanius Larobu"
