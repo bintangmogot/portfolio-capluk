@@ -127,33 +127,88 @@ function CursorVideoPreview({
   mouseY: number;
 }) {
   const previewRef = useRef<HTMLDivElement>(null);
-  const smoothPos = useRef({ x: mouseX, y: mouseY });
+  const smoothPos = useRef({ x: 0, y: 0 });
+  const rawPos = useRef({ x: 0, y: 0 });
+  const offsetPos = useRef({ x: 20, y: -140 });
   const rafRef = useRef<number | null>(null);
+  const wasVisible = useRef(false);
 
-  // Smooth lerp animation loop
+  // Preview dimensions + viewport padding
+  const PREVIEW_W = 300;
+  const PREVIEW_H = 170;
+  const EDGE_PAD = 12;
+  const CURSOR_OFFSET_X = 20;
+  const CURSOR_OFFSET_Y = -140;
+
+  // Sync latest mouse position into a ref (no RAF restart)
+  useEffect(() => {
+    rawPos.current = { x: mouseX, y: mouseY };
+  }, [mouseX, mouseY]);
+
+  // Snap smooth position when first becoming visible (avoids lerp from 0,0)
+  useEffect(() => {
+    if (isVisible && !wasVisible.current) {
+      smoothPos.current = { x: mouseX, y: mouseY };
+      offsetPos.current = { x: CURSOR_OFFSET_X, y: CURSOR_OFFSET_Y };
+    }
+    wasVisible.current = isVisible;
+  }, [isVisible, mouseX, mouseY]);
+
+  // Single stable RAF loop — only depends on [isVisible], reads coords from ref
   useEffect(() => {
     if (!isVisible) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
       return;
     }
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const animate = () => {
-      smoothPos.current.x = lerp(smoothPos.current.x, mouseX, 0.12);
-      smoothPos.current.y = lerp(smoothPos.current.y, mouseY, 0.12);
+      smoothPos.current.x = lerp(smoothPos.current.x, rawPos.current.x, 0.15);
+      smoothPos.current.y = lerp(smoothPos.current.y, rawPos.current.y, 0.15);
 
       if (previewRef.current) {
-        previewRef.current.style.transform = `translate3d(${smoothPos.current.x + 20}px, ${smoothPos.current.y - 140}px, 0)`;
+        // Default target offsets
+        let targetOffsetX = CURSOR_OFFSET_X;
+        let targetOffsetY = CURSOR_OFFSET_Y;
+
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        // Check if default position would overflow right
+        if (smoothPos.current.x + targetOffsetX + PREVIEW_W + EDGE_PAD > vw) {
+          targetOffsetX = -PREVIEW_W - CURSOR_OFFSET_X;
+        }
+
+        // Check if default position would overflow top
+        if (smoothPos.current.y + targetOffsetY < EDGE_PAD) {
+          targetOffsetY = 30; // Place below cursor
+        }
+
+        // Lerp offsets for smooth flipping animation
+        offsetPos.current.x = lerp(offsetPos.current.x, targetOffsetX, 0.12);
+        offsetPos.current.y = lerp(offsetPos.current.y, targetOffsetY, 0.12);
+
+        let px = smoothPos.current.x + offsetPos.current.x;
+        let py = smoothPos.current.y + offsetPos.current.y;
+
+        // Hard clamping to ensure it never goes off-screen
+        if (px < EDGE_PAD) px = EDGE_PAD;
+        if (py + PREVIEW_H + EDGE_PAD > vh) py = vh - PREVIEW_H - EDGE_PAD;
+
+        previewRef.current.style.transform = `translate3d(${px}px, ${py}px, 0)`;
       }
+
       rafRef.current = requestAnimationFrame(animate);
     };
 
     rafRef.current = requestAnimationFrame(animate);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [isVisible]);
 
   // Fade in/out
   useGSAP(() => {
@@ -763,17 +818,18 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
           />
         )}
 
-        {/* Cursor-following video preview (desktop only) — inside wrapper for consistent fading */}
-        {device === 'desktop' && (
-          <CursorVideoPreview
-            youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
-            title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
-            isVisible={hoveredIndex !== null && isActive}
-            mouseX={mousePos.x}
-            mouseY={mousePos.y}
-          />
-        )}
       </div>
+
+      {/* Cursor-following video preview (desktop only) — outside wrapper to prevent visibility conflicts  */}
+      {device === 'desktop' && (
+        <CursorVideoPreview
+          youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
+          title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
+          isVisible={hoveredIndex !== null && isActive}
+          mouseX={mousePos.x}
+          mouseY={mousePos.y}
+        />
+      )}
 
       {/* Modal */}
       <VideoModal
