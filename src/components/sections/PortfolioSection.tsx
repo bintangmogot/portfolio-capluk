@@ -140,6 +140,14 @@ function CursorVideoPreview({
   const CURSOR_OFFSET_X = 20;
   const CURSOR_OFFSET_Y = -140;
 
+  const [showIframe, setShowIframe] = useState(false);
+
+  useEffect(() => {
+    if (isVisible) {
+      setShowIframe(true);
+    }
+  }, [isVisible]);
+
   // Sync latest mouse position into a ref (no RAF restart)
   useEffect(() => {
     rawPos.current = { x: mouseX, y: mouseY };
@@ -226,9 +234,22 @@ function CursorVideoPreview({
         scale: 0.8,
         duration: 0.2,
         ease: 'power2.in',
+        onComplete: () => {
+          // Erase it / place it outside the screen completely when fade out finishes
+          setShowIframe(false); // Stop the video so it doesn't play in the background
+          if (previewRef.current) {
+            previewRef.current.style.transform = `translate3d(-9999px, -9999px, 0)`;
+            previewRef.current.style.visibility = 'hidden';
+            previewRef.current.style.opacity = '0';
+          }
+        }
       });
     }
   }, [isVisible]);
+
+  // Don't render the iframe if we have absolutely no youtubeId, but because we preserve it
+  // on fade out, it will only be empty on the very first load.
+  if (!youtubeId) return null;
 
   return (
     <div
@@ -240,6 +261,7 @@ function CursorVideoPreview({
         visibility: 'hidden',
         opacity: 0,
         transformOrigin: 'bottom left',
+        transform: 'translate3d(-9999px, -9999px, 0)', // initial off-screen
       }}
     >
       <div
@@ -250,13 +272,15 @@ function CursorVideoPreview({
         }}
       >
         {/* YouTube embed as live preview with autoplay + sound */}
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}`}
-          title={`Preview: ${title}`}
-          className="w-full h-full"
-          style={{ border: 'none' }}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        />
+        {showIframe && (
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}`}
+            title={`Preview: ${title}`}
+            className="w-full h-full"
+            style={{ border: 'none' }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+        )}
         {/* Title overlay at bottom */}
         <div className="absolute bottom-0 inset-x-0 px-3 py-2 bg-linear-to-t from-black/70 to-transparent">
           <p className="text-white text-[10px] font-heading tracking-widest uppercase opacity-90">{title}</p>
@@ -732,6 +756,7 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
   const device = useDeviceType();
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activePreviewItem, setActivePreviewItem] = useState<PortfolioItem | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [modalItem, setModalItem] = useState<PortfolioItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -762,6 +787,7 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
 
   const handleHoverStart = useCallback((index: number) => {
     setHoveredIndex(index);
+    setActivePreviewItem(PORTFOLIO_ITEMS[index]);
   }, []);
 
   const handleHoverEnd = useCallback(() => {
@@ -823,8 +849,8 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
       {/* Cursor-following video preview (desktop only) — outside wrapper to prevent visibility conflicts  */}
       {device === 'desktop' && (
         <CursorVideoPreview
-          youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
-          title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
+          youtubeId={activePreviewItem?.youtubeId || ''}
+          title={activePreviewItem?.title || ''}
           isVisible={hoveredIndex !== null && isActive}
           mouseX={mousePos.x}
           mouseY={mousePos.y}
