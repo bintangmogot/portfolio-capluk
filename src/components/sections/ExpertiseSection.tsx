@@ -315,24 +315,22 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
         </div>
 
 
-        {/* MOBILE VIEW */}
-        <div className="flex md:hidden flex-row h-full">
-           {ALL_CATEGORIES.map((cat, i) => (
-             <div key={cat.id} className="shrink-0 w-screen h-full relative flex flex-col items-center justify-center px-8">
-                <div ref={el => { blockRefs.current[i+4] = el; }} className="flex flex-col items-center text-center opacity-0 group">
-                  <div className="relative mb-6 flex flex-col items-center">
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
-                    <div className="h-[2px] bg-linear-to-r from-transparent via-accent to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out" />
-                  </div>
-                  <ul className="flex flex-col space-y-2">
-                    {cat.items.map((item, idx) => (
-                      <li key={idx} className="expertise-item font-body text-body text-white/70 hover:text-white transition-colors duration-300 px-4 leading-tight">{item}</li>
-                    ))}
-                  </ul>
-                </div>
-             </div>
-           ))}
-        </div>
+        {/* MOBILE VIEW — pages directly in scroll container for pixel-perfect scroll alignment */}
+        {ALL_CATEGORIES.map((cat, i) => (
+          <div key={`mobile-${cat.id}`} className="shrink-0 w-full h-full md:hidden relative flex flex-col items-center justify-center px-3">
+            <div ref={el => { blockRefs.current[i+4] = el; }} className="flex flex-col items-center text-center opacity-0 group">
+              <div className="relative mb-6 flex flex-col items-center">
+                <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
+                <div className="h-[2px] bg-linear-to-r from-transparent via-accent to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out" />
+              </div>
+              <ul className="flex flex-col space-y-3">
+                {cat.items.map((item, idx) => (
+                  <li key={idx} className="expertise-item font-body text-body text-white/70 hover:text-white transition-colors duration-300 px-4 leading-tight">{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* SCROLL DOTS INDICATOR (Both Desktop & Mobile) */}
