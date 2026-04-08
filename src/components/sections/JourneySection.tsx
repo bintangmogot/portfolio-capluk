@@ -324,6 +324,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
     return () => window.removeEventListener('scroll', handleScroll, true);
   }, [pinnedId, hoveredId]);
 
+  // Cleanup on section change (Issue #31)
+  useEffect(() => {
+    if (!isActive) {
+      setPinnedId(null);
+      setHoveredId(null);
+    }
+  }, [isActive]);
+
   const handleClick = (id: string) => {
     setPinnedId((prev) => (prev === id ? null : id));
   };
@@ -390,7 +398,11 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
         {/* ── BACKGROUND LAYER (Opening Title) ── z-0 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
           <div 
-            className={`flex flex-col items-center justify-center transition-all duration-1000 ease-out-expo ${activeId ? 'opacity-0 scale-90 -translate-y-4 blur-sm' : 'opacity-100 scale-100 translate-y-0 blur-0'}`}
+            className={`flex flex-col items-center justify-center transition-all ease-out-expo ${
+              activeId 
+                ? 'duration-150 opacity-0 scale-95 -translate-y-4 blur-sm' 
+                : 'duration-500 opacity-100 scale-100 translate-y-0 blur-0 delay-500'
+            }`}
           >
             <div className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-3 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
               The Timeline.
@@ -657,16 +669,18 @@ export default function JourneySection({ isActive }: JourneySectionProps) {
       gsap.to(sectionRef.current, {
         autoAlpha: 1,
         y: 0,
-        duration: 0.6,
+        duration: 0.3,
         ease: 'power3.out',
         delay: 0.15,
+        overwrite: true,
       });
     } else {
       gsap.to(sectionRef.current, {
         autoAlpha: 0,
-        y: 30,
-        duration: 0.4,
+        y: 60,
+        duration: 0.05,
         ease: 'power2.in',
+        overwrite: true,
       });
     }
   }, [isActive]);
