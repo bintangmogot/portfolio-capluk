@@ -212,19 +212,6 @@ export default function Navbar({
     >
         {/* Navigation Buttons */}
         <div className="flex items-center justify-center shrink-0 w-full overflow-visible py-1 px-1">
-          
-          {/* Logo - Hidden on mobile and tablet */}
-          <button 
-            onClick={() => onNavigate(-1)}
-            className="hidden lg:flex items-center shrink-0 pr-3 mr-1 border-r border-white/10 cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <img 
-              src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1" 
-              alt="Capluk Logo" 
-              className="w-auto h-7 sm:w-auto sm:h-8 hover:saturate-150 rounded-lg transition-all duration-300" 
-            />
-          </button>
-
           {/* Buttons List */}
           <div className="flex items-center w-full lg:w-auto lg:justify-center shrink-0 px-2 lg:px-0 gap-[2px] sm:gap-1.5">
           {sections.map((section, idx) => (
