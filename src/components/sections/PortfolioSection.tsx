@@ -132,6 +132,11 @@ function CursorVideoPreview({
 
   // Smooth lerp animation loop
   useEffect(() => {
+    if (!isVisible) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      return;
+    }
+
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const animate = () => {
@@ -148,7 +153,7 @@ function CursorVideoPreview({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isVisible]);
 
   // Fade in/out
   useGSAP(() => {
@@ -708,6 +713,13 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
     setHoveredIndex(null);
   }, []);
 
+  // Reset hover state when section becomes inactive to prevent stuck preview
+  useEffect(() => {
+    if (!isActive) {
+      setHoveredIndex(null);
+    }
+  }, [isActive]);
+
   const handleClick = useCallback((item: PortfolioItem) => {
     setModalItem(item);
     setIsModalOpen(true);
@@ -750,18 +762,18 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
             isActive={isActive}
           />
         )}
-      </div>
 
-      {/* Cursor-following video preview (desktop only) */}
-      {device === 'desktop' && (
-        <CursorVideoPreview
-          youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
-          title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
-          isVisible={hoveredIndex !== null}
-          mouseX={mousePos.x}
-          mouseY={mousePos.y}
-        />
-      )}
+        {/* Cursor-following video preview (desktop only) — inside wrapper for consistent fading */}
+        {device === 'desktop' && (
+          <CursorVideoPreview
+            youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
+            title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
+            isVisible={hoveredIndex !== null && isActive}
+            mouseX={mousePos.x}
+            mouseY={mousePos.y}
+          />
+        )}
+      </div>
 
       {/* Modal */}
       <VideoModal
