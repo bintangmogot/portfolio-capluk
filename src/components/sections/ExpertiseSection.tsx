@@ -7,11 +7,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ExpertiseSectionProps {
-  isActive: boolean;
+interface Category {
+  id: string;
+  title: string;
+  items: string[];
+  align: 'start' | 'end';
+  desktopStyle: { top?: string; bottom?: string; left?: string; right?: string };
+  tabletStyle?: { top?: string; bottom?: string; left?: string; right?: string };
 }
 
-const ALL_CATEGORIES = [
+const ALL_CATEGORIES: Category[] = [
   {
     id: 'multimedia',
     title: 'Multimedia Production',
@@ -25,7 +30,8 @@ const ALL_CATEGORIES = [
       'Media Asset management',
     ],
     align: 'start',
-    desktopStyle: { top: '6%', left: '8%' }
+    desktopStyle: { bottom: '5%', left: '5%' },
+    tabletStyle: { bottom: '10%', left: '8%' }
   },
   {
     id: 'tools',
@@ -39,7 +45,8 @@ const ALL_CATEGORIES = [
       'Digital Camera Production',
     ],
     align: 'end',
-    desktopStyle: { top: '38%', right: '10%' }
+    desktopStyle: { top: '12%', right: '8%' },
+    tabletStyle: { top: '15%', right: '10%' }
   },
   {
     id: 'ai-emerging',
@@ -51,8 +58,9 @@ const ALL_CATEGORIES = [
       'Real-time Virtual Production',
       'AI-Driven Workflow Automation',
     ],
-    align: 'start',
-    desktopStyle: { top: '22%', left: '6%' }
+    align: 'end',
+    desktopStyle: { top: '15%', right: '12%' },
+    tabletStyle: { top: '12%', right: '12%' }
   },
   {
     id: 'vfx-motion',
@@ -64,18 +72,30 @@ const ALL_CATEGORIES = [
       'Rotoscoping & camera tracking',
       'Particle system',
     ],
-    align: 'end',
-    desktopStyle: { bottom: '15%', right: '12%' }
+    align: 'start',
+    desktopStyle: { bottom: '10%', left: '0%' },
+    tabletStyle: { bottom: '10%', left: '4%' }
   },
 ];
 
-export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
+
+export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isScrolling = useRef(false);
   const currentPage = useRef(0);
   const [activePage, setActivePage] = useState(0);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
+    };
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
 
   useGSAP(() => {
     if (!containerRef.current || !scrollContainerRef.current) return;
@@ -247,45 +267,53 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
         
         {/* DESKTOP VIEW */}
         <div className="hidden md:flex flex-row h-full">
-           <div className="shrink-0 w-screen h-full relative">
-             {ALL_CATEGORIES.slice(0, 2).map((cat, i) => (
-                <div key={cat.id} ref={el => { blockRefs.current[i] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={cat.desktopStyle}>
-                  <div className={`relative mb-4 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300 whitespace-pre-line">{cat.title}</h3>
-                    <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-500 ease-in-out`} />
+           {/* PAGE 1 */}
+           <div className="shrink-0 w-screen h-full flex items-center justify-center">
+             <div className="max-w-7xl max-h-[800px] mx-auto w-full h-full relative">
+               {ALL_CATEGORIES.slice(0, 2).map((cat, i) => (
+                  <div key={cat.id} ref={el => { blockRefs.current[i] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={isTablet && cat.tabletStyle ? cat.tabletStyle : cat.desktopStyle}>
+                    <div className={`relative mb-4 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
+                      <h3 className="font-display font-bold text-2xl text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300 whitespace-pre-line">{cat.title}</h3>
+                      <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-500 ease-in-out`} />
+                    </div>
+                    <ul className="flex flex-col space-y-2">
+                      {cat.items.map((item, idx) => (
+                        <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
+                          {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
+                          <span>{item}</span>
+                          {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-col space-y-2">
-                    {cat.items.map((item, idx) => (
-                      <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
-                        {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
-                        <span>{item}</span>
-                        {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-             ))}
+               ))}
+             </div>
            </div>
-           <div className="shrink-0 w-screen h-full relative">
-             {ALL_CATEGORIES.slice(2).map((cat, i) => (
-                <div key={cat.id} ref={el => { blockRefs.current[i+2] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={cat.desktopStyle}>
-                  <div className={`relative mb-2 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                    <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
-                    <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out`} />
+
+           {/* PAGE 2 */}
+           <div className="shrink-0 w-screen h-full flex items-center justify-center">
+             <div className="max-w-7xl max-h-[800px] mx-auto w-full h-full relative">
+               {ALL_CATEGORIES.slice(2).map((cat, i) => (
+                  <div key={cat.id} ref={el => { blockRefs.current[i+2] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={isTablet && cat.tabletStyle ? cat.tabletStyle : cat.desktopStyle}>
+                    <div className={`relative mb-2 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
+                      <h3 className="font-display font-bold text-2xl text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
+                      <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out`} />
+                    </div>
+                    <ul className="flex flex-col space-y-2">
+                      {cat.items.map((item, idx) => (
+                        <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item leading-tight ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
+                          {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
+                          <span>{item}</span>
+                          {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-col space-y-2">
-                    {cat.items.map((item, idx) => (
-                      <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item leading-tight ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
-                        {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
-                        <span>{item}</span>
-                        {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-             ))}
+               ))}
+             </div>
            </div>
         </div>
+
 
         {/* MOBILE VIEW */}
         <div className="flex md:hidden flex-row h-full">
@@ -306,7 +334,7 @@ export default function ExpertiseSection({ isActive }: ExpertiseSectionProps) {
            ))}
         </div>
       </div>
-      
+
       {/* SCROLL DOTS INDICATOR (Both Desktop & Mobile) */}
       <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20 pointer-events-auto">
         {Array.from({ length: typeof window !== 'undefined' && window.innerWidth < 768 ? ALL_CATEGORIES.length : 2 }).map((_, i) => (
