@@ -220,14 +220,14 @@ export default function Navbar({
               <div 
                 className={`
                   md:hidden absolute -top-10 left-1/2 -translate-x-1/2 
-                  px-3 py-1.5 rounded-lg bg-black/80 border border-white/20
+                  px-3 py-1.5 rounded-lg bg-black/80 border border-(--border-color)
                   text-white text-[10px] tracking-widest uppercase font-bold
                   transition-all duration-300 pointer-events-none z-50
                   ${holdingId === section.id ? 'opacity-100 -top-6 scale-100' : 'opacity-0 -top-8 scale-90'}
                 `}
               >
                 {section.id}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-r border-b border-white/20" />
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-r border-b border-(--border-color)" />
               </div>
 
               <button
@@ -240,8 +240,8 @@ export default function Navbar({
                 onTouchEnd={handleHoldEnd}
                 className={`nav-btn-target w-full flex items-center justify-center gap-1.5 px-3 py-3 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full font-heading cursor-pointer transition-all duration-300 ${
                   activeSection === section.id
-                    ? 'bg-black/40 text-(--accent) border border-(--accent)/40 shadow-[0_0_15px_rgba(255,214,153,0.1)]'
-                    : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-(--accent)/30'
+                    ? 'bg-black/40 text-(--accent) border border-(--border-color) shadow-[0_0_15px_rgba(255,214,153,0.1)]'
+                    : 'text-white/60 hover:text-white hover:bg-white/10 hover:border hover:border-(--border-color)'
                 }`}
               >
                 <span className="shrink-0">

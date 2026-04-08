@@ -120,7 +120,7 @@
   --theme-accent:    #FFDE00;
   --theme-secondary: #FFFFFF;
   --border-glow: rgba(255, 214, 153, 0.15);
-  --border-color: #FFD6994D;
+  --border-color: #FFD699;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --mouse-glow: rgba(255, 214, 153, 0.2);
   --solid-hover-bg: rgba(0, 0, 0, 0.4);
@@ -134,7 +134,7 @@
   --theme-secondary: #000000; /* Black base */
   --accent-solid:    #FF8C00; 
   --accent-glow:     rgba(255, 140, 0, 0.4);
-  --border-color:    #FF8C004D;
+  --border-color:    #FF8C00;
   --glass-bg:        rgba(0, 0, 0, 0.6); /* Black Glass */
   --mouse-glow:      rgba(255, 140, 0, 0.03); /* Darker color for mouse glow */
   --solid-hover-bg:   #040000;

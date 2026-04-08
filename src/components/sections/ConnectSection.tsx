@@ -144,9 +144,9 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
       >
 
         {/* Contact Info */}
-        <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-[#FFD69933] shrink-0">
+        <GlassEffect className="flex flex-col p-4 sm:p-5 rounded-2xl gap-3 border-(--border-color) shrink-0">
           <div className="flex flex-col items-center justify-center gap-3 mb-1 w-full">
-            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg shrink-0 text-center">
+            <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-(--border-color) bg-black/10 shadow-lg shrink-0 text-center">
               <img
                 src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
                 alt="Profile"
@@ -156,7 +156,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             </div>
           </div>
           
-          <div className="w-full h-px bg-[#FFD69922] mb-1" />
+          <div className="w-full h-px bg-(--border-color)/20 mb-1" />
           
           <div className="flex flex-col w-full">
             {CONTACT_INFO.map((info, i) => {
@@ -178,7 +178,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                       </svg>
                     )}
                   </Wrapper>
-                  {i !== CONTACT_INFO.length - 1 && <div className="w-full h-px bg-[#FFD69911] my-0.5 ml-8" />}
+                  {i !== CONTACT_INFO.length - 1 && <div className="w-full h-px bg-(--border-color)/10 my-0.5 ml-8" />}
                 </div>
               );
             })}
@@ -206,7 +206,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         </GlassEffect>
         
         {/* Social Links */}
-        <GlassEffect className="flex flex-col p-3 sm:p-4 rounded-2xl border-[#FFD69922] shrink-0">
+        <GlassEffect className="flex flex-col p-3 sm:p-4 rounded-2xl border-(--border-color) shrink-0">
           {SOCIAL_LINKS.map((link, i) => (
             <div key={link.id} className="flex flex-col">
               <a
@@ -216,7 +216,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
+                  <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-(--border-color)/40 flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
                     {link.renderIcon(`w-4 h-4 text-white/60 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
                   </div>
                   <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
@@ -225,7 +225,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                 </svg>
               </a>
-              {i !== SOCIAL_LINKS.length - 1 && <div className="w-full h-px bg-[#FFD69911] my-0.5" />}
+              {i !== SOCIAL_LINKS.length - 1 && <div className="w-full h-px bg-(--border-color)/10 my-0.5" />}
             </div>
           ))}
         </GlassEffect>
@@ -262,7 +262,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           ref={socialRef}
           className="w-full"
         >
-          <GlassEffect className="flex flex-col p-5 rounded-2xl gap-3 border-[#FFD69944]">
+          <GlassEffect className="flex flex-col p-5 rounded-2xl gap-3 border-(--border-color)">
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.id}
@@ -271,7 +271,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-[#FFD69933] flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-(--border-color)/40 flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
                   {link.renderIcon(`w-4 h-4 text-white/50 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
                 </div>
                 <div className="flex flex-col">
@@ -307,9 +307,9 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         ref={profileRef}
         className="hidden lg:flex absolute bottom-[24px] left-[6%] flex-col justify-end gap-4 w-[320px] pointer-events-auto"
       >
-        <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-[#FFD69944]">
+        <GlassEffect className="flex flex-col items-center p-5 rounded-2xl gap-3 border-(--border-color)">
           {/* Profile Image */}
-          <div className="w-20 h-20 md:w-30 md:h-30 xl:w-auto xl:h-32 rounded-full overflow-hidden border-2 border-[#FFD699CC] bg-black/10 shadow-lg">
+          <div className="w-20 h-20 md:w-30 md:h-30 xl:w-auto xl:h-32 rounded-full overflow-hidden border-2 border-(--border-color) bg-black/10 shadow-lg">
             <img
               src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Frame_1"
               alt="Herdanius Larobu"
@@ -335,7 +335,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             })}
           </div>
 
-          <div className="w-full h-px bg-[#FFD6991A] my-1" />
+          <div className="w-full h-px bg-(--border-color)/10 my-1" />
 
           <a
             href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."

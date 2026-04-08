@@ -1,0 +1,24 @@
+title:	style: standardize border color to 100% across all sections
+state:	OPEN
+author:	bintangmogot (Bintang Aprilian)
+labels:	style
+comments:	0
+assignees:	
+projects:	
+milestone:	
+number:	28
+--
+## Description
+Standardize border color across all components. The border color should be consistent and match the 100% opacity style used on the Portfolio section buttons.
+
+## What to audit
+- [ ] GlassEffect component border
+- [ ] Navbar container borders
+- [ ] Card components (Journey, About, Connect)
+- [ ] Button borders in all sections
+- [ ] Ensure no `border-white/10`, `border-white/20`, etc. ??? replace all with consistent token
+
+## Reference
+Use the Portfolio section buttons as the reference for the correct border style.
+
+**Branch:** `feat/client-revisions-v2`

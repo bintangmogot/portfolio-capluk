@@ -160,7 +160,7 @@ function MediaCard({ card }: { card: MilestoneCard }) {
   if (!imgSrc) return null;
 
   return (
-    <GlassEffect className="rounded-[20px] overflow-hidden border-[#FFD69933] w-full sm:w-1/2 lg:w-full sm:mx-auto bg-black/40 shrink-0 shadow-xl group relative">
+    <GlassEffect className="rounded-[20px] overflow-hidden border-(--border-color) w-full sm:w-1/2 lg:w-full sm:mx-auto bg-black/40 shrink-0 shadow-xl group relative">
       <div className="relative w-full h-auto lg:h-[180px]">
         <img
           src={imgSrc}
@@ -203,7 +203,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       </div>
 
       {/* Description */}
-      <div className="relative pt-2 border-t-2 border-white/20">
+      <div className="relative pt-2 border-t border-accent/80">
         <p className="font-body text-sm text-white/70 font-light leading-relaxed">
           {card.description}
         </p>
@@ -213,7 +213,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-1">
           {card.achievements.map((ach, i) => (
-            <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent bg-black/40 border border-accent/20 rounded-full">
+            <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent bg-black/40 border border-accent/40 rounded-full">
               <Award size={14} className="text-accent" />
               <span>{ach}</span>
             </div>
@@ -331,7 +331,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
   const Timeline = (
     <div ref={timelineRef} className="relative flex items-center justify-between w-full max-w-5xl mx-auto px-6 h-full">
       {/* Line */}
-      <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-white/15" />
+      <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-px bg-accent/50" />
 
       {MILESTONES.map((milestone, idx) => {
         const IconComponent = milestone.icon;
@@ -351,8 +351,8 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
                 isActive
-                  ? 'bg-[#1B1D1D66] border-[#FFD69966] shadow-[0_0_20px_rgba(255,214,153,0.3)]'
-                  : 'bg-white/5 border-white/15 group-hover:border-[#FFD69944] group-hover:bg-white/10'
+                  ? 'bg-[#1B1D1D66] border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
+                  : 'bg-white/5 border-(--border-color)/20 group-hover:border-(--border-color) group-hover:bg-white/10'
               }`}
             >
               <IconComponent
@@ -459,18 +459,18 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                       }}
                     >
                       <GlassEffect 
-                        className="p-5 rounded-[24px] w-fit border-[#FFD69933] shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
+                        className="p-5 rounded-[24px] w-fit border-accent/50 shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
                         style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.7), rgba(0,0,0,0.8))' }}
                       >
                         <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
                           {extraImages.map((img, i) => (
-                            <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-white/30">
+                            <div key={i} className="relative w-[75px] aspect-2/3 rounded-[8px] overflow-hidden group/poster shadow-[0_4px_12px_rgba(0,0,0,0.5)] border border-(--border-color)">
                               <img src={img} alt="Extra" className="w-full h-full object-cover transition-transform duration-500 group-hover/poster:scale-110" />
                               <div className="absolute inset-0 bg-black/40 group-hover/poster:bg-transparent transition-colors duration-300" />
                             </div>
                           ))}
                         </div>
-                        <div className="mt-4 pt-3 border-t border-white/30 w-full text-center">
+                        <div className="mt-4 pt-3 border-t border-accent/50 w-full text-center">
                           <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
                             {extraImages.length} Feature Films
                           </span>
@@ -555,7 +555,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
   return (
     <div ref={containerRef} className="w-full h-full flex flex-col gap-4">
       <div className="relative flex items-center justify-between px-2">
-        <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-white/10" />
+        <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-(--border-color)/30" />
         {MILESTONES.map((m, idx) => {
           const Icon = m.icon;
           const isActive = idx === activeIndex;
@@ -582,10 +582,10 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           <span className="font-body text-body text-white/80 tracking-wider">{milestone.role} — {milestone.company}</span>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30">
+          <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronLeft size={14} className="text-white/80" />
           </button>
-          <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === MILESTONES.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-white/25 flex items-center justify-center cursor-pointer disabled:opacity-30">
+          <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === MILESTONES.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronRight size={14} className="text-white/80" />
           </button>
         </div>
@@ -611,7 +611,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-3 w-full snap-x snap-mandatory px-2 pb-2">
                 {extraImages.map((img, i) => (
-                  <div key={i} className="relative shrink-0 w-[90px] aspect-2/3 rounded-xl overflow-hidden border border-white/10 snap-center shadow-lg bg-black/50">
+                  <div key={i} className="relative shrink-0 w-[90px] aspect-2/3 rounded-xl overflow-hidden border border-(--border-color) snap-center shadow-lg bg-black/50">
                     <img src={img} alt={`Poster ${i + 1}`} className="absolute inset-0 w-full h-full object-cover opacity-90" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                   </div>
