@@ -2,6 +2,10 @@
 
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { GlassEffect } from '@/components/ui/liquid-glass';
+import ThemeToggle from './ThemeToggle';
+import LanguageSwitch from './LanguageSwitch';
+import { cn } from '@/lib/utils';
+import { useLanguage } from '@/components/LanguageProvider';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {
@@ -38,6 +42,7 @@ export default function Navbar({
   onNavigate,
   children,
 }: NavbarProps) {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const contentWrapRef = useRef<HTMLDivElement>(null);
   const contentInnerRef = useRef<HTMLDivElement>(null);
@@ -226,7 +231,7 @@ export default function Navbar({
                   ${holdingId === section.id ? 'opacity-100 -top-6 scale-100' : 'opacity-0 -top-8 scale-90'}
                 `}
               >
-                {section.id}
+                {t(`nav.${section.id}`)}
                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-r border-b border-(--border-color)" />
               </div>
 
@@ -250,7 +255,7 @@ export default function Navbar({
                     strokeWidth: 1.8
                   })}
                 </span>
-                <span className="hidden md:inline-block text-[11px] uppercase tracking-[0.15em] leading-none">{section.id}</span>
+                <span className="hidden md:inline-block text-[11px] uppercase tracking-[0.15em] leading-none">{t(`nav.${section.id}`)}</span>
               </button>
             </div>
           ))}

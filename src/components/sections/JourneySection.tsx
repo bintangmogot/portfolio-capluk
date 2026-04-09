@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { GlassEffect } from '@/components/ui/liquid-glass';
 import { gsap } from 'gsap';
@@ -15,6 +15,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { useLanguage } from '@/components/LanguageProvider';
 
 gsap.registerPlugin(useGSAP);
 
@@ -42,117 +43,6 @@ interface Milestone {
   accentColor: string;
   cards: MilestoneCard[];
 }
-
-// ─── Data ───
-const MILESTONES: Milestone[] = [
-  {
-    id: 'edu-smk',
-    year: '2011 – 2014',
-    role: 'Broadcasting Student',
-    company: 'Vocational School',
-    companyType: 'Education',
-    icon: GraduationCap,
-    accentColor: 'from-purple-500/20 to-pink-600/20',
-    cards: [
-      {
-        type: 'media',
-        title: 'First Takes',
-        imageSrc: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=80',
-        imageAlt: 'Early broadcasting days',
-      },
-      {
-        type: 'info',
-        role: 'Student',
-        company: 'Vocational School',
-        title: 'The Starting Point',
-        description: 'Studied multimedia, camera operation, and video editing. Discovered a deep passion for visual storytelling and digital arts.',
-        achievements: ['Best Video Project', 'Broadcasting Club Leader', 'Early exposure to video editing'],
-      },
-    ],
-  },
-  {
-    id: 'starvision',
-    year: '2015 – 2018',
-    role: 'Visual FX Artist',
-    company: 'Starvision Plus',
-    companyType: 'Film Company',
-    icon: Clapperboard,
-    accentColor: 'from-amber-500/20 to-orange-600/20',
-    cards: [
-      {
-        type: 'media',
-        title: 'Featured Films',
-        images: [
-          'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80',
-          'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80',
-          'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400&q=80',
-          'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=80',
-          'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400&q=80',
-          'https://images.unsplash.com/photo-1578269174936-2709b6aeb913?w=400&q=80',
-        ],
-        imageAlt: 'Featured Film - Starvision Plus',
-      },
-      {
-        type: 'info',
-        role: 'Visual FX Artist',
-        company: 'Starvision Plus',
-        title: 'Building the Foundation',
-        description: 'Worked on VFX compositing and motion tracking for feature films. Developed skills in Nuke, After Effects, and on-set VFX supervision for Indonesian cinema productions.',
-        achievements: ['VFX shots for 3+ feature films', 'On-set VFX supervision', 'Compositing & motion tracking'],
-      },
-    ],
-  },
-  {
-    id: 'freelance',
-    year: '2019 – 2021',
-    role: 'Film Director',
-    company: 'Freelance',
-    companyType: 'Independent',
-    icon: Film,
-    accentColor: 'from-blue-500/20 to-indigo-600/20',
-    cards: [
-      {
-        type: 'media',
-        imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
-        imageAlt: 'Independent Film Direction',
-        title: 'Director\'s Reel',
-      },
-      {
-        type: 'info',
-        role: 'Film Director',
-        company: 'Freelance',
-        title: 'Forging a Vision',
-        description: 'Transitioned from VFX to full creative direction. Led independent film projects, commercial productions, and music videos. Built a signature visual style blending practical and digital techniques.',
-        achievements: ['Directed 10+ commercial projects', 'Music video direction', 'Creative storytelling leadership'],
-      },
-    ],
-  },
-  {
-    id: 'mataque',
-    year: '2022 – Present',
-    role: 'Creative Director',
-    company: 'Mataque Studio',
-    companyType: 'Creative Agency',
-    icon: Palette,
-    accentColor: 'from-emerald-500/20 to-teal-600/20',
-    cards: [
-      {
-        type: 'media',
-        imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
-        imageAlt: 'Mataque Studio Projects',
-        title: 'Studio Highlights',
-      },
-      {
-        type: 'info',
-        role: 'Creative Director',
-        company: 'Mataque Studio',
-        title: 'Leading the Vision',
-        description: 'Leading creative strategy for a full-service production studio. Overseeing brand campaigns, motion design projects, and building a team of visual storytellers across digital platforms.',
-        achievements: ['Studio creative leadership', 'Brand campaign strategy', 'Team building & mentorship'],
-      },
-    ],
-  },
-];
 
 // ─── Media Card ───
 function MediaCard({ card }: { card: MilestoneCard }) {
@@ -235,7 +125,8 @@ function RenderCard({ card }: { card: MilestoneCard }) {
 // ═══════════════════════════════════════════
 //  DESKTOP: Hover/Click Timeline
 // ═══════════════════════════════════════════
-function DesktopTimeline({ isActive }: { isActive: boolean }) {
+function DesktopTimeline({ isActive, milestones }: { isActive: boolean, milestones: Milestone[] }) {
+  const { t } = useLanguage();
   const [pinnedId, setPinnedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -272,10 +163,10 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
 
   // Animate card visibility
   useGSAP(() => {
-    MILESTONES.forEach((m, idx) => {
+    milestones.forEach((m, idx) => {
       const el = cardGroupRefs.current[m.id];
       const extraEl = extraGroupRefs.current[m.id];
-      const isLeftHalf = idx < MILESTONES.length / 2;
+      const isLeftHalf = idx < milestones.length / 2;
 
       if (activeId === m.id) {
         if (el) gsap.to(el, {
@@ -341,10 +232,10 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
       {/* Line */}
       <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-px bg-accent/50" />
 
-      {MILESTONES.map((milestone, idx) => {
+      {milestones.map((milestone, idx) => {
         const IconComponent = milestone.icon;
         const isActive = activeId === milestone.id;
-        const position = 20 + (idx / (MILESTONES.length - 1)) * 60; // Map to 20%-80% range
+        const position = 20 + (idx / (milestones.length - 1)) * 60; // Map to 20%-80% range
 
         return (
           <div
@@ -390,8 +281,6 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
     </div>
   );
 
-  const activeMilestone = MILESTONES.find(m => m.id === activeId);
-
   return (
     <>
       <div className="relative w-full h-full pointer-events-none overflow-visible">
@@ -405,7 +294,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             }`}
           >
             <div className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-3 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-              The Timeline.
+              {t('journey.tagline')}
             </div>
             <h2
               className="font-display font-w-display text-h2 leading-[0.9] tracking-wide text-white uppercase text-center cursor-default select-none"
@@ -413,7 +302,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
               }}
             >
-              Journey
+              {t('journey.title')}
             </h2>
             <div className="mt-8 w-40 h-px bg-linear-to-r from-transparent via-accent/50 to-transparent opacity-0 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }} />
           </div>
@@ -421,10 +310,9 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
 
         {/* ── Card Containers (float above) ── */}
           <div className="relative w-full h-full" style={{ minHeight: '300px' }}>
-            {MILESTONES.map((milestone, idx) => {
+            {milestones.map((milestone, idx) => {
             // Updated range to match timeline icons (20% - 80%)
-              const position = 20 + (idx / (MILESTONES.length - 1)) * 60;
-            const isLeftHalf = idx < MILESTONES.length / 2;
+              const position = 20 + (idx / (milestones.length - 1)) * 60;
               
             // Find extra images
                const extraImages: string[] = [];
@@ -484,7 +372,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                         </div>
                         <div className="mt-4 pt-3 border-t border-accent/50 w-full text-center">
                           <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
-                            {extraImages.length} Feature Films
+                            {t('journey.milestones.films_count', { count: extraImages.length })}
                           </span>
                         </div>
                       </GlassEffect>
@@ -505,18 +393,19 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
 // ═══════════════════════════════════════════
 //  MOBILE: Swipe Carousel
 // ═══════════════════════════════════════════
-function MobileTimeline({ isActive }: { isActive: boolean }) {
+function MobileTimeline({ isActive, milestones }: { isActive: boolean, milestones: Milestone[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
-  const milestone = MILESTONES[activeIndex];
+  const milestone = milestones[activeIndex];
 
   const goTo = useCallback((index: number) => {
-    const clamped = Math.max(0, Math.min(MILESTONES.length - 1, index));
+    const clamped = Math.max(0, Math.min(milestones.length - 1, index));
     setActiveIndex(clamped);
-  }, []);
+  }, [milestones.length]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -568,7 +457,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
     <div ref={containerRef} className="w-full h-full flex flex-col gap-4">
       <div className="relative flex items-center justify-between px-2">
         <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-(--border-color)/30" />
-        {MILESTONES.map((m, idx) => {
+        {milestones.map((m, idx) => {
           const Icon = m.icon;
           const isActive = idx === activeIndex;
           return (
@@ -597,7 +486,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronLeft size={14} className="text-white/80" />
           </button>
-          <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === MILESTONES.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
+          <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === milestones.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronRight size={14} className="text-white/80" />
           </button>
         </div>
@@ -618,7 +507,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           return (
             <div className="w-full mt-1">
               <div className="flex items-center justify-between mb-3 px-2">
-                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">Feature Films ({extraImages.length})</span>
+                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">{t('journey.milestones.films_count', { count: extraImages.length })}</span>
                 <div className="h-px flex-1 bg-linear-to-r from-white/10 to-transparent" />
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-3 w-full snap-x snap-mandatory px-2 pb-2">
@@ -635,7 +524,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       </div>
 
       <div className="flex justify-center gap-1.5 mt-1">
-        {MILESTONES.map((_, idx) => (
+        {milestones.map((_, idx) => (
           <div key={idx} className={`h-1 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-white/20'}`} />
         ))}
       </div>
@@ -654,6 +543,133 @@ interface JourneySectionProps {
 export default function JourneySection({ isActive }: JourneySectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const { t } = useLanguage();
+
+  const MILESTONES: Milestone[] = useMemo(() => [
+    {
+      id: 'edu-smk',
+      year: '2011 – 2014',
+      role: t('journey.milestones.edu-smk.role'),
+      company: t('journey.milestones.edu-smk.company'),
+      companyType: t('journey.milestones.edu-smk.companyType'),
+      icon: GraduationCap,
+      accentColor: 'from-purple-500/20 to-pink-600/20',
+      cards: [
+        {
+          type: 'media',
+          title: t('journey.milestones.edu-smk.card0.title'),
+          imageSrc: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=80',
+          imageAlt: 'Early broadcasting days',
+        },
+        {
+          type: 'info',
+          role: t('journey.milestones.edu-smk.role'),
+          company: t('journey.milestones.edu-smk.company'),
+          title: t('journey.milestones.edu-smk.card1.title'),
+          description: t('journey.milestones.edu-smk.card1.description'),
+          achievements: [
+            t('journey.milestones.edu-smk.card1.ach1'),
+            t('journey.milestones.edu-smk.card1.ach2'),
+            t('journey.milestones.edu-smk.card1.ach3')
+          ],
+        },
+      ],
+    },
+    {
+      id: 'starvision',
+      year: '2015 – 2018',
+      role: t('journey.milestones.starvision.role'),
+      company: t('journey.milestones.starvision.company'),
+      companyType: t('journey.milestones.starvision.companyType'),
+      icon: Clapperboard,
+      accentColor: 'from-amber-500/20 to-orange-600/20',
+      cards: [
+        {
+          type: 'media',
+          title: t('journey.milestones.starvision.card0.title'),
+          images: [
+            'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80',
+            'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80',
+            'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400&q=80',
+            'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=80',
+            'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400&q=80',
+            'https://images.unsplash.com/photo-1578269174936-2709b6aeb913?w=400&q=80',
+          ],
+          imageAlt: 'Featured Film - Starvision Plus',
+        },
+        {
+          type: 'info',
+          role: t('journey.milestones.starvision.role'),
+          company: t('journey.milestones.starvision.company'),
+          title: t('journey.milestones.starvision.card1.title'),
+          description: t('journey.milestones.starvision.card1.description'),
+          achievements: [
+            t('journey.milestones.starvision.card1.ach1'),
+            t('journey.milestones.starvision.card1.ach2'),
+            t('journey.milestones.starvision.card1.ach3')
+          ],
+        },
+      ],
+    },
+    {
+      id: 'freelance',
+      year: '2019 – 2021',
+      role: t('journey.milestones.freelance.role'),
+      company: t('journey.milestones.freelance.company'),
+      companyType: t('journey.milestones.freelance.companyType'),
+      icon: Film,
+      accentColor: 'from-blue-500/20 to-indigo-600/20',
+      cards: [
+        {
+          type: 'media',
+          imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
+          imageAlt: 'Independent Film Direction',
+          title: t('journey.milestones.freelance.card0.title'),
+        },
+        {
+          type: 'info',
+          role: t('journey.milestones.freelance.role'),
+          company: t('journey.milestones.freelance.company'),
+          title: t('journey.milestones.freelance.card1.title'),
+          description: t('journey.milestones.freelance.card1.description'),
+          achievements: [
+            t('journey.milestones.freelance.ach1'),
+            t('journey.milestones.freelance.ach2'),
+            t('journey.milestones.freelance.ach3')
+          ],
+        },
+      ],
+    },
+    {
+      id: 'mataque',
+      year: '2022 – Present',
+      role: t('journey.milestones.mataque.role'),
+      company: t('journey.milestones.mataque.company'),
+      companyType: t('journey.milestones.mataque.companyType'),
+      icon: Palette,
+      accentColor: 'from-emerald-500/20 to-teal-600/20',
+      cards: [
+        {
+          type: 'media',
+          imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
+          imageAlt: 'Mataque Studio Projects',
+          title: t('journey.milestones.mataque.card0.title'),
+        },
+        {
+          type: 'info',
+          role: t('journey.milestones.mataque.role'),
+          company: t('journey.milestones.mataque.company'),
+          title: t('journey.milestones.mataque.card1.title'),
+          description: t('journey.milestones.mataque.card1.description'),
+          achievements: [
+            t('journey.milestones.mataque.ach1'),
+            t('journey.milestones.mataque.ach2'),
+            t('journey.milestones.mataque.ach3')
+          ],
+        },
+      ],
+    },
+  ], [t]);
 
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
@@ -692,7 +708,7 @@ export default function JourneySection({ isActive }: JourneySectionProps) {
       style={{ opacity: 0, visibility: 'hidden' }}
     >
       <div className="w-full max-w-5xl h-full flex flex-col justify-start relative pointer-events-auto overflow-y-auto lg:overflow-visible no-scrollbar pt-4">
-        {isLargeScreen ? <DesktopTimeline isActive={isActive} /> : <MobileTimeline isActive={isActive} />}
+        {isLargeScreen ? <DesktopTimeline isActive={isActive} milestones={MILESTONES} /> : <MobileTimeline isActive={isActive} milestones={MILESTONES} />}
       </div>
     </div>
   );

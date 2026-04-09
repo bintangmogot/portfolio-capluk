@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Plus_Jakarta_Sans, Outfit, Sora, ABeeZee, Bungee, Rubik_Mono_One, Russo_One, Vina_Sans, Archivo_Black, Unbounded, Syne, Titan_One, Montserrat, Poppins } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { LanguageProvider } from '@/components/LanguageProvider';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
@@ -61,7 +62,9 @@ export default function RootLayout({
       </head>
       <body className={`${fontVars} antialiased`}>
         <ThemeProvider>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

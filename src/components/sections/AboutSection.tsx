@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useLanguage } from '@/components/LanguageProvider';
 
 gsap.registerPlugin(useGSAP);
 
@@ -10,19 +11,22 @@ interface AboutSectionProps {
   isActive: boolean;
 }
 
-const ROLES = [
-  'Creative Director',
-  'Motion Designer',
-  'VFX Artist',
-  'Film Director',
+const ROLE_KEYS = [
+  'role.creative_director',
+  'role.motion_designer',
+  'role.vfx_artist',
+  'role.film_director',
 ];
 
 export default function AboutSection({ isActive }: AboutSectionProps) {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const roleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  const ROLES = ROLE_KEYS.map(key => t(key));
 
   useGSAP(() => {
     if (!sectionRef.current) return;
@@ -137,7 +141,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
             ref={taglineRef}
             className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
           >
-            Herdanius Larobu.
+            {t('about.tagline')}
           </div>
 
           {/* Name — massive display font */}
@@ -148,7 +152,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
               textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
             }}
           >
-            Capluk
+            {t('about.name')}
           </h1>
 
           {/* Role titles — staggered, looping float animation */}

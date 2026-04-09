@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { MapPin, Phone, Mail, Globe, Download } from 'lucide-react';
 import { GlassEffect } from '@/components/ui/liquid-glass';
+import { useLanguage } from '@/components/LanguageProvider';
 
 interface ConnectSectionProps {
   isActive: boolean;
@@ -63,15 +64,11 @@ const SOCIAL_LINKS = [
 ];
 
 const CONTACT_INFO = [
-  { icon: MapPin, text: 'Bali, Indonesia', href: 'https://www.google.com/maps/search/?api=1&query=Dalung,+North+Kuta,+Badung+Regency,+Bali' },
-  { icon: Phone, text: '+62 8159070977', href: 'tel:+628159070977' },
-  { icon: Mail, text: 'Herdaniuslarobu@gmail.com', href: 'mailto:Herdaniuslarobu@gmail.com' },
-  { icon: Globe, text: 'mataquestudio.com', href: 'https://mataquestudio.com' },
+  { id: 'loc', icon: MapPin, textKey: 'connect.location', href: 'https://www.google.com/maps/search/?api=1&query=Dalung,+North+Kuta,+Badung+Regency,+Bali' },
+  { id: 'phone', icon: Phone, textKey: '+62 8159070977', href: 'tel:+628159070977', isLiteral: true },
+  { id: 'mail', icon: Mail, textKey: 'Herdaniuslarobu@gmail.com', href: 'mailto:Herdaniuslarobu@gmail.com', isLiteral: true },
+  { id: 'web', icon: Globe, textKey: 'mataquestudio.com', href: 'https://mataquestudio.com', isLiteral: true },
 ];
-
-import { MarqueeRow, COMPANIES_ROW_1, COMPANIES_ROW_2 } from '@/components/ui/Marquee';
-
-
 
 /* ═══════════════════════════════════════════════════
    MAIN COMPONENT
@@ -84,6 +81,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
   const cvRef = useRef<HTMLDivElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useGSAP(() => {
     if (!sectionRef.current) return;
@@ -129,6 +127,8 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
     }
   }, [isActive]);
 
+  const waLink = `https://wa.me/+628159070977?text=${encodeURIComponent(t('connect.wa_message'))}`;
+
   return (
     <div
       ref={sectionRef}
@@ -162,15 +162,16 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             {CONTACT_INFO.map((info, i) => {
               const Icon = info.icon;
               const Wrapper = info.href ? 'a' : 'div';
+              const displayText = info.isLiteral ? info.textKey : t(info.textKey);
               return (
-                <div key={info.text} className="flex flex-col">
+                <div key={info.id} className="flex flex-col">
                   <Wrapper
                     {...(info.href ? { href: info.href, target: info.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener noreferrer' } : {})}
                     className="flex items-center justify-between w-full px-3 py-2.5 pointer-events-auto hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] rounded-lg transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-3">
                       <Icon size={15} className="text-accent/80 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                      <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                      <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{displayText}</span>
                     </div>
                     {info.href && (
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
@@ -185,7 +186,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           </div>
 
           <a
-            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full mt-2 pointer-events-auto"
@@ -199,7 +200,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </div>
               <span className="text-[12px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
-                Open for Collab
+                {t('connect.open_collab')}
               </span>
             </GlassEffect>
           </a>
@@ -231,19 +232,24 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         </GlassEffect>
 
         {/* Download CV */}
-        <GlassEffect 
+        <a 
           href="/cv-herdanius-larobu.pdf" 
-          solidOnHover={true}
-          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl active:scale-[0.98] transition-all duration-500 pointer-events-auto shrink-0 group"
+          target="_blank"
+          className="w-full pointer-events-auto shrink-0"
         >
-          <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="font-heading group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10 font-bold">Download Full CV</span>
-          <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
-              <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
-            </svg>
-          </div>
-        </GlassEffect>
+          <GlassEffect 
+            solidOnHover={true}
+            className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl active:scale-[0.98] transition-all duration-500 group"
+          >
+            <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <span className="font-heading group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10 font-bold">{t('connect.download_cv')}</span>
+            <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-accent transition-all duration-300 z-10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
+                <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
+              </svg>
+            </div>
+          </GlassEffect>
+        </a>
 
 
       </div>
@@ -286,19 +292,20 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         <div 
           ref={cvRef}
           className="w-full flex justify-start mr-20">
-          <GlassEffect 
-            href="/cv-herdanius-larobu.pdf" 
-            solidOnHover={true}
-            className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            <span className="font-body tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2 font-bold">Download CV</span>
-            <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
-                <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
-              </svg>
-            </div>
-          </GlassEffect>
+          <a href="/cv-herdanius-larobu.pdf" target="_blank">
+            <GlassEffect 
+              solidOnHover={true}
+              className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-3 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <span className="font-body tracking-[0.05em] group-hover:text-accent transition-colors z-10 relative pr-2 font-bold">{t('connect.download_cv')}</span>
+              <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 group-hover:stroke-black! transition-transform duration-300">
+                  <path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/>
+                </svg>
+              </div>
+            </GlassEffect>
+          </a>
         </div>
       </div>
 
@@ -322,14 +329,15 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             {CONTACT_INFO.map((info) => {
               const Icon = info.icon;
               const Wrapper = info.href ? 'a' : 'div';
+              const displayText = info.isLiteral ? info.textKey : t(info.textKey);
               return (
                 <Wrapper
-                  key={info.text}
+                  key={info.id}
                   {...(info.href ? { href: info.href, target: info.href.startsWith('http') ? '_blank' : undefined, rel: 'noopener noreferrer' } : {})}
                   className="flex items-center gap-2.5 w-full justify-center px-3 py-1.5 rounded-lg hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-300 cursor-pointer group"
                 >
                   <Icon size={14} className="text-accent/60 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                  <span className="font-body text-white/70 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                  <span className="font-body text-white/70 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{displayText}</span>
                 </Wrapper>
               );
             })}
@@ -338,7 +346,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           <div className="w-full h-px bg-(--border-color)/10 my-1" />
 
           <a
-            href="https://wa.me/+628159070977?text=Hi%20Capluk!%20I'm%20ready%20for%20collab.%20I'd%20like%20to%20collaborate%20with%20you."
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full mt-1 pointer-events-auto"
@@ -349,7 +357,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
             >
               <div className="w-2 h-2 mr-1 rounded-full bg-emerald-500 animate-pulse shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
               <span className="text-[11px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
-                Open for Collab
+                {t('connect.open_collab')}
               </span>
             </GlassEffect>
           </a>

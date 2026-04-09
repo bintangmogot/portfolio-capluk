@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback, useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Play, X, Sparkles, Megaphone, Type, Layers, Palette, Box } from 'lucide-react';
+import { Play, X, Sparkles, Megaphone, Type, Layers } from 'lucide-react';
 import { GlassEffect } from '@/components/ui/liquid-glass';
+import { useLanguage } from '@/components/LanguageProvider';
 
 gsap.registerPlugin(useGSAP);
 
@@ -24,67 +25,6 @@ interface PortfolioItem {
     left: string;
   };
 }
-
-const PORTFOLIO_ITEMS: PortfolioItem[] = [
-  {
-    id: 'intro-anim',
-    title: 'Intro Animation',
-    category: 'Motion Design',
-    description: 'Cinematic intro sequences blending 3D elements with dynamic typography for branded content.',
-    youtubeId: 'JC43XNJB2YY',
-    icon: Sparkles,
-    position: { top: '25%', left: '16%' },
-  },
-  /* Temporarily hidden per client request — uncomment to restore
-  {
-    id: 'social-ads',
-    title: 'Social Media Ads',
-    category: 'Advertising',
-    description: 'Scroll-stopping ad creatives optimized for Instagram Reels, TikTok, and YouTube Shorts.',
-    youtubeId: 'J-lQmA3C3fQ',
-    icon: Megaphone,
-    position: { top: '20%', left: '60%' },
-  },
-  */
-  {
-    id: 'title-design',
-    title: 'Title Design Animation',
-    category: 'Title Sequence',
-    description: 'Film and series title sequences with layered compositing and custom typeface animation.',
-    youtubeId: 'pjySNHbdjB0',
-    icon: Type,
-    position: { top: '64%', left: '20%' },
-  },
-  {
-    id: 'visual-fx',
-    title: 'Visual FX',
-    category: 'VFX Compositing',
-    description: 'Photorealistic compositing, green screen keying, and particle simulations for feature productions.',
-    youtubeId: 't8Uvtf5SLA0',
-    icon: Layers,
-    position: { top: '80%', left: '64%' },
-  },
-  {
-    id: 'social-ads',
-    title: 'Social Media Ads',
-    category: 'Advertising',
-    description: 'Scroll-stopping ad creatives optimized for Instagram Reels, TikTok, and YouTube Shorts.',
-    youtubeId: 'J-lQmA3C3fQ',
-    icon: Megaphone,
-    position: { top: '50%', left: '68%' },
-  },
-  /* Temporarily hidden per client request — uncomment to restore
-  {
-    id: 'motion-track',
-    title: '3D Compositing',
-    category: 'VFX Pipeline',
-    description: 'Camera tracking, 3D integration, and environment extension for seamless visual effects.',
-    youtubeId: 't8Uvtf5SLA0',
-    icon: Box,
-    position: { top: '80%', left: '28%' },
-  },
-  */
-];
 
 /* ════════════════════════════════════════════════════
    DEVICE TYPE HOOK — mobile / tablet / desktop
@@ -744,16 +684,49 @@ function VideoModal({
   );
 }
 
-/* ════════════════════════════════════════════════════
-   PORTFOLIO SECTION — Main export
-   ════════════════════════════════════════════════════ */
-interface PortfolioSectionProps {
-  isActive: boolean;
-}
-
 export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const device = useDeviceType();
+  const { t } = useLanguage();
+
+  const PORTFOLIO_ITEMS: PortfolioItem[] = useMemo(() => [
+    {
+      id: 'intro-anim',
+      title: t('portfolio.item.intro.title'),
+      category: t('portfolio.item.intro.category'),
+      description: t('portfolio.item.intro.desc'),
+      youtubeId: 'JC43XNJB2YY',
+      icon: Sparkles,
+      position: { top: '25%', left: '16%' },
+    },
+    {
+      id: 'title-design',
+      title: t('portfolio.item.title.title'),
+      category: t('portfolio.item.title.category'),
+      description: t('portfolio.item.title.desc'),
+      youtubeId: 'pjySNHbdjB0',
+      icon: Type,
+      position: { top: '64%', left: '20%' },
+    },
+    {
+      id: 'visual-fx',
+      title: t('portfolio.item.vfx.title'),
+      category: t('portfolio.item.vfx.category'),
+      description: t('portfolio.item.vfx.desc'),
+      youtubeId: 't8Uvtf5SLA0',
+      icon: Layers,
+      position: { top: '80%', left: '64%' },
+    },
+    {
+      id: 'social-ads',
+      title: t('portfolio.item.ads.title'),
+      category: t('portfolio.item.ads.category'),
+      description: t('portfolio.item.ads.desc'),
+      youtubeId: 'J-lQmA3C3fQ',
+      icon: Megaphone,
+      position: { top: '50%', left: '68%' },
+    },
+  ], [t]);
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activePreviewItem, setActivePreviewItem] = useState<PortfolioItem | null>(null);
@@ -788,81 +761,82 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
   const handleHoverStart = useCallback((index: number) => {
     setHoveredIndex(index);
     setActivePreviewItem(PORTFOLIO_ITEMS[index]);
-  }, []);
+  }, [PORTFOLIO_ITEMS]);
 
   const handleHoverEnd = useCallback(() => {
     setHoveredIndex(null);
   }, []);
 
-  // Reset hover state when section becomes inactive to prevent stuck preview
   useEffect(() => {
     if (!isActive) {
       setHoveredIndex(null);
+      setIsModalOpen(false);
     }
   }, [isActive]);
 
-  const handleClick = useCallback((item: PortfolioItem) => {
+  const openModal = (item: PortfolioItem) => {
     setModalItem(item);
     setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setTimeout(() => setModalItem(null), 400);
-  }, []);
+    setHoveredIndex(null); // Stop preview when opening modal
+  };
 
   return (
-    <>
       <div
         ref={sectionRef}
-        className="absolute inset-0 pointer-events-none select-none"
-        style={{ visibility: 'hidden', opacity: 0 }}
-      >
-        {/* ── DESKTOP: floating scattered pill buttons ── */}
-        {device === 'desktop' && (
-          <div className="absolute inset-0">
-            {PORTFOLIO_ITEMS.map((item, index) => (
+      className="absolute inset-0 z-10 pointer-events-none select-none invisible opacity-0 bg-transparent overflow-hidden"
+    >
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
+        <div 
+          className={`flex flex-col items-center justify-center transition-all duration-700 ease-out-expo ${
+            hoveredIndex !== null 
+              ? 'opacity-0 scale-95 -translate-y-4 blur-sm' 
+              : 'opacity-100 scale-100 translate-y-0 blur-0 delay-150'
+          }`}
+        >
+        </div>
+      </div>
+
+      <div className="relative w-full h-full pointer-events-none z-10">
+        {device === 'desktop' ? (
+          PORTFOLIO_ITEMS.map((item, idx) => (
               <FloatingPillButton
                 key={item.id}
                 item={item}
-                index={index}
+              index={idx}
                 onHoverStart={handleHoverStart}
                 onHoverEnd={handleHoverEnd}
-                onClick={handleClick}
+              onClick={openModal}
                 isActive={isActive}
               />
-            ))}
-          </div>
-        )}
-
-        {/* ── MOBILE & TABLET: scrollable card grid ── */}
-        {device !== 'desktop' && (
+          ))
+        ) : (
           <PortfolioCardScroll
             items={PORTFOLIO_ITEMS}
-            onClick={handleClick}
+            onClick={openModal}
             isActive={isActive}
           />
         )}
-
       </div>
 
-      {/* Cursor-following video preview (desktop only) — outside wrapper to prevent visibility conflicts  */}
-      {device === 'desktop' && (
+      {device === 'desktop' && activePreviewItem && (
         <CursorVideoPreview
-          youtubeId={activePreviewItem?.youtubeId || ''}
-          title={activePreviewItem?.title || ''}
-          isVisible={hoveredIndex !== null && isActive}
+          youtubeId={activePreviewItem.youtubeId}
+          title={activePreviewItem.title}
+          isVisible={hoveredIndex !== null && !isModalOpen}
           mouseX={mousePos.x}
           mouseY={mousePos.y}
         />
       )}
 
-      {/* Modal */}
       <VideoModal
         item={modalItem}
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        onClose={() => setIsModalOpen(false)}
       />
-    </>
+    </div>
   );
+}
+
+interface PortfolioSectionProps {
+  isActive: boolean;
 }

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { GlassFilter, GlassEffect } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
+import LanguageSwitch from '@/components/layout/LanguageSwitch';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
@@ -12,7 +13,7 @@ import ConnectSection from '@/components/sections/ConnectSection';
 import PortfolioSection from '@/components/sections/PortfolioSection';
 import JourneySection from '@/components/sections/JourneySection';
 import MarqueeGroup from '@/components/ui/Marquee';
-
+import { useLanguage } from '@/components/LanguageProvider';
 
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -29,6 +30,7 @@ const SECTIONS = [
 ];
 
 export default function Home() {
+  const { t } = useLanguage();
   const bgRef = useRef<HTMLImageElement>(null);
   const bgWrapRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
@@ -153,6 +155,8 @@ export default function Home() {
         />
 
         <ThemeToggle isVisible={activeSection === 'about'} />
+        <LanguageSwitch isVisible={activeSection === 'about'} />
+      
 
 
         {/* ═══════════════════════════════════════════════════════
@@ -185,7 +189,7 @@ export default function Home() {
               {activeSection === 'portfolio' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
                   <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
-                      A curated portfolio of cinematic storytelling, visual effects, and motion graphics workflow, spanning feature films, television series, and digital platforms. Integrates traditional filmmaking craft with generative image/video processes and streamlined post-production pipelines. Emphasizes leadership in directing, visual effects supervision, and scalable creative production.
+                      {t('portfolio.intro.desc')}
                   </p>
                 </div>
               )}
@@ -194,10 +198,10 @@ export default function Home() {
               {activeSection === 'expertise' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2 gap-2">
                   <p className="font-thick font-h5 text-md tracking-widest text-white">
-                    Exploring new tech for visual.
+                    {t('expertise.intro.title')}
                   </p>
                   <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
-                    Focused on integrating AI into end-to-end production workflows to improve efficiency, while maintaining manual creative control to ensure best video quality. Experienced in AI-assisted visual concept development and building AI-supported creative pipelines. Continuously exploring emerging technologies and their applications to expand possibilities in visual production.
+                    {t('expertise.intro.desc')}
                   </p>
                 </div>
               )}
@@ -206,10 +210,10 @@ export default function Home() {
               {activeSection === 'about' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-1 gap-2">
                   <p className="font-thick font-h5 text-md tracking-widest text-white">
-                    Analog Roots. Digital Future.
+                    {t('about.intro.title')}
                   </p>
                   <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
-                    Filmmaker, motion designer, and visual storyteller with over two decades navigating the evolution of screen media. From 8-bit gaming and film reels to today&apos;s AI-driven workflow and immersive production pipelines. Translating traditional cinematic storytelling into modern digital formats, combining craft, technology, and creative strategy to produce visuals that resonate with contemporary audiences.
+                    {t('about.intro.desc')}
                   </p>
                 </div>
               )}
@@ -218,7 +222,7 @@ export default function Home() {
               {activeSection === 'journey' && (
                 <div className="w-full h-full flex flex-col items-center justify-center text-center px-2 md:px-12 py-0">
                    <p className="lg:hidden font-thick font-h1 text-h6 tracking-[0.2em] uppercase text-(--accent) mb-2 opacity-80">
-                    Project Timeline
+                    {t('journey.intro.mobile_title')}
                   </p>
                   <div id="journey-desktop-portal" className="hidden lg:flex w-full items-center justify-center min-h-[100px] relative pointer-events-auto" />
                 </div>

@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '@/components/LanguageProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,70 +17,71 @@ interface Category {
   tabletStyle?: { top?: string; bottom?: string; left?: string; right?: string };
 }
 
-const ALL_CATEGORIES: Category[] = [
-  {
-    id: 'multimedia',
-    title: 'Multimedia Production',
-    items: [
-      'Visual Storytelling',
-      'Creative Direction',
-      'Video Editing & Post Production',
-      'Cinematic Video Production',
-      'Digital Content Development',
-      'Post production pipeline',
-      'Media Asset management',
-    ],
-    align: 'start',
-    desktopStyle: { bottom: '5%', left: '5%' },
-    tabletStyle: { bottom: '10%', left: '8%' }
-  },
-  {
-    id: 'tools',
-    title: 'Toolkits & Software',
-    items: [
-      'Adobe After Effect',
-      'Adobe Premiere Pro',
-      'DaVinci Resolve',
-      'Blender 3D',
-      'Final Cut Pro',
-      'Digital Camera Production',
-    ],
-    align: 'end',
-    desktopStyle: { top: '12%', right: '8%' },
-    tabletStyle: { top: '15%', right: '10%' }
-  },
-  {
-    id: 'ai-emerging',
-    title: 'Emerging Tech & AI',
-    items: [
-      'AI-Assisted Visual Concepting',
-      'Generative Video & Image Synthesis',
-      'ComfyUI & Stable Diffusion Pipelines',
-      'Real-time Virtual Production',
-      'AI-Driven Workflow Automation',
-    ],
-    align: 'end',
-    desktopStyle: { top: '15%', right: '12%' },
-    tabletStyle: { top: '12%', right: '12%' }
-  },
-  {
-    id: 'vfx-motion',
-    title: 'Motion Graphics &\nVisual Effects',
-    items: [
-      'Motion graphics design',
-      '2D/3D animation',
-      'Compositing of live-action and CG elements',
-      'Rotoscoping & camera tracking',
-      'Particle system',
-    ],
-    align: 'start',
-    desktopStyle: { bottom: '10%', left: '0%' },
-    tabletStyle: { bottom: '10%', left: '4%' }
-  },
-];
-
-
 export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
+  const { t } = useLanguage();
+  
+  const ALL_CATEGORIES: Category[] = [
+    {
+      id: 'multimedia',
+      title: t('expertise.multimedia.title'),
+      items: [
+        t('expertise.multimedia.vstory'),
+        t('expertise.multimedia.cdirect'),
+        t('expertise.multimedia.vedit'),
+        t('expertise.multimedia.cvideo'),
+        t('expertise.multimedia.dcontent'),
+        t('expertise.multimedia.pipeline'),
+        t('expertise.multimedia.media'),
+      ],
+      align: 'start',
+      desktopStyle: { bottom: '5%', left: '5%' },
+      tabletStyle: { bottom: '10%', left: '8%' }
+    },
+    {
+      id: 'tools',
+      title: t('expertise.tools.title'),
+      items: [
+        t('expertise.tools.ae'),
+        t('expertise.tools.pr'),
+        t('expertise.tools.dv'),
+        t('expertise.tools.bl'),
+        t('expertise.tools.fc'),
+        t('expertise.tools.camera'),
+      ],
+      align: 'end',
+      desktopStyle: { top: '12%', right: '8%' },
+      tabletStyle: { top: '15%', right: '10%' }
+    },
+    {
+      id: 'ai-emerging',
+      title: t('expertise.ai.title'),
+      items: [
+        t('expertise.ai.visual'),
+        t('expertise.ai.gen'),
+        t('expertise.ai.comfy'),
+        t('expertise.ai.virtual'),
+        t('expertise.ai.auto'),
+      ],
+      align: 'end',
+      desktopStyle: { top: '15%', right: '12%' },
+      tabletStyle: { top: '12%', right: '12%' }
+    },
+    {
+      id: 'vfx-motion',
+      title: t('expertise.vfx.title'),
+      items: [
+        t('expertise.vfx.design'),
+        t('expertise.vfx.anim'),
+        t('expertise.vfx.comp'),
+        t('expertise.vfx.roto'),
+        t('expertise.vfx.particle'),
+      ],
+      align: 'start',
+      desktopStyle: { bottom: '10%', left: '0%' },
+      tabletStyle: { bottom: '10%', left: '4%' }
+    },
+  ];
+
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -174,7 +176,6 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
     currentPage.current = index;
     setActivePage(index);
     
-    // Use clientWidth for accurate viewport-relative placement
     const targetLeft = index * scroller.clientWidth;
     
     gsap.to(scroller, {
@@ -182,7 +183,6 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
       duration: 0.5,
       ease: 'power2.inOut',
       onComplete: () => {
-        // Reinforced lock to prevent skipped pages
         setTimeout(() => { isScrolling.current = false; }, 400);
       }
     });
@@ -277,7 +277,7 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
                       <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-500 ease-in-out`} />
                     </div>
                     <ul className="flex flex-col space-y-2">
-                      {cat.items.map((item, idx) => (
+                       {cat.items.map((item, idx) => (
                         <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
                           {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
                           <span>{item}</span>
