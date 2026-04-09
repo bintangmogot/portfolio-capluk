@@ -65,12 +65,12 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     position: { top: '80%', left: '64%' },
   },
   {
-    id: 'color-grade',
-    title: 'Color Grading',
-    category: 'Post Production',
-    description: 'Advanced color science and look development for cinematic storytelling across formats.',
-    youtubeId: 't8Uvtf5SLA0',
-    icon: Palette,
+    id: 'social-ads',
+    title: 'Social Media Ads',
+    category: 'Advertising',
+    description: 'Scroll-stopping ad creatives optimized for Instagram Reels, TikTok, and YouTube Shorts.',
+    youtubeId: 'J-lQmA3C3fQ',
+    icon: Megaphone,
     position: { top: '50%', left: '68%' },
   },
   /* Temporarily hidden per client request — uncomment to restore
