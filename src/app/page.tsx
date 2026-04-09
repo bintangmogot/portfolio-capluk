@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { GlassFilter, GlassEffect } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
+import { useTheme } from 'next-themes';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
@@ -32,6 +33,10 @@ export default function Home() {
   const bgRef = useRef<HTMLImageElement>(null);
   const bgWrapRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const [activeSection, setActiveSection] = useState<string | null>('about');
   const [prevSectionIndex, setPrevSectionIndex] = useState<number | null>(null);
@@ -137,15 +142,23 @@ export default function Home() {
         style={{ width: '99%', height: '99%', borderRadius: '48px' }}
       >
         <div className="absolute inset-0 z-0">
-          <img
-            ref={bgRef}
-            src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
-            alt="Herdanius"
-            className="w-full h-full object-cover opacity-90 main-bg-img"
-            style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
-          />
+          {mounted && (
+            <img
+              ref={bgRef}
+              src={theme === 'cinematic' 
+                ? "https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775753416/capluk-portfolio/Profile_BG_Wide_Dark.webp"
+                : "https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775752765/capluk-portfolio/Profile_BG_Wide_White.jpg"
+              }
+              alt="Herdanius"
+              className="w-full h-full object-cover opacity-90 main-bg-img"
+              style={{ 
+                objectPosition: windowSize.width < 768 ? 'center 15%' : 'center 20%', 
+                transformOrigin: 'center center' 
+              }}
+            />
+          )}
           {/* Global Dark Radial Overlay for both themes */}
-          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.2)_100%)] pointer-events-none transition-opacity duration-700" />
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_100%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}
