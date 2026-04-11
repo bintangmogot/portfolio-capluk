@@ -215,14 +215,10 @@ body {
 
   /* Library Gallery — all available font options */
   --opt-bungee:        var(--font-bungee), sans-serif;
-  --opt-rubik-mono:    var(--font-rubik-mono), sans-serif;
   --opt-russo:         var(--font-russo-one), sans-serif;
-  --opt-vina:          var(--font-vina-sans), sans-serif;
-  --opt-abeezee:       var(--font-abeezee), sans-serif;
   --opt-archivo-black: var(--font-archivo-black), sans-serif;
   --opt-unbounded:     var(--font-unbounded), sans-serif;
   --opt-syne:          var(--font-syne), sans-serif;
-  --opt-titan:         var(--font-titan-one), sans-serif;
   --opt-grotesk:       var(--font-space-grotesk), sans-serif;
   --opt-jakarta:       var(--font-plus-jakarta), sans-serif;
   --opt-outfit:        var(--font-outfit), sans-serif;
@@ -238,8 +234,8 @@ body {
       TYPOGRAPHY REMOTE CONTROL
       Change ONLY these two lines to swap the entire site's fonts.
   */
-  --active-heading: var(--opt-unbounded);
-  --active-body:    var(--opt-unbounded);
+  --active-heading: var(--opt-grotesk);
+  --active-body:    var(--opt-general);
 
   /* Font Mappings */
   --font-display:  var(--active-heading);
