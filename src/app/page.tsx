@@ -150,7 +150,7 @@ export default function Home() {
                 : "https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775752765/capluk-portfolio/Profile_BG_Wide_White.jpg"
               }
               alt="Herdanius"
-              className="w-full h-full object-cover opacity-90 main-bg-img"
+              className="w-full h-full object-cover opacity-90 main-bg-img saturate-200"
               style={{ 
                 objectPosition: windowSize.width < 768 ? 'center 15%' : 'center 20%', 
                 transformOrigin: 'center center' 
