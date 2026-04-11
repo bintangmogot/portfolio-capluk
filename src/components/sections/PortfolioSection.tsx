@@ -65,12 +65,12 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     position: { top: '80%', left: '64%' },
   },
   {
-    id: 'color-grade',
-    title: 'Color Grading',
-    category: 'Post Production',
-    description: 'Advanced color science and look development for cinematic storytelling across formats.',
-    youtubeId: 't8Uvtf5SLA0',
-    icon: Palette,
+    id: 'social-ads',
+    title: 'Social Media Ads',
+    category: 'Advertising',
+    description: 'Scroll-stopping ad creatives optimized for Instagram Reels, TikTok, and YouTube Shorts.',
+    youtubeId: 'J-lQmA3C3fQ',
+    icon: Megaphone,
     position: { top: '50%', left: '68%' },
   },
   /* Temporarily hidden per client request — uncomment to restore
@@ -127,28 +127,96 @@ function CursorVideoPreview({
   mouseY: number;
 }) {
   const previewRef = useRef<HTMLDivElement>(null);
-  const smoothPos = useRef({ x: mouseX, y: mouseY });
+  const smoothPos = useRef({ x: 0, y: 0 });
+  const rawPos = useRef({ x: 0, y: 0 });
+  const offsetPos = useRef({ x: 20, y: -140 });
   const rafRef = useRef<number | null>(null);
+  const wasVisible = useRef(false);
 
-  // Smooth lerp animation loop
+  // Preview dimensions + viewport padding
+  const PREVIEW_W = 300;
+  const PREVIEW_H = 170;
+  const EDGE_PAD = 12;
+  const CURSOR_OFFSET_X = 20;
+  const CURSOR_OFFSET_Y = -140;
+
+  const [showIframe, setShowIframe] = useState(false);
+
   useEffect(() => {
+    if (isVisible) {
+      setShowIframe(true);
+    }
+  }, [isVisible]);
+
+  // Sync latest mouse position into a ref (no RAF restart)
+  useEffect(() => {
+    rawPos.current = { x: mouseX, y: mouseY };
+  }, [mouseX, mouseY]);
+
+  // Snap smooth position when first becoming visible (avoids lerp from 0,0)
+  useEffect(() => {
+    if (isVisible && !wasVisible.current) {
+      smoothPos.current = { x: mouseX, y: mouseY };
+      offsetPos.current = { x: CURSOR_OFFSET_X, y: CURSOR_OFFSET_Y };
+    }
+    wasVisible.current = isVisible;
+  }, [isVisible, mouseX, mouseY]);
+
+  // Single stable RAF loop — only depends on [isVisible], reads coords from ref
+  useEffect(() => {
+    if (!isVisible) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      return;
+    }
+
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const animate = () => {
-      smoothPos.current.x = lerp(smoothPos.current.x, mouseX, 0.12);
-      smoothPos.current.y = lerp(smoothPos.current.y, mouseY, 0.12);
+      smoothPos.current.x = lerp(smoothPos.current.x, rawPos.current.x, 0.15);
+      smoothPos.current.y = lerp(smoothPos.current.y, rawPos.current.y, 0.15);
 
       if (previewRef.current) {
-        previewRef.current.style.transform = `translate3d(${smoothPos.current.x + 20}px, ${smoothPos.current.y - 140}px, 0)`;
+        // Default target offsets
+        let targetOffsetX = CURSOR_OFFSET_X;
+        let targetOffsetY = CURSOR_OFFSET_Y;
+
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        // Check if default position would overflow right
+        if (smoothPos.current.x + targetOffsetX + PREVIEW_W + EDGE_PAD > vw) {
+          targetOffsetX = -PREVIEW_W - CURSOR_OFFSET_X;
+        }
+
+        // Check if default position would overflow top
+        if (smoothPos.current.y + targetOffsetY < EDGE_PAD) {
+          targetOffsetY = 30; // Place below cursor
+        }
+
+        // Lerp offsets for smooth flipping animation
+        offsetPos.current.x = lerp(offsetPos.current.x, targetOffsetX, 0.12);
+        offsetPos.current.y = lerp(offsetPos.current.y, targetOffsetY, 0.12);
+
+        let px = smoothPos.current.x + offsetPos.current.x;
+        let py = smoothPos.current.y + offsetPos.current.y;
+
+        // Hard clamping to ensure it never goes off-screen
+        if (px < EDGE_PAD) px = EDGE_PAD;
+        if (py + PREVIEW_H + EDGE_PAD > vh) py = vh - PREVIEW_H - EDGE_PAD;
+
+        previewRef.current.style.transform = `translate3d(${px}px, ${py}px, 0)`;
       }
+
       rafRef.current = requestAnimationFrame(animate);
     };
 
     rafRef.current = requestAnimationFrame(animate);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
-  }, [mouseX, mouseY]);
+  }, [isVisible]);
 
   // Fade in/out
   useGSAP(() => {
@@ -166,9 +234,22 @@ function CursorVideoPreview({
         scale: 0.8,
         duration: 0.2,
         ease: 'power2.in',
+        onComplete: () => {
+          // Erase it / place it outside the screen completely when fade out finishes
+          setShowIframe(false); // Stop the video so it doesn't play in the background
+          if (previewRef.current) {
+            previewRef.current.style.transform = `translate3d(-9999px, -9999px, 0)`;
+            previewRef.current.style.visibility = 'hidden';
+            previewRef.current.style.opacity = '0';
+          }
+        }
       });
     }
   }, [isVisible]);
+
+  // Don't render the iframe if we have absolutely no youtubeId, but because we preserve it
+  // on fade out, it will only be empty on the very first load.
+  if (!youtubeId) return null;
 
   return (
     <div
@@ -180,23 +261,26 @@ function CursorVideoPreview({
         visibility: 'hidden',
         opacity: 0,
         transformOrigin: 'bottom left',
+        transform: 'translate3d(-9999px, -9999px, 0)', // initial off-screen
       }}
     >
       <div
         className="w-full h-full rounded-xl overflow-hidden shadow-2xl bg-black"
         style={{
-          border: '1px solid #FFD699',
+          border: '1px solid var(--border-color)',
           boxShadow: '0 12px 48px rgba(0,0,0,0.5)',
         }}
       >
         {/* YouTube embed as live preview with autoplay + sound */}
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}`}
-          title={`Preview: ${title}`}
-          className="w-full h-full"
-          style={{ border: 'none' }}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        />
+        {showIframe && (
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}`}
+            title={`Preview: ${title}`}
+            className="w-full h-full"
+            style={{ border: 'none' }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+        )}
         {/* Title overlay at bottom */}
         <div className="absolute bottom-0 inset-x-0 px-3 py-2 bg-linear-to-t from-black/70 to-transparent">
           <p className="text-white text-[10px] font-heading tracking-widest uppercase opacity-90">{title}</p>
@@ -307,13 +391,13 @@ function FloatingPillButton({
       <GlassEffect
         className="group flex items-center px-6 py-2.5 rounded-full transition-all duration-300
           hover:bg-white/10 active:bg-black/40 active:scale-[0.96]"
-        style={{ border: '1px solid #FFD699' }}
+        style={{ border: '1px solid var(--border-color)' }}
       >
         {/* Play icon — white default, accent on hover */}
         <div
           ref={iconRef}
           className="w-8 h-8 rounded-full flex items-center justify-center shrink-0
-            bg-transparent border border-[#FFD699]
+            bg-transparent border border-(--border-color)
             group-hover:bg-accent
             transition-all duration-300 mr-4"
         >
@@ -395,7 +479,7 @@ function PortfolioCard({
       <GlassEffect
         className="flex flex-col pb-2 sm:pb-5 rounded-2xl overflow-hidden transition-all duration-300
           active:scale-[0.97] bg-black/40"
-        style={{ border: '1px solid #FFD699' }}
+        style={{ border: '1px solid var(--border-color)' }}
       >
         {/* Thumbnail — 3:4 portrait ratio */}
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
@@ -409,17 +493,17 @@ function PortfolioCard({
           {/* Play overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
             <GlassEffect
-              className="w-14 h-14 rounded-full flex items-center justify-center border border-[#FFD699]
-                group-active:bg-accent group-active:border-[#FFD699]
+              className="w-14 h-14 rounded-full flex items-center justify-center border border-(--border-color)
+                group-active:bg-accent group-active:border-(--border-color)
                 transition-all duration-300"
               style={{ padding: 0 }}
             >
-              <Play size={22} className="text-[#FFD699] group-active:text-black ml-0.5 transition-colors" fill="currentColor" strokeWidth={0} />
+              <Play size={22} className="text-accent group-active:text-black ml-0.5 transition-colors" fill="currentColor" strokeWidth={0} />
             </GlassEffect>
           </div>
           {/* Category badge — liquid glass */}
           <div className="absolute top-3 left-3">
-            <GlassEffect className="flex items-center gap-1.5 rounded-full px-2.5 py-1 border border-[#FFD699]" style={{ padding: '0.25rem 0.625rem' }}>
+            <GlassEffect className="flex items-center gap-1.5 rounded-full px-2.5 py-1 border border-(--border-color)" style={{ padding: '0.25rem 0.625rem' }}>
               <item.icon size={9} className="text-accent shrink-0" />
               <span className="font-body text-xs text-white/90 leading-none">
                 {item.category}
@@ -433,7 +517,7 @@ function PortfolioCard({
           <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-full flex items-center justify-center shrink-0
-                bg-accent border border-[#FFD699]"
+                bg-accent border border-(--border-color)"
             >
               <item.icon size={13} className="text-black" />
             </div>
@@ -598,7 +682,7 @@ function VideoModal({
           >
           <GlassEffect
             className="flex flex-col w-full rounded-3xl p-4 pb-8 sm:p-5 md:p-15 md:pt-5 bg-black/80"
-            style={{ border: '1px solid #FFD699' }}
+            style={{ border: '1px solid var(--border-color)' }}
           >
             <div className="w-full flex flex-row justify-between pb-3">
             {/* ✦ FLOATING CLOSE BUTTON — always visible, above everything ✦ */}
@@ -612,23 +696,23 @@ function VideoModal({
                 w-12 h-12 sm:w-14 sm:h-14 rounded-full
                 bg-black backdrop-blur-md
                 flex items-center justify-center transition-all duration-300 cursor-pointer
-                border border-[#FFD699] hover:bg-accent group"
+                border border-(--border-color) hover:bg-accent group"
               style={{ zIndex: 10000 }}
             >
-              <X size={22} className="text-[#FFD699] group-hover:text-black transition-colors" />
+              <X size={22} className="text-accent group-hover:text-black transition-colors" />
             </button>
 
             {/* Header bar */}
             <div className="flex items-center justify-between mb-3 sm:mb-5">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center
-                  bg-accent border border-[#FFD699]">
+                  bg-accent border border-(--border-color)">
                   <item.icon size={16} className="text-black" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-extrabold text-[#FFD699] text-h5 mb-2 tracking-[0.12em] uppercase">{item.title}</h3>
+                  <h3 className="font-heading font-extrabold text-accent text-h5 mb-2 tracking-[0.12em] uppercase">{item.title}</h3>
                   {/* Category badge — liquid glass */}
-                  <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5 border border-[#FFD699]" style={{ padding: '0.125rem 0.5rem' }}>
+                  <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5 border border-(--border-color)" style={{ padding: '0.125rem 0.5rem' }}>
                     <item.icon size={9} className="text-accent shrink-0" />
                     <span className="font-body text-sm sm:text-base text-white/70">{item.category}</span>
                   </GlassEffect>
@@ -638,7 +722,7 @@ function VideoModal({
             </div>
 
             {/* YouTube Embed */}
-            <div className="relative rounded-2xl overflow-hidden border border-[#FFD69922]"
+            <div className="relative rounded-2xl overflow-hidden border border-(--border-color)/20"
               style={{
                 aspectRatio: '16/9',
                 boxShadow: '0 20px 80px rgba(0,0,0,0.6)',
@@ -672,6 +756,7 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
   const device = useDeviceType();
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activePreviewItem, setActivePreviewItem] = useState<PortfolioItem | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [modalItem, setModalItem] = useState<PortfolioItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -702,11 +787,19 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
 
   const handleHoverStart = useCallback((index: number) => {
     setHoveredIndex(index);
+    setActivePreviewItem(PORTFOLIO_ITEMS[index]);
   }, []);
 
   const handleHoverEnd = useCallback(() => {
     setHoveredIndex(null);
   }, []);
+
+  // Reset hover state when section becomes inactive to prevent stuck preview
+  useEffect(() => {
+    if (!isActive) {
+      setHoveredIndex(null);
+    }
+  }, [isActive]);
 
   const handleClick = useCallback((item: PortfolioItem) => {
     setModalItem(item);
@@ -750,14 +843,15 @@ export default function PortfolioSection({ isActive }: PortfolioSectionProps) {
             isActive={isActive}
           />
         )}
+
       </div>
 
-      {/* Cursor-following video preview (desktop only) */}
+      {/* Cursor-following video preview (desktop only) — outside wrapper to prevent visibility conflicts  */}
       {device === 'desktop' && (
         <CursorVideoPreview
-          youtubeId={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].youtubeId : ''}
-          title={hoveredIndex !== null ? PORTFOLIO_ITEMS[hoveredIndex].title : ''}
-          isVisible={hoveredIndex !== null}
+          youtubeId={activePreviewItem?.youtubeId || ''}
+          title={activePreviewItem?.title || ''}
+          isVisible={hoveredIndex !== null && isActive}
           mouseX={mousePos.x}
           mouseY={mousePos.y}
         />

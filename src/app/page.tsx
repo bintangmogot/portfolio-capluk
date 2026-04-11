@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { GlassFilter, GlassEffect } from '@/components/ui/liquid-glass';
 import Navbar from '@/components/layout/Navbar';
 import ThemeToggle from '@/components/layout/ThemeToggle';
+import { useTheme } from 'next-themes';
 import BackgroundText from '@/components/layout/BackgroundText';
 import BackgroundLight from '@/components/layout/BackgroundLight';
 import AboutSection from '@/components/sections/AboutSection';
@@ -32,6 +33,10 @@ export default function Home() {
   const bgRef = useRef<HTMLImageElement>(null);
   const bgWrapRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const [activeSection, setActiveSection] = useState<string | null>('about');
   const [prevSectionIndex, setPrevSectionIndex] = useState<number | null>(null);
@@ -137,15 +142,23 @@ export default function Home() {
         style={{ width: '99%', height: '99%', borderRadius: '48px' }}
       >
         <div className="absolute inset-0 z-0">
-          <img
-            ref={bgRef}
-            src="https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1"
-            alt="Herdanius"
-            className="w-full h-full object-cover opacity-90 main-bg-img"
-            style={{ objectPosition: 'center 20%', transformOrigin: 'center center' }}
-          />
+          {mounted && (
+            <img
+              ref={bgRef}
+              src={theme === 'cinematic' 
+                ? "https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775753416/capluk-portfolio/Profile_BG_Wide_Dark.webp"
+                : "https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775752765/capluk-portfolio/Profile_BG_Wide_White.jpg"
+              }
+              alt="Herdanius"
+              className="w-full h-full object-cover opacity-90 main-bg-img"
+              style={{ 
+                objectPosition: windowSize.width < 768 ? 'center 15%' : 'center 20%', 
+                transformOrigin: 'center center' 
+              }}
+            />
+          )}
           {/* Global Dark Radial Overlay for both themes */}
-          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.2)_100%)] pointer-events-none transition-opacity duration-700" />
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_100%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}
@@ -184,55 +197,32 @@ export default function Home() {
               {/* ── PORTFOLIO ── */}
               {activeSection === 'portfolio' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-                  <h2 className="font-display text-h4 font-h1 text-white tracking-wide uppercase mb-3">WORK.</h2>
-                  <p className="font-body text-sm md:text-[15px] font-w-body text-white/80 leading-relaxed max-w-4xl mx-auto">
-                    A curated portfolio of cinematic storytelling, visual effects, and motion graphics workflow, spanning feature films, television series, and digital platforms. Integrates traditional filmmaking craft with generative image/video processes and streamlined post-production pipelines. Emphasizes leadership in directing, visual effects supervision, and scalable creative production.
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                      A curated portfolio of cinematic storytelling, visual effects, and motion graphics workflow, spanning feature films, television series, and digital platforms. Integrates traditional filmmaking craft with generative image/video processes and streamlined post-production pipelines. Emphasizes leadership in directing, visual effects supervision, and scalable creative production.
                   </p>
                 </div>
               )}
 
               {/* ── EXPERTISE ── */}
               {activeSection === 'expertise' && (
-                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-                  <h2 className="font-display text-h4 font-h1 text-white tracking-wide uppercase mb-3">SKILLS.</h2>
-                  <p className="font-body text-sm md:text-[15px] font-w-body text-white/80 leading-relaxed max-w-4xl mx-auto">
-                    Proficient in After Effects, Cinema 4D, Unreal Engine, and Nuke. Specializing in title design animation,
-                    social media ads, and intricate visual FX that emphasize leadership in directing and scalable creative production.
+                <div className="w-full flex flex-col text-center px-2 md:px-12 py-2 gap-2">
+                  <p className="font-thick font-h5 text-md tracking-widest text-white">
+                    Exploring new tech for visual.
                   </p>
-
-                  <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto mt-6">
-                    {['After Effects', 'Cinema 4D', 'Nuke', 'Unreal Engine', 'DaVinci Resolve', 'Premiere Pro'].map((tool) => (
-                      <GlassEffect
-                        key={tool}
-                        className="
-                          rounded-full px-4 py-2
-                          font-body text-white/60 text-[11px] tracking-wider
-                          transition-colors hover:bg-(--accent)/10 hover:text-white/90
-                          cursor-default border border-(--accent)/30
-                        "
-                        style={{ padding: '0.5rem 1rem' }}
-                      >
-                        {tool}
-                      </GlassEffect>
-                    ))}
-                  </div>
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                    Focused on integrating AI into end-to-end production workflows to improve efficiency, while maintaining manual creative control to ensure best video quality. Experienced in AI-assisted visual concept development and building AI-supported creative pipelines. Continuously exploring emerging technologies and their applications to expand possibilities in visual production.
+                  </p>
                 </div>
               )}
 
               {/* ── ABOUT ── */}
               {activeSection === 'about' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-1 gap-2">
-                  <p className="font-thick font-h1 text-h5 tracking-[0.35em] uppercase text-white mb-0.5">
+                  <p className="font-thick font-h5 text-md tracking-widest text-white">
                     Analog Roots. Digital Future.
                   </p>
-                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/80 leading-relaxed max-w-4xl mx-auto">
-                    Filmmaker, motion designer, and visual storyteller with over two decades navigating the evolution
-                    of screen media. From 8-bit gaming and film reels to today&apos;s AI-driven workflow and immersive
-                    production pipelines.
-                  </p>
-                  <p className="font-body text-xs md:text-[13px] font-w-tagline text-white/50 leading-relaxed max-w-4xl mx-auto">
-                    Translating traditional cinematic storytelling into modern digital formats, combining craft,
-                    technology, and creative strategy to produce visuals that resonate with contemporary audiences.
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                    Filmmaker, motion designer, and visual storyteller with over two decades navigating the evolution of screen media. From 8-bit gaming and film reels to today&apos;s AI-driven workflow and immersive production pipelines. Translating traditional cinematic storytelling into modern digital formats, combining craft, technology, and creative strategy to produce visuals that resonate with contemporary audiences.
                   </p>
                 </div>
               )}

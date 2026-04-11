@@ -27,7 +27,7 @@ const GlassEffect = React.forwardRef<HTMLDivElement, GlassEffectProps>(
       background: isSolid ? "var(--solid-hover-bg, #f9f9f9)" : "var(--glass-bg, rgba(255, 255, 255, 0.05))",
       backdropFilter: isSolid ? "blur(8px)" : "blur(20px) saturate(110%)",
       WebkitBackdropFilter: isSolid ? "blur(8px)" : "blur(20px) saturate(110%)",
-      border: "2px solid var(--border-color)",
+      border: "1px solid var(--border-color)",
       color: isSolid ? "var(--solid-hover-text, var(--accent))" : "inherit",
       transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
       ...style,

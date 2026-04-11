@@ -28,19 +28,19 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
     if (!sectionRef.current) return;
     
     if (isActive) {
-      gsap.to(sectionRef.current, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' });
+      gsap.to(sectionRef.current, { autoAlpha: 1, duration: 0.5, ease: 'power2.out', overwrite: true });
 
       // Run entrance animations
       if (nameRef.current) {
         gsap.fromTo(nameRef.current, 
-          { y: 60, opacity: 0, scale: 0.95 }, 
-          { y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }
+          { autoAlpha: 0, y: 60, scale: 0.9, filter: 'blur(10px)' }, 
+          { autoAlpha: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1, ease: 'power3.out', overwrite: true }
         );
       }
       if (taglineRef.current) {
         gsap.fromTo(taglineRef.current, 
-          { y: 20, opacity: 0 }, 
-          { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.6 }
+          { autoAlpha: 0, y: 20, filter: 'blur(0px)' }, 
+          { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.6, overwrite: true }
         );
       }
       
@@ -48,29 +48,76 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
       if (validRefs.length > 0) {
         gsap.fromTo(
           validRefs,
-          { y: 30, opacity: 0 },
+          { autoAlpha: 0, y: 30, scale: 0.95, filter: 'blur(4px)' }, 
           {
+            autoAlpha: 1,
             y: 0,
-            opacity: 1,
+            scale: 1,
+            filter: 'blur(0px)',
             duration: 0.8,
             stagger: 0.15,
             ease: 'power3.out',
             delay: 0.3,
+            overwrite: true,
           }
         );
         validRefs.forEach((el, i) => {
+          // Fluid floating effect with ±8px range (Issue #32)
           gsap.to(el, {
-            y: -4,
-            duration: 2 + i * 0.2,
+            y: -8,
+            duration: 2.5 + i * 0.4,
             repeat: -1,
             yoyo: true,
             ease: 'sine.inOut',
-            delay: 1 + i * 0.2, // Add delay to start after entrance
+            delay: i * 0.2,
+            overwrite: 'auto',
           });
         });
       }
     } else {
-      gsap.to(sectionRef.current, { autoAlpha: 0, duration: 0.28, ease: 'power2.in' });
+      // Staggered exit animation resembling the Journey title style (Issue #32)
+      if (nameRef.current) {
+        gsap.to(nameRef.current, {
+          autoAlpha: 0,
+          y: -40,
+          scale: 0.9,
+          filter: 'blur(10px)',
+          duration: 0.35,
+          ease: 'power2.in',
+          overwrite: true,
+        });
+      }
+      if (taglineRef.current) {
+        gsap.to(taglineRef.current, {
+          autoAlpha: 0,
+          y: -20,
+          duration: 0.3,
+          ease: 'power2.in',
+          overwrite: true,
+          delay: 0.05,
+        });
+      }
+
+      const validRefs = roleRefs.current.filter(Boolean) as HTMLSpanElement[];
+      if (validRefs.length > 0) {
+        gsap.to(validRefs, {
+          y: -15,
+          autoAlpha: 0,
+          scale: 0.95,
+          filter: 'blur(4px)',
+          duration: 0.3,
+          stagger: 0.03,
+          ease: 'power2.in',
+          overwrite: true,
+        });
+      }
+      gsap.to(sectionRef.current, { 
+        autoAlpha: 0, 
+        duration: 0.5, 
+        delay: 0.15, 
+        ease: 'power2.in',
+        overwrite: true 
+      });
     }
   }, [isActive]);
 

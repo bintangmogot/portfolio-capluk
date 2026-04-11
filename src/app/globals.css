@@ -120,7 +120,7 @@
   --theme-accent:    #FFDE00;
   --theme-secondary: #FFFFFF;
   --border-glow: rgba(255, 214, 153, 0.15);
-  --border-color: #FFD6994D;
+  --border-color: #FFD699;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --mouse-glow: rgba(255, 214, 153, 0.2);
   --solid-hover-bg: rgba(0, 0, 0, 0.4);
@@ -134,59 +134,46 @@
   --theme-secondary: #000000; /* Black base */
   --accent-solid:    #FF8C00; 
   --accent-glow:     rgba(255, 140, 0, 0.4);
-  --border-color:    #FF8C004D;
-  --glass-bg:        rgba(0, 0, 0, 0.6); /* Black Glass */
-  --mouse-glow:      rgba(255, 140, 0, 0.03); /* Darker color for mouse glow */
+  --border-color:    #FF8C00;
+  --glass-bg:        rgba(0, 0, 0, 0.4); /* Slightly more transparent Black Glass */
+  --mouse-glow:      rgba(255, 140, 0, 0.05);
   --solid-hover-bg:   #040000;
   --solid-hover-text: var(--accent);
 }
 
-/* Grayscale Optimization — B&W by default in Cinematic mode */
-[data-theme='cinematic'] img, 
+/* Grayscale Optimization — Only content images are B&W in Cinematic mode */
+[data-theme='cinematic'] img:not(.main-bg-img), 
 [data-theme='cinematic'] video, 
 [data-theme='cinematic'] iframe,
-.cinematic img, 
+.cinematic img:not(.main-bg-img), 
 .cinematic video, 
 .cinematic iframe {
   filter: grayscale(100%) contrast(1.1);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 🏆 PORTFOLIO: Always in full color to show off the work */
+/* 🏆 PORTFOLIO: Always in full color to show off the work when active */
 [data-theme='cinematic'] .portfolio-section-active img,
 [data-theme='cinematic'] .portfolio-section-active video,
 [data-theme='cinematic'] .portfolio-section-active iframe {
   filter: grayscale(0%) contrast(1);
 }
 
-/* 🗺️ JOURNEY: Noir by default, color on hover (Desktop) — Triggered by card group or poster hover */
-@media (hover: hover) {
-  [data-theme='cinematic'] .journey-section-active .group:hover img,
-  [data-theme='cinematic'] .journey-section-active .group\/poster:hover img {
-    filter: grayscale(0%) contrast(1);
-  }
-}
-
 /* 🎨 Desktop Hover: Return to color on interaction */
 @media (hover: hover) {
-  [data-theme='cinematic'] img:hover,
+  [data-theme='cinematic'] img:hover:not(.main-bg-img),
   [data-theme='cinematic'] video:hover,
   [data-theme='cinematic'] iframe:hover {
     filter: grayscale(0%) contrast(1);
   }
 }
 
-/* 📱 Mobile: Keep content colorful, except for the website background */
+/* 📱 Mobile Adjustments: Keep content colorful for better UX, but follow theme if requested */
 @media (max-width: 767px) {
-  [data-theme='cinematic'] img:not(.main-bg-img),
+  /* Generally keep videos colorful on mobile for impact */
   [data-theme='cinematic'] video,
   [data-theme='cinematic'] iframe {
     filter: grayscale(0%) contrast(1);
-  }
-  
-  /* Background specifically remains B&W */
-  [data-theme='cinematic'] .main-bg-img {
-    filter: grayscale(100%) contrast(1.1);
   }
 }
 
