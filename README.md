@@ -1,10 +1,9 @@
 # Capluk. — Creative Visionary Portfolio
 
-<!-- 
-  PROJECT HEADER / COVER 
-  To replace the cover, simply update the image URL or video tag below.
--->
-![Capluk Portfolio Preview](https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775752765/capluk-portfolio/Profile_BG_Wide_White.jpg)
+<!-- PROJECT HEADER / COVER -->
+<a href="https://res.cloudinary.com/workstation-/video/upload/q_auto/f_auto/v1775986574/capluk-portfolio/demo-capluk-portfolio-website.mp4">
+  <img src="https://res.cloudinary.com/workstation-/video/upload/so_0,w_1280,q_auto/v1775986574/capluk-portfolio/demo-capluk-portfolio-website.jpg" alt="▶ Watch Portfolio Demo" width="100%" />
+</a>
 
 ## 🎨 Overview
 
