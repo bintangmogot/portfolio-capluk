@@ -126,7 +126,7 @@
   --text-muted:      rgba(17, 17, 17, 0.8);
   --border-glow:     rgba(255, 214, 153, 0.1);
   --border-color:    #FFD699;
-  --glass-bg:        rgba(255, 255, 255, 0.05);
+  --glass-bg:        rgba(255, 255, 255, 0.15);
   --mouse-glow:      rgba(255, 214, 153, 0.2);
   --solid-hover-bg:  rgba(0, 0, 0, 0.4);
   --solid-hover-text: var(--accent);
