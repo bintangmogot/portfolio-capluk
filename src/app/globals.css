@@ -50,6 +50,7 @@
      so var() references to :root won't work here.
      ───────────────────────────────────────────────────────────────── */
   --text-body: clamp(0.9rem, 0.85rem + 0.2vw, 1.1rem);    /* 14.4→17.6px */
+  --text-bigger: clamp(1.1rem, 1.05rem + 0.2vw, 1.3rem);    /* 17.6→20.8px */
   --text-h5:   clamp(1rem, 0.95rem + 0.4vw, 1.5rem);      /* ~16→24px */
   --text-h4:   clamp(1.4rem, 1.2rem + 1vw, 2.2rem);       /* ~22.4→35.2px */
   --text-h3:   clamp(2rem, 1.5rem + 2vw, 3.5rem);         /* ~32→56px */
