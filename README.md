@@ -112,4 +112,4 @@ Manage your assets directly in `src/components/sections/PortfolioSection.tsx`.
 **Herdanius Larobu (Capluk)**
 Creative Director & Motion Designer
 
-Built with ⚡ by [Bintang Aprilian](https://github.com/bintangmogot)
+Built by [Bintang Aprilian](https://github.com/bintangmogot)
