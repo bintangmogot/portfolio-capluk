@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Capluk. — Creative Visionary Portfolio
 
-## Getting Started
+<!-- 
+  PROJECT HEADER / COVER 
+  To replace the cover, simply update the image URL or video tag below.
+-->
+![Capluk Portfolio Preview](https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775752765/capluk-portfolio/Profile_BG_Wide_White.jpg)
 
-First, run the development server:
+## 🎨 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The digital residence of **Herdanius Larobu** (popularly known as **Capluk**), a Creative Director, Motion Designer, and VFX Artist based in Indonesia. This portfolio is built to reflect high-end artistic sensibilities through modern web technologies, featuring cinematic transitions, liquid typography, and a refined design system.
+
+---
+
+## ✨ Features
+
+- **Cinematic Experience**: Immersive dark and light modes with seamless transition animations.
+- **Liquid UI System**: Custom glassmorphism components (`liquid-glass`) with real-time backdrop blur and frost effects.
+- **Motion-Driven Navigation**: GSAP-powered interactive layout that expands and collapses based on user context.
+- **Dynamic Backgrounds**: Responsive image system that adapts to section changes and mouse movements.
+- **Custom Cursor**: A kinetic, frame-aware cursor system that reacts to interactive elements (Desktop only).
+- **Responsive Hierarchy**: Mobile-first design architecture with native-feel scrolling on smaller devices.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Core**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animation**: [GSAP](https://greensock.com/gsap/) (GreenSock Animation Platform)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Fonts**: Curated mix of Thunder (Custom), Nohemi, and Space Grotesk.
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or later
+- npm or pnpm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/bintangmogot/portfolio-capluk.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── app/              # Next.js App Router & Global CSS
+├── components/
+│   ├── layout/       # Navigation, Theme, and Background components
+│   ├── sections/     # Modular site sections (About, Portfolio, etc.)
+│   └── ui/           # Reusable interactive components (Marquee, Cursor, Glass)
+├── fonts/            # Premium local fonts
+└── lib/              # Utility functions and shared logic
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🖼️ Media & Asset Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To update your work, edit the `PORTFOLIO_ITEMS` array in `src/components/sections/PortfolioSection.tsx`. 
 
-## Learn More
+> [!NOTE]
+> Re-apply the `type`, `thumbnail`, and `videoUrl` fields in the code to enable local asset support!
 
-To learn more about Next.js, take a look at the following resources:
+### 🎬 Option: Local Video
+```typescript
+{
+  type: 'video',
+  thumbnail: '/assets/portfolio/vfx-thumb.jpg',
+  videoUrl: '/assets/portfolio/vfx-reel.mp4',
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📸 Option: Local Image
+```typescript
+{
+  type: 'image',
+  thumbnail: '/assets/portfolio/thumb-1.jpg',
+  imageUrl: '/assets/portfolio/full-1.jpg',
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📽️ Customizing the README Header
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To change the main cover image or video at the top of this README:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📸 Using an Image
+Update the markdown image tag on **line 7** of `README.md`:
+```markdown
+![Capluk Portfolio Header](https://your-image-url.jpg)
+```
+
+### 🎬 Using a Video (Cinematic Header)
+Replace the image tag with an HTML `<video>` tag:
+```html
+<video src="https://your-video-url.mp4" width="100%" autoplay muted loop></video>
+```
+
+---
+
+## 📄 Documentation
+
+For more detailed technical insights, see the [Technical Documentation](./TECHNICAL.md).
+
+---
+
+## 👤 Author
+
+**Herdanius Larobu (Capluk)**
+Creative Director & Motion Designer
+
+- LinkedIn: [contact-bintangsurya](https://www.linkedin.com/in/contact-bintangsurya/)
+- Portfolio: [bintang-profile.vercel.app](https://bintang-profile.vercel.app/)
+
+Built with ⚡ by [Bintang Aprilian](https://github.com/bintangmogot)
