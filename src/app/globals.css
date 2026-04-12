@@ -43,6 +43,8 @@
   /* Theme-aware colors */
   --color-accent: var(--accent);
   --color-accent-glow: var(--accent-glow);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
 
   /* ─────────────────────────────────────────────────────────────────
      GOLDEN RATIO SIZE HIERARCHY
@@ -120,11 +122,13 @@
 [data-theme='light'] {
   --theme-accent:    #FFDE00;
   --theme-secondary: #FFFFFF;
-  --border-glow: rgba(255, 214, 153, 0.15);
-  --border-color: #FFD699;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --mouse-glow: rgba(255, 214, 153, 0.2);
-  --solid-hover-bg: rgba(0, 0, 0, 0.4);
+  --text-main:       #000000;
+  --text-muted:      rgba(17, 17, 17, 0.8);
+  --border-glow:     rgba(255, 214, 153, 0.1);
+  --border-color:    #FFD699;
+  --glass-bg:        rgba(255, 255, 255, 0.05);
+  --mouse-glow:      rgba(255, 214, 153, 0.2);
+  --solid-hover-bg:  rgba(0, 0, 0, 0.4);
   --solid-hover-text: var(--accent);
 }
 
@@ -133,10 +137,12 @@
   --accent:          #FF8C00; /* Orange (The only color accent) */
   --theme-accent:    #FFFFFF; /* White base */
   --theme-secondary: #000000; /* Black base */
+  --text-main:       #FFFFFF;
+  --text-muted:      rgba(255, 255, 255, 0.8);
   --accent-solid:    #FF8C00; 
   --accent-glow:     rgba(255, 140, 0, 0.4);
   --border-color:    #FF8C00;
-  --glass-bg:        rgba(0, 0, 0, 0.4); /* Slightly more transparent Black Glass */
+  --glass-bg:        rgba(0, 0, 0, 0.45);
   --mouse-glow:      rgba(255, 140, 0, 0.05);
   --solid-hover-bg:   #040000;
   --solid-hover-text: var(--accent);

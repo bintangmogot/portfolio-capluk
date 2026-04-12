@@ -171,7 +171,7 @@ function MediaCard({ card }: { card: MilestoneCard }) {
         {card.title && (
           <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-5 right-4 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent-glow)]" />
-            <h4 className="font-heading text-[11px] sm:text-xs text-white tracking-widest uppercase font-bold drop-shadow-md">
+            <h4 className="font-heading text-[11px] sm:text-xs text-text-main tracking-widest uppercase font-bold drop-shadow-md">
               {card.title}
             </h4>
           </div>
@@ -190,13 +190,13 @@ function InfoCard({ card }: { card: MilestoneCard }) {
         {card.role && (
           <div className="inline-flex items-center gap-2.5">
             <Briefcase size={15} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)]" />
-            <h3 className="font-heading text-h5 font-bold tracking-wide text-white">
+            <h3 className="font-heading text-h5 font-bold tracking-wide text-text-main">
               {card.role}
             </h3>
           </div>
         )}
         {card.company && (
-          <p className="font-body text-sm text-white/80 tracking-wide font-light pl-[20px] border-l border-white/5 ml-1.5">
+          <p className="font-body text-sm text-text-muted tracking-wide font-light pl-[20px] border-l border-(--border-color)/10 ml-1.5">
             {card.company}
           </p>
         )}
@@ -204,7 +204,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
 
       {/* Description */}
       <div className="relative pt-2 border-t border-accent/80">
-        <p className="font-body text-sm text-white/70 font-light leading-relaxed">
+        <p className="font-body text-sm text-text-muted font-light leading-relaxed">
           {card.description}
         </p>
       </div>
@@ -359,14 +359,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
                 isActive
-                  ? 'bg-[#1B1D1D66] border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
-                  : 'bg-white/5 border-(--border-color)/20 group-hover:border-(--border-color) group-hover:bg-white/10'
+                  ? 'bg-text-main/10 border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
+                  : 'bg-text-main/5 border-(--border-color)/20 group-hover:border-(--border-color) group-hover:bg-text-main/10'
               }`}
             >
               <IconComponent
                 size={16}
                 className={`transition-colors duration-300 ${
-                  isActive ? 'text-accent' : 'text-white/50 group-hover:text-white/80'
+                  isActive ? 'text-accent' : 'text-text-muted group-hover:text-text-main'
                 }`}
               />
             </div>
@@ -374,14 +374,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             {/* Year Label */}
             <span
               className={`font-heading text-xs tracking-widest uppercase transition-colors duration-300 whitespace-nowrap ${
-                isActive ? 'text-accent' : 'text-white/90 group-hover:text-white'
+                isActive ? 'text-accent' : 'text-text-main group-hover:text-text-main'
               }`}
             >
               {milestone.year}
             </span>
 
             {/* Role Label */}
-            <span className="font-body text-xs text-white/60 tracking-wider whitespace-nowrap">
+            <span className="font-body text-xs text-text-muted tracking-wider whitespace-nowrap">
               {milestone.role}
             </span>
           </div>
@@ -404,11 +404,11 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 : 'duration-500 opacity-100 scale-100 translate-y-0 blur-0 delay-500'
             }`}
           >
-            <div className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-3 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+            <div className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-text-muted mb-3 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
               The Timeline.
             </div>
             <h2
-              className="font-display font-w-display text-h2 leading-[0.9] tracking-wide text-white uppercase text-center cursor-default select-none"
+              className="font-display font-w-display text-h2 leading-[0.9] tracking-wide text-text-main uppercase text-center cursor-default select-none"
               style={{
                 textShadow: '0 0 80px rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.1)',
               }}
@@ -578,10 +578,10 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
               className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
                 isActive
                   ? 'bg-accent/20 border-accent/50 shadow-[0_0_16px_var(--accent-glow)] scale-110'
-                  : 'bg-white/10 border-white/25'
+                  : 'bg-text-main/10 border-text-main/25'
               }`}
             >
-              <Icon size={14} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white/80'}`} />
+              <Icon size={14} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-text-main'}`} />
             </button>
           );
         })}
@@ -591,14 +591,14 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
       <div className="flex items-center justify-between px-1">
         <div className="flex flex-col">
           <span className="font-heading text-h5 tracking-widest uppercase text-accent">{milestone.year}</span>
-          <span className="font-body text-body text-white/80 tracking-wider">{milestone.role} — {milestone.company}</span>
+          <span className="font-body text-body text-text-muted tracking-wider">{milestone.role} — {milestone.company}</span>
         </div>
         <div className="flex items-center gap-1">
           <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
-            <ChevronLeft size={14} className="text-white/80" />
+            <ChevronLeft size={14} className="text-text-main" />
           </button>
           <button onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === MILESTONES.length - 1} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
-            <ChevronRight size={14} className="text-white/80" />
+            <ChevronRight size={14} className="text-text-main" />
           </button>
         </div>
       </div>
@@ -618,7 +618,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
           return (
             <div className="w-full mt-1">
               <div className="flex items-center justify-between mb-3 px-2">
-                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/50 pr-3">Feature Films ({extraImages.length})</span>
+                <span className="font-heading text-[10px] sm:text-xs tracking-[0.2em] uppercase text-text-muted pr-3">Feature Films ({extraImages.length})</span>
                 <div className="h-px flex-1 bg-linear-to-r from-white/10 to-transparent" />
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-3 w-full snap-x snap-mandatory px-2 pb-2">
@@ -636,7 +636,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
 
       <div className="flex justify-center gap-1.5 mt-1">
         {MILESTONES.map((_, idx) => (
-          <div key={idx} className={`h-1 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-white/20'}`} />
+          <div key={idx} className={`h-1 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-5 bg-accent/70' : 'w-1 bg-text-main/20'}`} />
         ))}
       </div>
     </div>

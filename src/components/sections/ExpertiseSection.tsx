@@ -273,12 +273,12 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
                {ALL_CATEGORIES.slice(0, 2).map((cat, i) => (
                   <div key={cat.id} ref={el => { blockRefs.current[i] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={isTablet && cat.tabletStyle ? cat.tabletStyle : cat.desktopStyle}>
                     <div className={`relative mb-4 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                      <h3 className="font-display font-bold text-2xl text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300 whitespace-pre-line">{cat.title}</h3>
+                      <h3 className="font-display font-bold text-2xl text-text-main uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-300 whitespace-pre-line">{cat.title}</h3>
                       <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-500 ease-in-out`} />
                     </div>
                     <ul className="flex flex-col space-y-2">
                       {cat.items.map((item, idx) => (
-                        <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
+                        <li key={idx} className={`expertise-item font-body text-body text-text-muted hover:text-text-main transition-all duration-300 flex items-center gap-3 group/item ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
                           {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
                           <span>{item}</span>
                           {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
@@ -296,12 +296,12 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
                {ALL_CATEGORIES.slice(2).map((cat, i) => (
                   <div key={cat.id} ref={el => { blockRefs.current[i+2] = el; }} data-align={cat.align} className={`absolute flex flex-col group opacity-0 ${cat.align === 'start' ? 'items-start text-left' : 'items-end text-right'}`} style={isTablet && cat.tabletStyle ? cat.tabletStyle : cat.desktopStyle}>
                     <div className={`relative mb-2 flex flex-col ${cat.align === 'start' ? 'items-start' : 'items-end'}`}>
-                      <h3 className="font-display font-bold text-2xl text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
+                      <h3 className="font-display font-bold text-2xl text-text-main uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
                       <div className={`h-[2px] ${cat.align === 'start' ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-accent/80 to-transparent w-48 group-hover:w-full transition-all duration-700 ease-in-out`} />
                     </div>
                     <ul className="flex flex-col space-y-2">
                       {cat.items.map((item, idx) => (
-                        <li key={idx} className={`expertise-item font-body text-body text-white/60 hover:text-white transition-all duration-300 flex items-center gap-3 group/item leading-tight ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
+                        <li key={idx} className={`expertise-item font-body text-body text-text-muted hover:text-text-main transition-all duration-300 flex items-center gap-3 group/item leading-tight ${cat.align === 'end' ? 'justify-end' : 'justify-start'}`}>
                           {cat.align === 'start' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
                           <span>{item}</span>
                           {cat.align === 'end' && <span className="w-2 h-2 rounded-full bg-accent/30 group-hover/item:bg-accent shrink-0" />}
@@ -320,11 +320,11 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
           <div key={`mobile-${cat.id}`} className="shrink-0 w-full h-full md:hidden relative flex flex-col items-center justify-center px-3">
             <div ref={el => { blockRefs.current[i+4] = el; }} className="flex flex-col items-center text-center opacity-0 group">
               <div className="relative mb-3 flex flex-col items-center">
-                <h3 className="font-display font-bold text-h4 text-white uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
+                <h3 className="font-display font-bold text-h4 text-text-main uppercase tracking-wider mb-2 group-hover:text-accent transition-colors duration-500 whitespace-pre-line">{cat.title}</h3>
               </div>
               <ul className="flex flex-col space-y-4">
                 {cat.items.map((item, idx) => (
-                  <li key={idx} className="expertise-item font-body text-bigger text-white/70 hover:text-white transition-colors duration-300 px-4 leading-tight">{item}</li>
+                  <li key={idx} className="expertise-item font-body text-bigger text-text-muted hover:text-text-main transition-colors duration-300 px-4 leading-tight">{item}</li>
                 ))}
               </ul>
             </div>
@@ -341,7 +341,7 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
               activePage === i 
                 ? 'bg-accent w-4 shadow-[0_0_12px_rgba(255,214,153,0.5)]' 
-                : 'bg-white/20 hover:bg-white/40'
+                : 'bg-text-main/20 hover:bg-text-main/40'
             }`}
           />
         ))}

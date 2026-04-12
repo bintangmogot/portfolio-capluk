@@ -197,7 +197,7 @@ export default function Home() {
               {/* ── PORTFOLIO ── */}
               {activeSection === 'portfolio' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2">
-                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-text-muted leading-6 max-w-5xl mx-auto tracking-widest">
                       A curated portfolio of cinematic storytelling, visual effects, and motion graphics workflow, spanning feature films, television series, and digital platforms. Integrates traditional filmmaking craft with generative image/video processes and streamlined post-production pipelines. Emphasizes leadership in directing, visual effects supervision, and scalable creative production.
                   </p>
                 </div>
@@ -206,10 +206,10 @@ export default function Home() {
               {/* ── EXPERTISE ── */}
               {activeSection === 'expertise' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-2 gap-2">
-                  <p className="font-thick font-h5 text-md tracking-widest text-white">
+                  <p className="font-thick font-h5 text-md tracking-widest text-text-main">
                     Exploring new tech for visual.
                   </p>
-                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-text-muted leading-6 max-w-5xl mx-auto tracking-widest">
                     Focused on integrating AI into end-to-end production workflows to improve efficiency, while maintaining manual creative control to ensure best video quality. Experienced in AI-assisted visual concept development and building AI-supported creative pipelines. Continuously exploring emerging technologies and their applications to expand possibilities in visual production.
                   </p>
                 </div>
@@ -218,10 +218,10 @@ export default function Home() {
               {/* ── ABOUT ── */}
               {activeSection === 'about' && (
                 <div className="w-full flex flex-col text-center px-2 md:px-12 py-1 gap-2">
-                  <p className="font-thick font-h5 text-md tracking-widest text-white">
+                  <p className="font-thick font-h5 text-md tracking-widest text-text-main">
                     Analog Roots. Digital Future.
                   </p>
-                  <p className="font-body text-sm md:text-[14px] font-w-body text-white/60 leading-6 max-w-5xl mx-auto tracking-widest">
+                  <p className="font-body text-sm md:text-[14px] font-w-body text-text-muted leading-6 max-w-5xl mx-auto tracking-widest">
                     Filmmaker, motion designer, and visual storyteller with over two decades navigating the evolution of screen media. From 8-bit gaming and film reels to today&apos;s AI-driven workflow and immersive production pipelines. Translating traditional cinematic storytelling into modern digital formats, combining craft, technology, and creative strategy to produce visuals that resonate with contemporary audiences.
                   </p>
                 </div>

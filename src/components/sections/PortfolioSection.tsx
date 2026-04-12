@@ -283,7 +283,7 @@ function CursorVideoPreview({
         )}
         {/* Title overlay at bottom */}
         <div className="absolute bottom-0 inset-x-0 px-3 py-2 bg-linear-to-t from-black/70 to-transparent">
-          <p className="text-white text-[10px] font-heading tracking-widest uppercase opacity-90">{title}</p>
+          <p className="text-text-main text-[10px] font-heading tracking-widest uppercase opacity-90">{title}</p>
         </div>
       </div>
     </div>
@@ -403,14 +403,14 @@ function FloatingPillButton({
         >
           <Play
             size={13}
-            className="text-white ml-0.5 group-hover:text-black transition-colors duration-300"
+            className="text-text-main ml-0.5 group-hover:text-black transition-colors duration-300"
             fill="currentColor"
             strokeWidth={0}
           />
         </div>
         {/* Label */}
-        <span className="font-heading text-body text-white/90 tracking-[0.12em] uppercase whitespace-nowrap
-          group-hover:text-white transition-colors duration-300">
+        <span className="font-heading text-body text-text-main tracking-[0.12em] uppercase whitespace-nowrap
+          group-hover:text-text-main transition-colors duration-300">
           {item.title}
         </span>
       </GlassEffect>
@@ -505,7 +505,7 @@ function PortfolioCard({
           <div className="absolute top-3 left-3">
             <GlassEffect className="flex items-center gap-1.5 rounded-full px-2.5 py-1 border border-(--border-color)" style={{ padding: '0.25rem 0.625rem' }}>
               <item.icon size={9} className="text-accent shrink-0" />
-              <span className="font-body text-xs text-white/90 leading-none">
+              <span className="font-body text-xs text-text-main leading-none">
                 {item.category}
               </span>
             </GlassEffect>
@@ -521,11 +521,11 @@ function PortfolioCard({
             >
               <item.icon size={13} className="text-black" />
             </div>
-            <h4 className="font-heading text-h5 text-white tracking-widest uppercase truncate">
+            <h4 className="font-heading text-h5 text-text-main tracking-widest uppercase truncate">
               {item.title}
             </h4>
           </div>
-          <p className="font-body text-body text-white/70 leading-relaxed line-clamp-3">
+          <p className="font-body text-body text-text-muted leading-relaxed line-clamp-3">
             {item.description}
           </p>
         </div>
@@ -714,7 +714,7 @@ function VideoModal({
                   {/* Category badge — liquid glass */}
                   <GlassEffect className="flex items-center gap-1.5 mt-0.5 w-fit rounded-full px-2 py-0.5 border border-(--border-color)" style={{ padding: '0.125rem 0.5rem' }}>
                     <item.icon size={9} className="text-accent shrink-0" />
-                    <span className="font-body text-sm sm:text-base text-white/70">{item.category}</span>
+                    <span className="font-body text-sm sm:text-base text-text-muted">{item.category}</span>
                   </GlassEffect>
                 </div>
               </div>

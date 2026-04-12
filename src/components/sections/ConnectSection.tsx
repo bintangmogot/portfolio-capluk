@@ -170,10 +170,10 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   >
                     <div className="flex items-center gap-3">
                       <Icon size={15} className="text-accent/80 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                      <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                      <span className="font-body text-text-muted text-body group-hover:text-text-main group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                     </div>
                     {info.href && (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
                         <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
                       </svg>
                     )}
@@ -198,7 +198,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
               </div>
-              <span className="text-[12px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+              <span className="text-[12px] text-text-main sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
                 Open for Collab
               </span>
             </GlassEffect>
@@ -216,11 +216,11 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-(--border-color)/40 flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
-                    {link.renderIcon(`w-4 h-4 text-white/60 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
+                    {link.renderIcon(`w-4 h-4 text-text-muted group-hover:text-text-main group-hover:scale-110 transition-all duration-300`)}
                   </div>
-                  <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
+                  <span className="font-body text-text-muted text-body group-hover:text-text-main group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
                   <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
                 </svg>
               </a>
@@ -270,10 +270,10 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                 className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group cursor-pointer"
               >
                 <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-(--border-color)/40 flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(255,214,153,0.1)] transition-all duration-300">
-                  {link.renderIcon(`w-4 h-4 text-white/50 group-hover:text-black group-hover:scale-110 transition-all duration-300`)}
+                  {link.renderIcon(`w-4 h-4 text-text-muted group-hover:text-text-main group-hover:scale-110 transition-all duration-300`)}
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-body text-white/80 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
+                  <span className="font-body text-text-muted text-sm group-hover:text-text-main group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
               </a>
             ))}
@@ -327,7 +327,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   className="flex items-center gap-2.5 w-full justify-center px-3 py-1.5 rounded-lg hover:bg-[#FFD69911] active:bg-[#1B1D1D66] active:scale-[0.98] transition-all duration-300 cursor-pointer group"
                 >
                   <Icon size={14} className="text-accent/60 shrink-0 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                  <span className="font-body text-white/70 text-sm group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
+                  <span className="font-body text-text-muted text-sm group-hover:text-text-main group-hover:translate-x-1 transition-all duration-300">{info.text}</span>
                 </Wrapper>
               );
             })}
@@ -346,7 +346,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
               className="w-full rounded-xl px-4 py-3 flex flex-row items-center justify-center gap-3 cursor-pointer transition-all duration-300 group shadow-inner"
             >
               <div className="w-2 h-2 mr-1 rounded-full bg-emerald-500 animate-pulse shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-              <span className="text-[11px] text-white/90 group-hover:text-accent sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
+              <span className="text-[11px] text-text-main sm:text-xs uppercase tracking-widest font-semibold whitespace-nowrap transition-colors">
                 Open for Collab
               </span>
             </GlassEffect>

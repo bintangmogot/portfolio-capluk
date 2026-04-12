@@ -79,7 +79,7 @@ export function MarqueeRow({
               />
             ) : null}
             <span 
-              className={`${company.logo ? 'hidden' : 'block'} font-heading text-white/40 text-[10px] sm:text-[11px] uppercase tracking-widest whitespace-nowrap`}
+              className={`${company.logo ? 'hidden' : 'block'} font-heading text-text-muted text-[10px] sm:text-[11px] uppercase tracking-widest whitespace-nowrap`}
             >
               {company.name}
             </span>
