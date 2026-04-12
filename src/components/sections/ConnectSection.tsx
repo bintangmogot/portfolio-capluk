@@ -205,15 +205,14 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
           </a>
         </GlassEffect>
         
-        {/* Social Links */}
-        <GlassEffect className="flex flex-col p-3 sm:p-4 rounded-2xl border-(--border-color) shrink-0">
-          {SOCIAL_LINKS.map((link, i) => (
+        <GlassEffect className="flex flex-col p-2.5 rounded-2xl border-(--border-color) shrink-0">
+          {SOCIAL_LINKS.map((link) => (
             <div key={link.id} className="flex flex-col">
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
+                className="flex items-center justify-between px-3 py-1.5 rounded-lg hover:bg-white/10 active:bg-black/40 active:scale-[0.98] transition-all duration-300 group pointer-events-auto w-full"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-[#FFD69908] border border-(--border-color)/40 flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent transition-all duration-300">
@@ -221,11 +220,10 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
                   </div>
                   <span className="font-body text-white/80 text-body group-hover:text-white group-hover:translate-x-1 transition-all duration-300">{link.label}</span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
-                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300">
+                  <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
                 </svg>
               </a>
-              {i !== SOCIAL_LINKS.length - 1 && <div className="w-full h-px bg-(--border-color)/10 my-0.5" />}
             </div>
           ))}
         </GlassEffect>
@@ -234,7 +232,7 @@ export default function ConnectSection({ isActive }: ConnectSectionProps) {
         <GlassEffect 
           href="/cv-herdanius-larobu.pdf" 
           solidOnHover={true}
-          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 mt-2 rounded-2xl active:scale-[0.98] transition-all duration-500 pointer-events-auto shrink-0 group"
+          className="w-full relative overflow-hidden flex items-center justify-center gap-3 px-4 py-3 sm:px-6 sm:py-4 mt-2 rounded-lg md:rounded-2xl active:scale-[0.98] transition-all duration-500 pointer-events-auto shrink-0 group"
         >
           <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
           <span className="font-heading group-hover:text-accent text-body tracking-widest text-center w-full uppercase transition-colors z-10 font-bold">Download Full CV</span>
