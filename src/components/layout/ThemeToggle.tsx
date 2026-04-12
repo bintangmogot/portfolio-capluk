@@ -45,12 +45,6 @@ export default function ThemeToggle({ isVisible = true }: ThemeToggleProps) {
             onChange={(checked) => setTheme(checked ? 'cinematic' : 'light')}
           />
         )}
-        {mounted && (
-          <div className="absolute top-full left-0 mt-3 px-2.5 py-1.5 text-[10px] sm:text-xs font-medium tracking-widest uppercase text-white/90 bg-black/80 backdrop-blur-md rounded-md border border-(--accent)/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-            {isCinematic ? 'Cinematic Mode' : 'Light Mode'}
-            <div className="absolute -top-1 left-3 w-2 h-2 rotate-45 bg-black/80 border-t border-l border-(--accent)/15" />
-          </div>
-        )}
       </div>
     </div>
   );
