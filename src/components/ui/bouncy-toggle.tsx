@@ -39,7 +39,7 @@ export function PremiumToggle({
       onMouseUp={() => setIsPressed(false)}
       onMouseLeave={() => setIsPressed(false)}
       className={cn(
-        "group relative flex items-center h-6 w-12 md:w-[80px] md:h-10 rounded-xl cursor-pointer p-1 transition-all duration-500 overflow-hidden",
+        "group relative flex items-center h-7 w-13 md:w-[80px] md:h-10 rounded-lg cursor-pointer p-1 transition-all duration-500 overflow-hidden",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
         "border backdrop-blur-xl",
         // Sleek recessed track
@@ -62,16 +62,16 @@ export function PremiumToggle({
       {/* Thumb / Slider Block */}
       <div
         className={cn(
-          "relative h-4 md:h-6 rounded-[8px] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center pointer-events-none z-10",
+          "relative h-5 md:h-6 rounded-sm md:rounded-[8px] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center pointer-events-none z-10",
           isChecked ? "translate-x-[24px] md:translate-x-[38px]" : "translate-x-0",
-          isPressed ? "w-6 md:w-10" : "w-4 md:w-8",
+          isPressed ? "w-6 md:w-10" : "w-5 md:w-8",
           isPressed && isChecked && "translate-x-2"
         )}
       >
         {/* Thumb Body */}
         <div
           className={cn(
-            "absolute inset-0 rounded-[8px] transition-all duration-500",
+            "absolute inset-0 rounded-sm md:rounded-[8px] transition-all duration-500",
             isChecked
               ? "bg-linear-to-br from-yellow-300 to-orange-500 border border-orange-300/50"
               : "bg-linear-to-br from-white to-white/70 border border-white/50",
