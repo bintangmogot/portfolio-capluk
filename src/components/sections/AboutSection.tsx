@@ -62,14 +62,14 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
           }
         );
         validRefs.forEach((el, i) => {
-          // Fluid floating effect with ±8px range (Issue #32)
+          // Fluid floating effect with ±4px range (Issue #39)
           gsap.to(el, {
-            y: -8,
-            duration: 2.5 + i * 0.4,
+            y: 1,
+            duration: 2.5 + i * 0.5,
             repeat: -1,
             yoyo: true,
             ease: 'sine.inOut',
-            delay: i * 0.2,
+            delay: i * 0.3,
             overwrite: 'auto',
           });
         });
@@ -128,16 +128,16 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
       style={{ visibility: 'hidden', opacity: 0 }}
     >
       <div className="relative z-10 w-full h-full pointer-events-none">
-        <div
-          ref={heroRef}
-          className="absolute inset-0 flex flex-col items-center justify-center select-none"
-        >
+          <div
+            ref={heroRef}
+            className="absolute inset-0 flex flex-col items-center justify-center sm:justify-center pt-[4vh] sm:pt-0 select-none"
+          >
           {/* Tagline — small, above the name */}
           <div
             ref={taglineRef}
             className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-white/40 mb-4 sm:mb-6"
           >
-            Herdanius Larobu.
+            Herdanius Larobu
           </div>
 
           {/* Name — massive display font */}
@@ -152,7 +152,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
           </h1>
 
           {/* Role titles — staggered, looping float animation */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-y-10 gap-x-2 md:gap-x-4 mt-3 sm:mt-8 px-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-y-6 lg:gap-y-10 gap-x-2 md:gap-x-4 mt-3 sm:mt-8 px-4">
             {ROLES.map((role, i) => (
               <span
                 key={role}
