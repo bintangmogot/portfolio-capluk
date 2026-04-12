@@ -159,6 +159,9 @@ export default function Home() {
           )}
           {/* Global Dark Radial Overlay for both themes */}
           <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_100%)] pointer-events-none transition-opacity duration-700" />
+          
+          {/* Light Center Glow Overlay */}
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,var(--center-glow)_0%,transparent_50%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}

@@ -116,6 +116,7 @@
   --font-size-h3:     clamp(2rem, 1.5rem + 2vw, 3.5rem);
   --font-size-h2:     clamp(2.5rem, 2rem + 4vw, 5rem);
   --font-size-h1:     clamp(3rem, 2.5rem + 5vw, 8rem);
+  --center-glow:      rgba(255, 255, 255, 0.15);
 }
 
 /* Light Mode: Yellow & White (Solid blocking) */
@@ -130,6 +131,7 @@
   --mouse-glow:      rgba(255, 214, 153, 0.2);
   --solid-hover-bg:  rgba(0, 0, 0, 0.4);
   --solid-hover-text: var(--accent);
+  --center-glow:     rgba(255, 222, 0, 0.2);
 }
 
 /* Cinematic Mode: Greyscale + Accent Orange (Noir vibe) */
@@ -146,6 +148,7 @@
   --mouse-glow:      rgba(255, 140, 0, 0.05);
   --solid-hover-bg:   #040000;
   --solid-hover-text: var(--accent);
+  --center-glow:      transparent;
 }
 
 /* Grayscale Optimization — Only content images are B&W in Cinematic mode */
