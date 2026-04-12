@@ -1,8 +1,9 @@
 # Capluk. — Creative Visionary Portfolio
 
 <!-- PROJECT HEADER / COVER -->
-<img src="https://res.cloudinary.com/workstation-/video/upload/w_1280,q_auto/v1775986574/capluk-portfolio/demo-capluk-portfolio-website.gif" alt="Capluk Portfolio Demo" width="100%" />
-
+<a href="https://res.cloudinary.com/workstation-/video/upload/v1775986574/capluk-portfolio/demo-capluk-portfolio-website.mp4">
+  <img src="https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775753416/capluk-portfolio/Profile_BG_Wide_Dark.webp" alt="▶ Watch Portfolio Demo" width="100%" />
+</a>
 
 ## 🎨 Overview
 
