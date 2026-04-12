@@ -39,7 +39,7 @@ export function PremiumToggle({
       onMouseUp={() => setIsPressed(false)}
       onMouseLeave={() => setIsPressed(false)}
       className={cn(
-        "group relative flex items-center h-8 w-[60px] md:w-[80px] md:h-10 rounded-xl cursor-pointer p-1 transition-all duration-500 overflow-hidden",
+        "group relative flex items-center h-6 w-12 md:w-[80px] md:h-10 rounded-xl cursor-pointer p-1 transition-all duration-500 overflow-hidden",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
         "border backdrop-blur-xl",
         // Sleek recessed track
@@ -62,9 +62,9 @@ export function PremiumToggle({
       {/* Thumb / Slider Block */}
       <div
         className={cn(
-          "relative h-6 rounded-[8px] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center pointer-events-none z-10",
-          isChecked ? "translate-x-[28px] md:translate-x-[38px]" : "translate-x-0",
-          isPressed ? "w-8 md:w-10" : "w-6 md:w-8",
+          "relative h-4 md:h-6 rounded-[8px] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center pointer-events-none z-10",
+          isChecked ? "translate-x-[24px] md:translate-x-[38px]" : "translate-x-0",
+          isPressed ? "w-6 md:w-10" : "w-4 md:w-8",
           isPressed && isChecked && "translate-x-2"
         )}
       >
