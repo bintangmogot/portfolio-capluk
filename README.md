@@ -19,12 +19,14 @@
 
 ---
 
-**Capluk Portfolio** is a high-end, motion-driven digital residence built for Creative Directors and VFX Artists. A privacy-first, performance-optimized alternative to generic portfolio templates.
+**Capluk Portfolio** is a cinematic, single-page presentation website built for Herdanius Larobu (Capluk) — an Indonesian Creative Director, Motion Designer, and VFX Artist with 25+ years in the film industry. Designed as a "cinematic slide deck," users navigate horizontally across sections without vertical scrolling.
+
+*Analog Roots. Digital Future.*
 
 Built with **Next.js 15**, **GSAP**, and **Tailwind CSS 4**.
 
 > [!TIP]
-> This portfolio uses a "Liquid UI" system — a custom design language featuring real-time backdrop filtering and kinetic typography.
+> The portfolio ditches the traditional scroll and uses GSAP to create seamless horizontal slide transitions. It features a custom "Liquid UI" system heavily relying on glassmorphism and real-time backdrop blurring.
 
 ---
 
@@ -49,12 +51,12 @@ Built with **Next.js 15**, **GSAP**, and **Tailwind CSS 4**.
 
 | Feature | Description | Status |
 | :--- | :--- | :--- |
-| **Cinematic UI** | Liquid glassmorphism and real-time backdrop blur. | ✅ Live |
-| **Dynamic Hero** | GSAP-powered interactive background that reacts to mouse. | ✅ Live |
-| **Custom Cursor** | Frame-aware kinetic cursor with state management. | ✅ Live |
-| **Media Engine** | Support for local 4K video, images, and YouTube embeds. | ✅ Live |
-| **Theme System** | Seamless Dark/Light mode transitions with glow effects. | ✅ Live |
-| **Responsiveness** | Mobile-first architecture with native-feel scrolling. | ✅ Live |
+| **Cinematic Slide Deck** | Unique horizontal navigation architecture (no vertical scrolling). | ✅ Live |
+| **Theme System** | Mood toggle between Warm Cinematic (default) and Grayscale. | ✅ Live |
+| **Interactive Portfolio** | Fast YouTube embeds with hover previews and modal project details. | ✅ Live |
+| **GSAP Animations** | Intro sequences, text animations, and 3D glassmorphism tilt cards. | ✅ Live |
+| **Custom Cursor** | Creative kinetic cursor with interactive hover states. | ✅ Live |
+| **PWA Ready** | Configured with service workers for offline access. | ✅ Live |
 
 ---
 
@@ -64,34 +66,31 @@ The project is structured as a modular Next.js application, separating logic fro
 
 ```text
 src/
-├── app/              # Next.js App Router & Global Lighting system
+├── app/              # Next.js App Router (EN/ID localization setup)
 ├── components/
-│   ├── layout/       # Navigation, Theme, and Background controllers
-│   ├── sections/     # Modular site sections (About, Portfolio, Connect)
-│   └── ui/           # Reusable interactive components (Marquee, Cursor, Glass)
-├── fonts/            # Premium typography (Thunder, Nohemi)
-└── lib/              # GSAP utilities and shared logic
+│   ├── layout/       # Navigation, Theme, and Background Text controllers
+│   ├── sections/     # Core sections (Portfolio, Expertise, About, Journey, Connect)
+│   └── ui/           # Reusable interactive components (Cursor, Glass Cards, Modal)
+├── fonts/            # Premium typography (Thunder, Urbanist, Bebas Neue, Bruno Ace)
+└── lib/              # GSAP utilities, i18n logic, and shared utilities
 ```
 
 ---
 
 ## 🖼️ Media Management
 
-Manage your assets directly in `src/components/sections/PortfolioSection.tsx`.
+Portfolio content uses performant YouTube embeddings instead of serving large local video files.
 
-### Local Asset Configuration
-```typescript
-{
-  id: 'vfx-reel',
-  type: 'video', // or 'image'
-  thumbnail: '/assets/thumb.jpg',
-  videoUrl: '/assets/reel.mp4',
-  imageUrl: '/assets/full-res.jpg'
-}
-```
+### Feature Films / Video Integration
+
+To maintain high performance (90+ on Lighthouse), videos are integrated using `lite-youtube-embed`:
+
+1.  **Thumbnail Source:** Extracted from YouTube (auto-generated) or custom WebP thumbnails.
+2.  **Display Behavior:** Hovering a portfolio item plays a short, muted preview. Clicking opens a full-screen modal equipped with the YouTube iframe.
+3.  **Project Content:** Content details are managed modularly.
 
 > [!NOTE]
-> Check out [ASSET_MANAGEMENT.md](./docs/ASSET_MANAGEMENT.md) for the full guide on asset replacement.
+> For a full breakdown of the project requirements, refer to the [Project Knowledge](./docs/00-project-knowledge.md).
 
 ---
 
@@ -99,11 +98,11 @@ Manage your assets directly in `src/components/sections/PortfolioSection.tsx`.
 
 | Feature | **Capluk Portfolio** | Standard Website |
 | :--- | :--- | :--- |
-| **Transitions** | Fluid GSAP Timelines | Hard Page Changes |
-| **UI Polish** | `liquid-glass` System | Basic CSS |
-| **Performance** | Next.js partial hydration | Full page reloads |
-| **Aesthetics** | Premium Dark Mode | Standard presets |
-| **Interactivity** | Kinetic Custom Cursor | Default Browser Cursor |
+| **Navigation** | Horizontal Slide Deck via GSAP | Vertical Scrolling & Hard Pages |
+| **UI Polish** | Liquid Glassmorphism & Parallax | Basic CSS & Flat cards |
+| **Video Performance** | Lazy-loaded `lite-youtube-embed` | Heavy standard iframes |
+| **Aesthetics** | Warm Cinematic ↔ Grayscale | Standard Light ↔ Dark presets |
+| **Interactivity** | Kinetic Custom Cursor & 3D Tilt | Default Browser Cursor |
 
 ---
 
