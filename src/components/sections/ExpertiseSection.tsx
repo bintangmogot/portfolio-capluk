@@ -34,15 +34,14 @@ const ALL_CATEGORIES: Category[] = [
     tabletStyle: { bottom: '10%', left: '8%' }
   },
   {
-    id: 'tools',
-    title: 'Toolkits & Software',
+    id: 'vfx-motion',
+    title: 'Motion Graphics &\nVisual Effects',
     items: [
-      'Adobe After Effect',
-      'Adobe Premiere Pro',
-      'DaVinci Resolve',
-      'Blender 3D',
-      'Final Cut Pro',
-      'Digital Camera Production',
+      'Motion graphics design',
+      '2D/3D animation',
+      'Compositing of live-action and CG elements',
+      'Rotoscoping & camera tracking',
+      'Particle system',
     ],
     align: 'end',
     desktopStyle: { top: '12%', right: '8%' },
@@ -58,23 +57,24 @@ const ALL_CATEGORIES: Category[] = [
       'Real-time Virtual Production',
       'AI-Driven Workflow Automation',
     ],
-    align: 'end',
-    desktopStyle: { top: '15%', right: '12%' },
-    tabletStyle: { top: '12%', right: '12%' }
-  },
-  {
-    id: 'vfx-motion',
-    title: 'Motion Graphics &\nVisual Effects',
-    items: [
-      'Motion graphics design',
-      '2D/3D animation',
-      'Compositing of live-action and CG elements',
-      'Rotoscoping & camera tracking',
-      'Particle system',
-    ],
     align: 'start',
     desktopStyle: { bottom: '10%', left: '0%' },
     tabletStyle: { bottom: '10%', left: '4%' }
+  },
+  {
+    id: 'tools',
+    title: 'Toolkits & Software',
+    items: [
+      'Adobe After Effect',
+      'Adobe Premiere Pro',
+      'DaVinci Resolve',
+      'Blender 3D',
+      'Final Cut Pro',
+      'Digital Camera Production',
+    ],
+    align: 'end',
+    desktopStyle: { top: '15%', right: '12%' },
+    tabletStyle: { top: '12%', right: '12%' }
   },
 ];
 
