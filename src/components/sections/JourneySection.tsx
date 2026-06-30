@@ -68,7 +68,6 @@ Foundation in digital media,
 computer graphic,
 software systems
 and information technology.`,
-        achievements: ['Worked on over 80 major motion pictures', 'Double-nominated as best visual effect (2019)', 'Nominated as best visual effect (2021)', 'https://id.wikipedia.org/wiki/Penata_Efek_Visual_Terbaik_Festival_Film_Indonesia'],
       },
     ],
   },
@@ -174,9 +173,9 @@ function MediaCard({ card }: { card: MilestoneCard }) {
   );
 }
 
-function InfoCard({ card }: { card: MilestoneCard }) {
+function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean }) {
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start w-full md:w-auto">
+    <div className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-6 md:gap-16 lg:gap-[280px] items-start md:items-center w-full md:w-auto`}>
       <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full sm:w-[320px] shrink-0">
         {/* Date & Location Header */}
         <div className="flex flex-col mb-1 sm:mb-2">
@@ -255,9 +254,9 @@ function InfoCard({ card }: { card: MilestoneCard }) {
 }
 
 // ─── Render Card ───
-function RenderCard({ card }: { card: MilestoneCard }) {
+function RenderCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean }) {
   if (card.type === 'media') return <MediaCard card={card} />;
-  if (card.type === 'info') return <InfoCard card={card} />;
+  if (card.type === 'info') return <InfoCard card={card} reverse={reverse} />;
   return null;
 }
 
@@ -462,23 +461,29 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 <React.Fragment key={milestone.id}>
                 {/* ── MAIN CONTENT (Anchored to node) ── */}
                   <div
-                    ref={(el) => { cardGroupRefs.current[milestone.id] = el; }}
-                    className="absolute bottom-5 z-20 flex flex-col justify-end"
+                    className="absolute bottom-5 z-20 pointer-events-none"
                     style={{
                       left: `${position}%`,
-                      transform: 'translateX(-50%)',
-                      opacity: 0,
-                      visibility: 'hidden',
+                      transform: `translateX(-${idx === 0 ? 50 : position}%)`,
                       width: 'max-content',
-                      maxWidth: 'min(350px, 90vw)',
+                      maxWidth: '90vw',
                     }}
                   >
-                    <div className="flex flex-col gap-3 pointer-events-auto pb-2 items-center">
-                      {milestone.cards.map((card, cardIdx) => (
-                        <div key={cardIdx} className={card.type === 'media' ? 'w-[200px] sm:w-[260px]' : 'w-full'}>
-                          <RenderCard card={card} />
-                        </div>
-                      ))}
+                    <div
+                      ref={(el) => { cardGroupRefs.current[milestone.id] = el; }}
+                      className="flex flex-col justify-end"
+                      style={{
+                        opacity: 0,
+                        visibility: 'hidden',
+                      }}
+                    >
+                      <div className="flex flex-col gap-3 pointer-events-auto pb-2 items-center">
+                        {milestone.cards.map((card, cardIdx) => (
+                          <div key={cardIdx} className={card.type === 'media' ? 'w-[200px] sm:w-[260px]' : 'w-full'}>
+                            <RenderCard card={card} reverse={idx >= 2} />
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -641,7 +646,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
 
       <div ref={cardsContainerRef} className="flex flex-col gap-4 w-full pb-[40px] lg:pb-0 lg:overflow-y-auto no-scrollbar">
         {milestone.cards.map((card, cardIdx) => (
-          <RenderCard key={`${milestone.id}-${cardIdx}`} card={card} />
+          <RenderCard key={`${milestone.id}-${cardIdx}`} card={card} reverse={activeIndex >= 2} />
         ))}
         {(() => {
           const extraImages: string[] = [];
