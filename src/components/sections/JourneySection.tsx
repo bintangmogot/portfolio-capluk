@@ -561,33 +561,45 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
 
   return (
     <div ref={containerRef} className="w-full h-full flex flex-col gap-4">
-      <div className="relative flex items-center justify-between px-2">
+      <div className="relative flex items-center justify-between px-2 mt-6 mb-4">
         <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-px bg-(--border-color)/30" />
         {MILESTONES.map((m, idx) => {
           const Icon = m.icon;
           const isActive = idx === activeIndex;
+          const textPosition = idx === 0 
+            ? 'left-0' 
+            : idx === MILESTONES.length - 1 
+            ? 'right-0' 
+            : 'left-1/2 -translate-x-1/2';
+
           return (
-            <button
-              key={m.id}
-              onClick={() => goTo(idx)}
-              className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
-                isActive
-                  ? 'bg-accent/20 border-accent/50 shadow-[0_0_16px_var(--accent-glow)] scale-110'
-                  : 'bg-text-main/10 border-text-main/25'
-              }`}
-            >
-              <Icon size={14} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-text-main'}`} />
-            </button>
+            <div key={m.id} className="relative z-10 flex flex-col items-center justify-center">
+              {/* Role Label */}
+              <span
+                className={`absolute bottom-[calc(100%+12px)] font-heading text-xs tracking-widest transition-all duration-300 whitespace-nowrap ${textPosition} ${
+                  isActive ? 'text-accent opacity-100 translate-y-0' : 'text-text-main opacity-0 translate-y-2'
+                }`}
+              >
+                {m.role}
+              </span>
+
+              <button
+                onClick={() => goTo(idx)}
+                className={`relative w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer bg-black ${
+                  isActive
+                    ? 'border-accent shadow-[0_0_16px_var(--accent-glow)] scale-110'
+                    : 'border-text-main/25'
+                }`}
+              >
+                <Icon size={16} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-text-main'}`} />
+              </button>
+            </div>
           );
         })}
       </div>
 
-      {/* ── Active Milestone Info ── */}
-      <div className="flex items-center justify-between px-1">
-        <div className="flex flex-col">
-          <span className="font-heading text-h5 tracking-widest uppercase text-accent">{milestone.year}</span>
-          <span className="font-body text-body text-text-muted tracking-wider">{milestone.role} — {milestone.company}</span>
-        </div>
+      {/* ── Navigation Buttons ── */}
+      <div className="flex items-center justify-end px-1 -mt-2">
         <div className="flex items-center gap-1">
           <button onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} className="w-7 h-7 rounded-full bg-white/10 border border-(--border-color) flex items-center justify-center cursor-pointer disabled:opacity-30">
             <ChevronLeft size={14} className="text-text-main" />
