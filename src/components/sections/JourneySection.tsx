@@ -181,46 +181,38 @@ function MediaCard({ card }: { card: MilestoneCard }) {
   );
 }
 
-// ─── Info Card ───
 function InfoCard({ card }: { card: MilestoneCard }) {
   return (
-    <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full">
-      {/* Date & Location Header */}
-      <div className="flex flex-col">
-        {card.role && (
-          <div className="inline-flex items-center gap-2.5">
-            <Briefcase size={15} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)]" />
-            <h3 className="font-heading text-h5 font-bold tracking-wide text-text-main">
-              {card.role}
-            </h3>
-          </div>
-        )}
-        {card.company && (
-          <p className="font-body text-sm text-text-muted tracking-wide font-light pl-[20px] border-l border-(--border-color)/10 ml-1.5">
-            {card.company}
-          </p>
-        )}
-      </div>
-
-      {/* Description */}
-      <div className="relative pt-2 border-t border-accent/80">
-        <p className="font-body text-sm text-text-muted font-light leading-relaxed">
+    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start w-full md:w-auto">
+      <GlassEffect className="rounded-[20px] p-6 sm:p-8 flex flex-col gap-4 w-full sm:w-[320px] shrink-0 border border-accent/60 shadow-[0_0_15px_var(--accent-glow)]">
+        <div className="flex items-center justify-center gap-3">
+          <Briefcase size={28} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
+          <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-accent drop-shadow-[0_0_8px_var(--accent-glow)]">
+            {card.title || card.role}
+          </h3>
+        </div>
+        
+        <p className="font-body text-sm text-accent/90 font-medium leading-relaxed text-center mt-2">
           {card.description}
         </p>
-      </div>
+      </GlassEffect>
 
-      {/* Achievements Pills */}
+      {/* Achievements List */}
       {card.achievements && card.achievements.length > 0 && (
-        <div className="flex flex-wrap gap-2 pt-1">
-          {card.achievements.map((ach, i) => (
-            <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-medium tracking-wider text-accent bg-black/40 border border-accent/40 rounded-full">
-              <Award size={14} className="text-accent" />
-              <span>{ach}</span>
-            </div>
-          ))}
+        <div className="flex flex-col items-center gap-4 pt-2 md:pt-6 shrink-0 w-full sm:w-[280px]">
+          <h4 className="font-heading text-accent text-base tracking-wider text-center drop-shadow-[0_0_8px_var(--accent-glow)]">
+            Achievements
+          </h4>
+          <div className="flex flex-col gap-6 text-center mt-2">
+            {card.achievements.map((ach, i) => (
+              <p key={i} className="font-body text-sm text-accent/90 font-medium leading-relaxed max-w-[250px]">
+                {ach}
+              </p>
+            ))}
+          </div>
         </div>
       )}
-    </GlassEffect>
+    </div>
   );
 }
 
