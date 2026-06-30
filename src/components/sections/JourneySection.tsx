@@ -55,12 +55,6 @@ const MILESTONES: Milestone[] = [
     accentColor: 'from-purple-500/20 to-pink-600/20',
     cards: [
       {
-        type: 'media',
-        title: 'First Takes',
-        imageSrc: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=80',
-        imageAlt: 'Early broadcasting days',
-      },
-      {
         type: 'info',
         role: 'Student',
         company: 'Vocational School',
@@ -79,19 +73,6 @@ const MILESTONES: Milestone[] = [
     icon: Clapperboard,
     accentColor: 'from-amber-500/20 to-orange-600/20',
     cards: [
-      {
-        type: 'media',
-        title: 'Featured Films',
-        images: [
-          'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80',
-          'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80',
-          'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400&q=80',
-          'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=80',
-          'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400&q=80',
-          'https://images.unsplash.com/photo-1578269174936-2709b6aeb913?w=400&q=80',
-        ],
-        imageAlt: 'Featured Film - Starvision Plus',
-      },
       {
         type: 'info',
         role: 'Visual FX Artist',
@@ -112,12 +93,6 @@ const MILESTONES: Milestone[] = [
     accentColor: 'from-blue-500/20 to-indigo-600/20',
     cards: [
       {
-        type: 'media',
-        imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
-        imageAlt: 'Independent Film Direction',
-        title: 'Director\'s Reel',
-      },
-      {
         type: 'info',
         role: 'Film Director',
         company: 'Freelance',
@@ -136,12 +111,6 @@ const MILESTONES: Milestone[] = [
     icon: Palette,
     accentColor: 'from-emerald-500/20 to-teal-600/20',
     cards: [
-      {
-        type: 'media',
-        imageSrc: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Desktop_-_1',
-        imageAlt: 'Mataque Studio Projects',
-        title: 'Studio Highlights',
-      },
       {
         type: 'info',
         role: 'Creative Director',
@@ -183,31 +152,40 @@ function MediaCard({ card }: { card: MilestoneCard }) {
 
 function InfoCard({ card }: { card: MilestoneCard }) {
   return (
-    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start w-full md:w-auto">
-      <GlassEffect className="rounded-[20px] p-6 sm:p-8 flex flex-col gap-4 w-full sm:w-[320px] shrink-0 border border-accent/60 shadow-[0_0_15px_var(--accent-glow)]">
-        <div className="flex items-center justify-center gap-3">
-          <Briefcase size={28} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
-          <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-accent drop-shadow-[0_0_8px_var(--accent-glow)]">
-            {card.title || card.role}
-          </h3>
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start w-full md:w-auto">
+      <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full sm:w-[320px] shrink-0">
+        {/* Date & Location Header */}
+        <div className="flex flex-col">
+          {card.role && (
+            <div className="inline-flex items-center gap-3">
+              <Briefcase size={26} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
+              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-text-main">
+                {card.title || card.role}
+              </h3>
+            </div>
+          )}
         </div>
-        
-        <p className="font-body text-sm text-accent/90 font-medium leading-relaxed text-center mt-2">
-          {card.description}
-        </p>
+
+        {/* Description */}
+        <div className="relative pt-2 border-t border-accent/80">
+          <p className="font-body text-sm text-text-muted font-light leading-relaxed">
+            {card.description}
+          </p>
+        </div>
       </GlassEffect>
 
       {/* Achievements List */}
       {card.achievements && card.achievements.length > 0 && (
-        <div className="flex flex-col items-center gap-4 pt-2 md:pt-6 shrink-0 w-full sm:w-[280px]">
-          <h4 className="font-heading text-accent text-base tracking-wider text-center drop-shadow-[0_0_8px_var(--accent-glow)]">
+        <div className="flex flex-col gap-3 pt-2 md:pt-4 shrink-0 w-full sm:w-[280px]">
+          <h4 className="font-heading text-white text-sm md:text-base font-bold tracking-widest pl-2">
             Achievements
           </h4>
-          <div className="flex flex-col gap-6 text-center mt-2">
+          <div className="flex flex-col gap-2">
             {card.achievements.map((ach, i) => (
-              <p key={i} className="font-body text-sm text-accent/90 font-medium leading-relaxed max-w-[250px]">
-                {ach}
-              </p>
+              <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-bold tracking-wider text-accent bg-black/40 backdrop-blur-md border border-accent/40 rounded-full w-fit">
+                <Award size={14} className="text-accent shrink-0" />
+                <span>{ach}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -367,7 +345,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
               <IconComponent
                 size={16}
                 className={`transition-colors duration-300 ${
-                  isActive ? 'text-accent' : 'text-text-muted group-hover:text-text-main'
+                  isActive ? 'text-accent' : 'text-white/50 group-hover:text-white'
                 }`}
               />
             </div>
@@ -583,7 +561,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
                     : 'border-text-main/25'
                 }`}
               >
-                <Icon size={16} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-text-main'}`} />
+                <Icon size={16} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white/50'}`} />
               </button>
             </div>
           );
