@@ -349,18 +349,27 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
         return (
           <div
             key={milestone.id}
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 cursor-pointer group"
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 flex items-center justify-center cursor-pointer group"
             style={{ left: `${position}%` }}
             onMouseEnter={() => { if (!pinnedId) setHoveredId(milestone.id); }}
             onMouseLeave={() => { if (!pinnedId) setHoveredId(null); }}
             onClick={() => handleClick(milestone.id)}
           >
+            {/* Role Label */}
+            <span
+              className={`absolute bottom-[calc(100%+16px)] font-heading text-sm tracking-widest transition-colors duration-300 whitespace-nowrap ${
+                isActive ? 'text-accent' : 'text-text-main group-hover:text-accent'
+              }`}
+            >
+              {milestone.role}
+            </span>
+
             {/* Icon Node */}
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
+              className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 bg-black ${
                 isActive
-                  ? 'bg-text-main/10 border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
-                  : 'bg-text-main/5 border-(--border-color)/20 group-hover:border-(--border-color) group-hover:bg-text-main/10'
+                  ? 'border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
+                  : 'border-(--border-color)/20 group-hover:border-(--border-color)'
               }`}
             >
               <IconComponent
@@ -370,20 +379,6 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                 }`}
               />
             </div>
-
-            {/* Year Label */}
-            <span
-              className={`font-heading text-xs tracking-widest uppercase transition-colors duration-300 whitespace-nowrap ${
-                isActive ? 'text-accent' : 'text-text-main group-hover:text-text-main'
-              }`}
-            >
-              {milestone.year}
-            </span>
-
-            {/* Role Label */}
-            <span className="font-body text-xs text-text-muted tracking-wider whitespace-nowrap">
-              {milestone.role}
-            </span>
           </div>
         );
       })}
