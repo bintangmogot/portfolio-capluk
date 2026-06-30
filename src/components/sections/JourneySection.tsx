@@ -14,6 +14,7 @@ import {
   Award,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
 } from 'lucide-react';
 
 gsap.registerPlugin(useGSAP);
@@ -30,6 +31,7 @@ interface MilestoneCard {
   role?: string;
   company?: string;
   achievements?: string[];
+  icon?: string;
 }
 
 interface Milestone {
@@ -58,9 +60,15 @@ const MILESTONES: Milestone[] = [
         type: 'info',
         role: 'Student',
         company: 'Vocational School',
-        title: 'The Starting Point',
-        description: 'Studied multimedia, camera operation, and video editing. Discovered a deep passion for visual storytelling and digital arts.',
-        achievements: ['Best Video Project', 'Broadcasting Club Leader', 'Early exposure to video editing'],
+        title: 'The Foundation',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779666/capluk-portfolio/Icon/witness.png',
+        description: `Bachelor of Information Technology
+Bina Nusantara University.
+Foundation in digital media,
+computer graphic,
+software systems
+and information technology.`,
+        achievements: ['Worked on over 80 major motion pictures', 'Double-nominated as best visual effect (2019)', 'Nominated as best visual effect (2021)', 'https://id.wikipedia.org/wiki/Penata_Efek_Visual_Terbaik_Festival_Film_Indonesia'],
       },
     ],
   },
@@ -77,9 +85,14 @@ const MILESTONES: Milestone[] = [
         type: 'info',
         role: 'Visual FX Artist',
         company: 'Starvision Plus',
-        title: 'Building the Foundation',
-        description: 'Worked on VFX compositing and motion tracking for feature films. Developed skills in Nuke, After Effects, and on-set VFX supervision for Indonesian cinema productions.',
-        achievements: ['VFX shots for 3+ feature films', 'On-set VFX supervision', 'Compositing & motion tracking'],
+        title: 'The Craftsman',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779664/capluk-portfolio/Icon/play.png',
+        description: `Experience crafting visual effects for broadcast television, feature films,
+and commercial productions.
+Skilled in integrating technical execution with cinematic storytelling.
+Delivering visuals that enhance narrative impact while
+meeting cinema production and broadcast standards.`,
+        achievements: ['Worked on over 80 major motion pictures', 'Double-nominated as best visual effect (2019)', 'Nominated as best visual effect (2021)', 'https://id.wikipedia.org/wiki/Penata_Efek_Visual_Terbaik_Festival_Film_Indonesia'],
       },
     ],
   },
@@ -96,9 +109,14 @@ const MILESTONES: Milestone[] = [
         type: 'info',
         role: 'Film Director',
         company: 'Freelance',
-        title: 'Forging a Vision',
-        description: 'Transitioned from VFX to full creative direction. Led independent film projects, commercial productions, and music videos. Built a signature visual style blending practical and digital techniques.',
-        achievements: ['Directed 10+ commercial projects', 'Music video direction', 'Creative storytelling leadership'],
+        title: 'The Story Architect',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779664/capluk-portfolio/Icon/director-chair.png',
+        description: `Leading creative and technical teams to transform scripts and ideas
+into cinematic experiences. Combining storytelling, production expertise,
+and strategic leadership across every stage of filmmaking
+to deliver stories that resonate beyond the screen.
+`,
+        achievements: ['5-time Feature Film Director', 'Filmography includes over 30 film television', 'Directed Music Videos', 'Making TVC and Ad Campaigns', 'https://id.wikipedia.org/wiki/Herdanius_Larobu']
       },
     ],
   },
@@ -115,9 +133,15 @@ const MILESTONES: Milestone[] = [
         type: 'info',
         role: 'Creative Director',
         company: 'Mataque Studio',
-        title: 'Leading the Vision',
-        description: 'Leading creative strategy for a full-service production studio. Overseeing brand campaigns, motion design projects, and building a team of visual storytellers across digital platforms.',
-        achievements: ['Studio creative leadership', 'Brand campaign strategy', 'Team building & mentorship'],
+        title: 'The Visionary',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779662/capluk-portfolio/Icon/brain.png',
+        description: `Setting creative direction, combining storytelling and recent technologies to shape innovative ideas.
+Producing various types of content that are relatable,
+meaningful, and emotionally connect with the audience.
+
+Leading agile multidisciplinary teams to produce impactful experiences
+through the alignment of vision, strategy, and execution.`,
+        achievements: ['Founded and led Mataque Studio in Bali',],
       },
     ],
   },
@@ -155,11 +179,27 @@ function InfoCard({ card }: { card: MilestoneCard }) {
     <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start w-full md:w-auto">
       <GlassEffect className="rounded-[20px] p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 w-full sm:w-[320px] shrink-0">
         {/* Date & Location Header */}
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-1 sm:mb-2">
           {card.role && (
             <div className="inline-flex items-center gap-3">
-              <Briefcase size={26} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
-              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-text-main">
+              {card.icon ? (
+                <div 
+                  className="w-[26px] h-[26px] bg-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0"
+                  style={{
+                    WebkitMaskImage: `url(${card.icon})`,
+                    maskImage: `url(${card.icon})`,
+                    WebkitMaskSize: 'contain',
+                    maskSize: 'contain',
+                    WebkitMaskRepeat: 'no-repeat',
+                    maskRepeat: 'no-repeat',
+                    WebkitMaskPosition: 'center',
+                    maskPosition: 'center',
+                  }}
+                />
+              ) : (
+                <Briefcase size={26} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
+              )}
+              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-white">
                 {card.title || card.role}
               </h3>
             </div>
@@ -168,7 +208,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
 
         {/* Description */}
         <div className="relative pt-2 border-t border-accent/80">
-          <p className="font-body text-sm text-text-muted font-light leading-relaxed">
+          <p className="font-body text-sm text-text-muted font-light leading-relaxed whitespace-pre-line">
             {card.description}
           </p>
         </div>
@@ -181,12 +221,32 @@ function InfoCard({ card }: { card: MilestoneCard }) {
             Achievements
           </h4>
           <div className="flex flex-col gap-2">
-            {card.achievements.map((ach, i) => (
-              <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-bold tracking-wider text-accent bg-black/40 backdrop-blur-md border border-accent/40 rounded-full w-fit">
-                <Award size={14} className="text-accent shrink-0" />
-                <span>{ach}</span>
-              </div>
-            ))}
+            {card.achievements.map((ach, i) => {
+              if (ach.startsWith('http')) {
+                return (
+                  <GlassEffect 
+                    key={i}
+                    href={ach}
+                    target="_blank"
+                    solidOnHover={true}
+                    className="relative overflow-hidden flex items-center justify-center gap-3 px-4 sm:px-6 py-2 sm:py-2.5 mt-2 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer w-fit"
+                  >
+                    <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <span className="font-body tracking-[0.05em] text-text-main group-hover:text-accent transition-colors z-10 relative pr-2 font-bold text-[10px] sm:text-xs">VIEW REFERENCE</span>
+                    <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
+                      <ExternalLink size={12} strokeWidth={2.5} className="text-black group-hover:-translate-y-[1px] group-hover:translate-x-[1px] transition-transform duration-300" />
+                    </div>
+                  </GlassEffect>
+                );
+              }
+
+              return (
+                <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-bold tracking-wider text-accent bg-black/40 backdrop-blur-md border border-accent/40 rounded-full w-fit">
+                  <Award size={14} className="text-accent shrink-0" />
+                  <span>{ach}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -334,7 +394,6 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
               {milestone.role}
             </span>
 
-            {/* Icon Node */}
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 bg-black ${
                 isActive
