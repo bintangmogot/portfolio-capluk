@@ -50,7 +50,7 @@ const MILESTONES: Milestone[] = [
   {
     id: 'edu-smk',
     year: '2011 – 2014',
-    role: 'Broadcasting Student',
+    role: 'Graduate',
     company: 'Vocational School',
     companyType: 'Education',
     icon: GraduationCap,
@@ -199,7 +199,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
               ) : (
                 <Briefcase size={26} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
               )}
-              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-white">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-text-main">
                 {card.title || card.role}
               </h3>
             </div>
@@ -217,7 +217,7 @@ function InfoCard({ card }: { card: MilestoneCard }) {
       {/* Achievements List */}
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-col gap-3 pt-2 md:pt-4 shrink-0 w-full sm:w-[280px]">
-          <h4 className="font-heading text-white text-sm md:text-base font-bold tracking-widest pl-2">
+          <h4 className="font-heading text-text-main text-sm md:text-xl font-bold tracking-widest pl-2">
             Achievements
           </h4>
           <div className="flex flex-col gap-2">
@@ -387,7 +387,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
           >
             {/* Role Label */}
             <span
-              className={`absolute bottom-[calc(100%+16px)] font-heading text-sm tracking-widest transition-colors duration-300 whitespace-nowrap ${
+              className={`absolute top-[calc(100%+10px)] font-heading text-sm font-bold tracking-widest transition-colors duration-300 whitespace-nowrap ${
                 isActive ? 'text-accent' : 'text-text-main group-hover:text-accent'
               }`}
             >
@@ -395,14 +395,14 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
             </span>
 
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 bg-black ${
+              className={`w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 bg-black ${
                 isActive
                   ? 'border-(--border-color) shadow-[0_0_20px_rgba(255,214,153,0.3)]'
-                  : 'border-(--border-color)/20 group-hover:border-(--border-color)'
+                  : 'border-(--border-color)/50 group-hover:border-(--border-color)'
               }`}
             >
               <IconComponent
-                size={16}
+                size={24}
                 className={`transition-colors duration-300 ${
                   isActive ? 'text-accent' : 'text-white/50 group-hover:text-white'
                 }`}
@@ -605,8 +605,8 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
             <div key={m.id} className="relative z-10 flex flex-col items-center justify-center">
               {/* Role Label */}
               <span
-                className={`absolute bottom-[calc(100%+12px)] font-heading text-xs tracking-widest transition-all duration-300 whitespace-nowrap ${textPosition} ${
-                  isActive ? 'text-accent opacity-100 translate-y-0' : 'text-text-main opacity-0 translate-y-2'
+                className={`absolute top-[calc(100%+8px)] font-heading text-xs font-bold tracking-widest transition-all duration-300 whitespace-nowrap ${textPosition} ${
+                  isActive ? 'text-accent opacity-100 translate-y-0' : 'text-text-main opacity-0 -translate-y-2'
                 }`}
               >
                 {m.role}
@@ -617,7 +617,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
                 className={`relative w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer bg-black ${
                   isActive
                     ? 'border-accent shadow-[0_0_16px_var(--accent-glow)] scale-110'
-                    : 'border-text-main/25'
+                    : 'border-text-main/50'
                 }`}
               >
                 <Icon size={16} className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white/50'}`} />
