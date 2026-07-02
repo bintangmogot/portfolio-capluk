@@ -61,7 +61,7 @@ const MILESTONES: Milestone[] = [
         role: 'Student',
         company: 'Vocational School',
         title: 'The Foundation',
-        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779666/capluk-portfolio/Icon/witness.png',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779662/capluk-portfolio/Icon/brain.png',
         description: `Bachelor of Information Technology
 Bina Nusantara University.
 Foundation in digital media,
@@ -133,7 +133,7 @@ to deliver stories that resonate beyond the screen.
         role: 'Creative Director',
         company: 'Mataque Studio',
         title: 'The Visionary',
-        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779662/capluk-portfolio/Icon/brain.png',
+        icon: 'https://res.cloudinary.com/workstation-/image/upload/v1782779666/capluk-portfolio/Icon/witness.png',
         description: `Setting creative direction, combining storytelling and recent technologies to shape innovative ideas.
 Producing various types of content that are relatable,
 meaningful, and emotionally connect with the audience.
@@ -163,7 +163,7 @@ function MediaCard({ card }: { card: MilestoneCard }) {
         {card.title && (
           <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-5 right-4 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent-glow)]" />
-            <h4 className="font-heading text-[11px] sm:text-xs text-text-main tracking-widest uppercase font-bold drop-shadow-md">
+            <h4 className="font-heading text-[11px] sm:text-xs text-text-main tracking-widest uppercase font-extrabold drop-shadow-md">
               {card.title}
             </h4>
           </div>
@@ -198,7 +198,7 @@ function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean })
               ) : (
                 <Briefcase size={26} className="text-accent drop-shadow-[0_0_8px_var(--accent-glow)] shrink-0" />
               )}
-              <h3 className="font-heading text-xl sm:text-2xl font-bold tracking-wide text-text-main">
+              <h3 className="font-heading text-xl sm:text-2xl font-extrabold tracking-wide text-text-main">
                 {card.title || card.role}
               </h3>
             </div>
@@ -207,7 +207,7 @@ function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean })
 
         {/* Description */}
         <div className="relative pt-2 border-t border-accent/80">
-          <p className="font-body text-sm text-text-muted font-light leading-relaxed whitespace-pre-line">
+          <p className="font-body text-sm text-text-muted font-medium leading-relaxed whitespace-pre-line">
             {card.description}
           </p>
         </div>
@@ -216,7 +216,7 @@ function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean })
       {/* Achievements List */}
       {card.achievements && card.achievements.length > 0 && (
         <div className="flex flex-col gap-3 pt-2 md:pt-4 shrink-0 w-full sm:w-[280px]">
-          <h4 className="font-heading text-text-main text-sm md:text-xl font-bold tracking-widest pl-2">
+          <h4 className="font-heading text-text-main text-sm md:text-xl font-extrabold tracking-widest pl-2">
             Achievements
           </h4>
           <div className="flex flex-col gap-2">
@@ -231,7 +231,7 @@ function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean })
                     className="relative overflow-hidden flex items-center justify-center gap-3 px-4 sm:px-6 py-2 sm:py-2.5 mt-2 rounded-xl active:scale-[0.98] transition-all duration-500 group cursor-pointer w-fit"
                   >
                     <div className="absolute inset-0 bg-linear-to-r from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <span className="font-body tracking-[0.05em] text-text-main group-hover:text-accent transition-colors z-10 relative pr-2 font-bold text-[10px] sm:text-xs">VIEW REFERENCE</span>
+                    <span className="font-body tracking-[0.05em] text-text-main group-hover:text-accent transition-colors z-10 relative pr-2 font-extrabold text-[10px] sm:text-xs">VIEW REFERENCE</span>
                     <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shrink-0 group-hover:scale-120 group-hover:bg-accent transition-all duration-300 z-10 relative">
                       <ExternalLink size={12} strokeWidth={2.5} className="text-black group-hover:-translate-y-[1px] group-hover:translate-x-[1px] transition-transform duration-300" />
                     </div>
@@ -240,7 +240,7 @@ function InfoCard({ card, reverse }: { card: MilestoneCard; reverse?: boolean })
               }
 
               return (
-                <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-bold tracking-wider text-accent bg-black/40 backdrop-blur-md border border-accent/40 rounded-full w-fit">
+                <div key={i} className="inline-flex items-center gap-3 px-3 py-1.5 text-[10px] sm:text-xs font-extrabold tracking-wider text-accent bg-black/40 backdrop-blur-md border border-accent/40 rounded-full w-fit">
                   <Award size={14} className="text-accent shrink-0" />
                   <span>{ach}</span>
                 </div>
@@ -386,7 +386,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
           >
             {/* Role Label */}
             <span
-              className={`absolute top-[calc(100%+10px)] font-heading text-sm font-bold tracking-widest transition-colors duration-300 whitespace-nowrap ${
+              className={`absolute top-[calc(100%+10px)] font-heading text-sm font-extrabold tracking-widest transition-colors duration-300 whitespace-nowrap ${
                 isActive ? 'text-accent' : 'text-text-main group-hover:text-accent'
               }`}
             >
@@ -501,7 +501,6 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                     >
                       <GlassEffect 
                         className="p-5 rounded-[24px] w-fit border-accent/50 shadow-xl pointer-events-auto mb-2 flex flex-col items-center"
-                        style={{ background: 'linear-gradient(135deg, rgba(30,15,5,0.7), rgba(0,0,0,0.8))' }}
                       >
                         <div className="flex flex-wrap items-center justify-center gap-[10px] w-[260px]">
                           {extraImages.map((img, i) => (
@@ -512,7 +511,7 @@ function DesktopTimeline({ isActive }: { isActive: boolean }) {
                           ))}
                         </div>
                         <div className="mt-4 pt-3 border-t border-accent/50 w-full text-center">
-                          <span className="font-heading text-body font-light tracking-wide text-[#ffedd5]">
+                          <span className="font-heading text-body font-medium tracking-wide text-text-main">
                             {extraImages.length} Feature Films
                           </span>
                         </div>
@@ -610,7 +609,7 @@ function MobileTimeline({ isActive }: { isActive: boolean }) {
             <div key={m.id} className="relative z-10 flex flex-col items-center justify-center">
               {/* Role Label */}
               <span
-                className={`absolute top-[calc(100%+8px)] font-heading text-xs font-bold tracking-widest transition-all duration-300 whitespace-nowrap ${textPosition} ${
+                className={`absolute top-[calc(100%+8px)] font-heading text-xs font-extrabold tracking-widest transition-all duration-300 whitespace-nowrap ${textPosition} ${
                   isActive ? 'text-accent opacity-100 translate-y-0' : 'text-text-main opacity-0 -translate-y-2'
                 }`}
               >

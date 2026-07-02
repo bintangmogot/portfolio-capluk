@@ -61,7 +61,7 @@ export default function Home() {
       width: isMobile ? '97%' : isTablet ? '97%' : '97%',
       height: isMobile ? '97%' : isTablet ? '95%' : '92%',
       // Always maintain rounded corner and slightly inset appearance for all sections
-      borderRadius: isMobile ? '40px' : isTablet ? '80px' : '150px', // Responsive corner radius hierarchy
+      borderRadius: isMobile ? '32px' : isTablet ? '48px' : '64px', // Responsive corner radius hierarchy
       duration: 1,
       ease: 'power3.inOut',
     });
@@ -139,7 +139,7 @@ export default function Home() {
       <div 
         ref={bgWrapRef}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 overflow-hidden bg-(--bg-premium) will-change-transform shadow-2xl transition-colors duration-700"
-        style={{ width: '99%', height: '99%', borderRadius: '48px' }}
+        style={{ width: '99%', height: '99%', borderRadius: '32px' }}
       >
         <div className="absolute inset-0 z-0">
           {mounted && (
@@ -160,8 +160,9 @@ export default function Home() {
           {/* Global Dark Radial Overlay for both themes */}
           <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_100%)] pointer-events-none transition-opacity duration-700" />
           
-          {/* Light Center Glow Overlay */}
-          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,var(--center-glow)_0%,transparent_50%)] pointer-events-none transition-opacity duration-700" />
+          {/* Light Effect Gradients */}
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(ellipse_at_top,var(--center-glow)_0%,transparent_60%)] pointer-events-none transition-opacity duration-700" />
+          <div className="absolute inset-0 z-1 bg-[radial-gradient(circle_at_center,var(--center-glow)_0%,transparent_80%)] pointer-events-none transition-opacity duration-700" />
         </div>
         <div
           ref={vignetteRef}

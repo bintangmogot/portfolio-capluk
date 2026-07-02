@@ -135,7 +135,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
           {/* Tagline — small, above the name */}
           <div
             ref={taglineRef}
-            className="font-tagline text-body font-w-tagline tracking-[0.4em] uppercase text-text-muted mb-4 sm:mb-6"
+            className="font-tagline text-body font-semibold tracking-[0.4em] uppercase text-text-main mb-4 sm:mb-6"
           >
             Herdanius Larobu
           </div>
@@ -157,7 +157,7 @@ export default function AboutSection({ isActive }: AboutSectionProps) {
               <span
                 key={role}
                 ref={(el) => { roleRefs.current[i] = el; }}
-                className="font-heading text-h5 font-h5 tracking-[0.15em] sm:tracking-[0.2em] uppercase text-text-muted leading-relaxed sm:leading-normal whitespace-nowrap"
+                className="font-heading text-h5 font-h5 tracking-[0.15em] sm:tracking-[0.2em] uppercase text-text-main leading-relaxed sm:leading-normal whitespace-nowrap"
               >
                 {role}
                 {i < ROLES.length - 1 && (

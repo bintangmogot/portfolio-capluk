@@ -124,14 +124,14 @@
   --theme-accent:    #FFDE00;
   --theme-secondary: #FFFFFF;
   --text-main:       #000000;
-  --text-muted:      rgba(17, 17, 17, 0.8);
+  --text-muted:      rgba(0, 0, 0, 0.9);
   --border-glow:     rgba(255, 214, 153, 0.1);
   --border-color:    #FFD699;
-  --glass-bg:        rgba(255, 255, 255, 0.15);
+  --glass-bg:        rgba(255, 255, 255, 0.25);
   --mouse-glow:      rgba(255, 214, 153, 0.2);
-  --solid-hover-bg:  rgba(0, 0, 0, 0.4);
-  --solid-hover-text: var(--accent);
-  --center-glow:     rgba(255, 222, 0, 0.2);
+  --solid-hover-bg:  rgba(255, 255, 255, 1);
+  --solid-hover-text: #000000;
+  --center-glow:     rgba(255, 255, 255, 0.2);
 }
 
 /* Cinematic Mode: Greyscale + Accent Orange (Noir vibe) */
