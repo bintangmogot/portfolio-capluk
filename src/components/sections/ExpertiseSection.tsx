@@ -333,17 +333,20 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
       </div>
 
       {/* SCROLL DOTS INDICATOR (Both Desktop & Mobile) */}
-      <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20 pointer-events-auto">
+      <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20 pointer-events-auto">
         {Array.from({ length: typeof window !== 'undefined' && window.innerWidth < 768 ? ALL_CATEGORIES.length : 2 }).map((_, i) => (
           <button
             key={i}
             onClick={() => scrollToPageIndex(i)}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+            className="p-3 group cursor-pointer"
+            aria-label={`Go to page ${i + 1}`}
+          >
+            <div className={`rounded-full transition-all duration-300 ${
               activePage === i 
-                ? 'bg-accent w-4 shadow-[0_0_12px_rgba(255,214,153,0.5)]' 
-                : 'bg-text-main/20 hover:bg-text-main/40'
-            }`}
-          />
+                ? 'bg-accent w-6 h-2 shadow-[0_0_12px_rgba(255,214,153,0.5)]' 
+                : 'bg-text-main/30 group-hover:bg-text-main/60 w-2 h-2'
+            }`} />
+          </button>
         ))}
       </div>
     </div>
