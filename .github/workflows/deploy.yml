@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - name: Install Dependencies
-        run: npm ci # Lebih cepat dari npm install jika pakai cache
+        run: npm install
 
       - name: Build Static Export
         run: npm run build
