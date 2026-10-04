@@ -14,10 +14,16 @@ export default function CustomCursor() {
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Use a ref for mouse position to avoid re-renders while still allowing GSAP to read it
+  const [isDesktop, setIsDesktop] = useState(true);
   const mousePos = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
+    // Only enable on devices with a real mouse
+    const hasMouse = window.matchMedia('(pointer: fine)').matches;
+    setIsDesktop(hasMouse);
+    
+    if (!hasMouse) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
@@ -130,7 +136,7 @@ export default function CustomCursor() {
     }
   }, [isHovering, isClicking]);
 
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || !isDesktop) return null;
 
   return (
     <div 
