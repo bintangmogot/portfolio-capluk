@@ -60,7 +60,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${fontVars} antialiased`}>
+      <body className={`${fontVars} antialiased`} suppressHydrationWarning>
         <ThemeProvider>
           <CustomCursor />
           {children}
