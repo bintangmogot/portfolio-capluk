@@ -145,7 +145,7 @@ export default function CustomCursor() {
 
   return (
     <div 
-      className="fixed inset-0 z-99999 pointer-events-none mix-blend-difference"
+      className="hidden md:block fixed inset-0 z-99999 pointer-events-none mix-blend-difference"
       style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 0.3s' }}
     >
       {/* Outer Follower Ring */}

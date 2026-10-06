@@ -73,7 +73,6 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Megaphone,
     position: { top: '20%', left: '68%' },
   },
-  /* Temporarily hidden until video is ready
   {
     id: 'dummy-media',
     title: 'Coming Soon',
@@ -83,7 +82,6 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     icon: Box,
     position: { top: '50%', left: '68%' },
   },
-  */
   /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'motion-track',
