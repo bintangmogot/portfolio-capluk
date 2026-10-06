@@ -87,10 +87,12 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
   const currentPage = useRef(0);
   const [activePage, setActivePage] = useState(0);
   const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkViewport = () => {
       setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
+      setIsMobile(window.innerWidth < 768);
     };
     checkViewport();
     window.addEventListener('resize', checkViewport);
@@ -189,8 +191,8 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
   };
 
   const scrollToPage = (dir: number) => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const maxPages = isMobile ? ALL_CATEGORIES.length : 2;
+    // We can just rely on window here since it's an event handler
+    const maxPages = (window.innerWidth < 768) ? ALL_CATEGORIES.length : 2;
     const nextIndex = Math.max(0, Math.min(currentPage.current + dir, maxPages - 1));
     
     if (nextIndex !== currentPage.current) {
@@ -334,7 +336,7 @@ export default function ExpertiseSection({ isActive }: { isActive: boolean }) {
 
       {/* SCROLL DOTS INDICATOR (Both Desktop & Mobile) */}
       <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20 pointer-events-auto">
-        {Array.from({ length: typeof window !== 'undefined' && window.innerWidth < 768 ? ALL_CATEGORIES.length : 2 }).map((_, i) => (
+        {Array.from({ length: isMobile ? ALL_CATEGORIES.length : 2 }).map((_, i) => (
           <button
             key={i}
             onClick={() => scrollToPageIndex(i)}

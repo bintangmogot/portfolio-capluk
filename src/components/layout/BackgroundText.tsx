@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 
 interface BackgroundTextProps {
   text: string;
@@ -8,7 +9,10 @@ interface BackgroundTextProps {
 export default function BackgroundText({ text, mouseX }: BackgroundTextProps) {
   // We use window.innerWidth safely by checking document/window existence
   // but since mouseX is passed down from a generic listener, we can just use it directly.
-  const shift = typeof window !== 'undefined' ? (mouseX - window.innerWidth / 2) * -0.05 : 0;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const shift = mounted ? (mouseX - window.innerWidth / 2) * -0.05 : 0;
 
   return (
     <h1 

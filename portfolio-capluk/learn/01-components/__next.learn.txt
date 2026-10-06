@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[39756,["/portfolio-capluk/_next/static/chunks/0.nd4f5jo9g9y.js","/portfolio-capluk/_next/static/chunks/15hk35lrkw7vo.js","/portfolio-capluk/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+3:I[37457,["/portfolio-capluk/_next/static/chunks/0.nd4f5jo9g9y.js","/portfolio-capluk/_next/static/chunks/15hk35lrkw7vo.js","/portfolio-capluk/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+:HL["/portfolio-capluk/_next/static/chunks/0vlz4~0q5ank_.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/portfolio-capluk/_next/static/chunks/0vlz4~0q5ank_.css","precedence":"next"}]],["$","div",null,{"className":"learn-container","children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"hbwhd6Ywu2zBdNLFEUxJk"}
