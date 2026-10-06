@@ -33,4 +33,4 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -c "set ssl:verify-certificate no; set ftp:ssl-allow true; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; mirror -R -v -c --delete --parallel=2 ./out/ /public_html/"
+          lftp -c "set ssl:verify-certificate no; set ftp:ssl-allow true; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; rm -f /public_html/.in.index.html.; mirror -R -v -c --no-perms --delete --parallel=2 ./out/ /public_html/"
