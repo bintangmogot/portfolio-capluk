@@ -32,3 +32,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/ # Folder hasil build Next.js
           server-dir: ./public_html/ # Lokasi tujuan di Hostinger
+          timeout: 600000 # Increased timeout to prevent data socket disconnects on shared hosting

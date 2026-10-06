@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   title: 'Capluk | Motion Graphic Designer',
   description: 'Portfolio of Capluk, a Motion Graphic Designer with a focus on immersive visual experiences.',
   icons: {
-    icon: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
-    shortcut: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
-    apple: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon',
+    icon: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon.png',
+    shortcut: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon.png',
+    apple: 'https://res.cloudinary.com/workstation-/image/upload/f_auto,q_auto/capluk-portfolio/Favicon.png',
   },
 };
 

@@ -5,7 +5,7 @@ import React from 'react';
 export const COMPANIES_ROW_1 = [
   { name: 'Starvision', logo: 'https://res.cloudinary.com/workstation-/image/upload/v1775864477/capluk-portfolio/Logo/starvision.png' },
   { name: 'Screenplay Films', logo: 'https://res.cloudinary.com/workstation-/image/upload/v1775864475/capluk-portfolio/Logo/screenplay.png' },
-  { name: 'Vidio', logo: 'https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775104964/capluk-portfomlio/Logo_Vidio.png' },
+  { name: 'Vidio', logo: 'https://res.cloudinary.com/workstation-/image/upload/q_auto/f_auto/v1775104964/capluk-portfolio/Logo_Vidio.png' },
   { name: 'Netflix', logo: 'https://res.cloudinary.com/workstation-/image/upload/v1775864473/capluk-portfolio/Logo/04.png' },
   { name: 'MD Entertainment', logo: 'https://res.cloudinary.com/workstation-/image/upload/v1775864468/capluk-portfolio/Logo/05.png' },
   { name: 'MVP Pictures', logo: 'https://res.cloudinary.com/workstation-/image/upload/v1775864467/capluk-portfolio/Logo/06.png' },
