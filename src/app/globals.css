@@ -92,7 +92,7 @@
   --bg-premium: #0A0A0A;
   --bg-card:    #0F0F0F;
   --text-main:  #FFFFFF;
-  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.85);
 
   /* Shared Accents (Orange-Yellow Range) */
   --accent:       #FFD699; /* Primary soft yellow border color */

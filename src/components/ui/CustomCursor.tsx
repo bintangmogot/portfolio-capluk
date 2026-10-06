@@ -18,11 +18,16 @@ export default function CustomCursor() {
   const mousePos = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
-    // Only enable on devices with a real mouse
-    const hasMouse = window.matchMedia('(pointer: fine)').matches;
-    setIsDesktop(hasMouse);
-    
-    if (!hasMouse) return;
+    const checkDesktop = () => {
+      setIsDesktop(window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 768);
+    };
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
@@ -75,7 +80,7 @@ export default function CustomCursor() {
       window.removeEventListener('mouseenter', handleMouseEnterWindow);
       document.body.style.cursor = 'auto';
     };
-  }, [isVisible]);
+  }, [isDesktop, isVisible]);
 
   useGSAP(() => {
     if (!followerRef.current) return;
@@ -92,7 +97,7 @@ export default function CustomCursor() {
 
     gsap.ticker.add(moveFollower);
     return () => gsap.ticker.remove(moveFollower);
-  });
+  }, { dependencies: [isDesktop] });
 
   // Reactions to state changes
   useGSAP(() => {
@@ -101,14 +106,14 @@ export default function CustomCursor() {
     // Hover state
     if (isHovering) {
       gsap.to(followerRef.current, {
-        scale: 1.5,
-        backgroundColor: 'rgba(255, 214, 153, 0.1)',
+        scale: 1.2, // Slightly larger on hover
+        backgroundColor: 'transparent',
         borderColor: '#FFD699',
         borderWidth: '1px',
         duration: 0.3,
       });
       gsap.to(dotRef.current, {
-        scale: 0.5,
+        scale: 1,
         backgroundColor: '#FFD699',
         duration: 0.3,
       });
@@ -134,7 +139,7 @@ export default function CustomCursor() {
         duration: 0.1,
       });
     }
-  }, [isHovering, isClicking]);
+  }, { dependencies: [isHovering, isClicking, isDesktop] });
 
   if (typeof window === 'undefined' || !isDesktop) return null;
 
@@ -150,17 +155,17 @@ export default function CustomCursor() {
       >
         {/* Kinetic Brackets (Motion Graphic Vibe) */}
         <div className={`absolute inset-0 transition-transform duration-500 ${isHovering ? 'rotate-90 scale-110' : 'rotate-0 scale-100'}`}>
-           <div className="absolute top-0 left-1/2 -ml-[0.5px] w-px h-1 bg-[#FFD699]/30" />
-           <div className="absolute bottom-0 left-1/2 -ml-[0.5px] w-px h-1 bg-[#FFD699]/30" />
-           <div className="absolute left-0 top-1/2 -mt-[0.5px] h-px w-1 bg-[#FFD699]/30" />
-           <div className="absolute right-0 top-1/2 -mt-[0.5px] h-px w-1 bg-[#FFD699]/30" />
+           <div className="absolute top-0 left-1/2 -ml-[0.5px] w-[1px] h-[5px] bg-[#FFD699]" />
+           <div className="absolute bottom-0 left-1/2 -ml-[0.5px] w-[1px] h-[5px] bg-[#FFD699]" />
+           <div className="absolute left-0 top-1/2 -mt-[0.5px] h-[1px] w-[5px] bg-[#FFD699]" />
+           <div className="absolute right-0 top-1/2 -mt-[0.5px] h-[1px] w-[5px] bg-[#FFD699]" />
         </div>
       </div>
 
       {/* Central Dot */}
       <div 
         ref={dotRef}
-        className="absolute top-0 left-0 w-1.5 h-1.5 -ml-[3px] -mt-[3px] rounded-full bg-[#FFD699] shadow-[0_0_10px_rgba(255,214,153,0.5)]"
+        className="absolute top-0 left-0 w-2 h-2 -ml-[4px] -mt-[4px] rounded-full bg-[#FFD699]"
       />
     </div>
   );

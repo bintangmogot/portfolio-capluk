@@ -71,8 +71,19 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description: 'Scroll-stopping ad creatives optimized for Instagram Reels, TikTok, and YouTube Shorts.',
     youtubeId: 'J-lQmA3C3fQ',
     icon: Megaphone,
+    position: { top: '20%', left: '68%' },
+  },
+  /* Temporarily hidden until video is ready
+  {
+    id: 'dummy-media',
+    title: 'Coming Soon',
+    category: 'New Project',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dummy text for a future video showcase.',
+    youtubeId: 'dQw4w9WgXcQ', // Dummy video (Rick Roll is safe, or I can use an empty/placeholder ID, but let's just use a real one so it doesn't break)
+    icon: Box,
     position: { top: '50%', left: '68%' },
   },
+  */
   /* Temporarily hidden per client request — uncomment to restore
   {
     id: 'motion-track',
