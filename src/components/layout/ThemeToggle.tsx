@@ -42,7 +42,7 @@ export default function ThemeToggle({ isVisible = true }: ThemeToggleProps) {
         {mounted && (
           <PremiumToggle
             checked={isCinematic}
-            onChange={(checked) => setTheme(checked ? 'cinematic' : 'light')}
+            onChange={(checked) => setTheme(checked ? 'cinematic' : 'dark')}
           />
         )}
       </div>
